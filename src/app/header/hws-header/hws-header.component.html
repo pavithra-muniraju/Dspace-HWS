@@ -1,0 +1,118 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar2" style="height:60px" 
+*ngIf="!enableLoginHeaders">
+    <a class="navbar-brand" href="/" style="margin-left: 3rem;">
+      <img src="../../assets/images/herotransparentLogo.png" width="300" height="250" alt="HERO Logo" style="height: auto;">
+    </a>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: end ;">
+  
+  
+  
+      <ul class="nav navbar-nav navbar-right">
+  
+  
+        <li class="me-2" >
+          <!-- <i class="fa fa-user-secret icon-font" aria-hidden="true"></i> <br> -->
+          <!-- Admin -->
+          <!-- <i class="fa fa-user" style="color: black;"></i><br>Admin -->
+          <a href="/" class="nav-link-cutome">
+            <img src="/../../assets/resources/icon-admin.svg" alt=""><br>Admin
+          </a>
+        </li>
+  
+  
+        <li class="me-2">
+          <!-- <i class="fa fa-home icon-font" aria-hidden="true"></i><br>Home -->
+          <a href="/" class="nav-link-cutome">
+            <img src="/../../assets/resources/icon-home.svg" alt=""><br> Home
+          </a>
+        </li>
+  
+        <li class="me-2">
+            <!-- <i class="fa fa-briefcase icon-font" aria-hidden="true"></i><br>My Briefcase -->
+          <a href="/mybriefcase" class="nav-link-cutome">
+            <img src="/../../assets/resources/icon-bag.svg" alt=""><br> My Briefcase
+          </a>
+        </li>
+  
+        <li class="me-2">
+            <!-- <i class="fa fa-list icon-font" aria-hidden="true"></i><br>
+          To-Do List   -->
+          <a href="/mytodolist" class="nav-link-cutome">
+            <img src="/../../assets/resources/icon-list.svg" alt=""> <br> To-Do List
+            <span class="notification-count">99</span>
+  
+           
+  
+          </a>
+        </li>
+
+        <li class="me-2">
+            <!-- <i class="fa fa-info-circle icon-font" aria-hidden="true"></i><br>
+            About -->
+            <a href="/mytodolist" class="nav-link-cutome">
+              <img src="/../../assets/resources/icon-info.svg" alt=""> <br> About
+    
+              <!-- <span class="notification-count"><%= taskCount %></span> -->
+    
+            </a>
+          </li>
+  
+        <li class="me-2">
+            <!-- <i class="fa fa-user-circle icon-font" aria-hidden="true"></i><br>
+            Pavi -->
+            <!-- <ds-themed-auth-nav-menu></ds-themed-auth-nav-menu> -->
+          <a href="/mydspace" class="nav-link-cutome" title="{{dsoNameService.getName(user$ | async)}}">
+            <img src="/../../assets/resources/icon-user-circle.svg" alt=""> <br>
+            {{dsoNameService.getName(user$ | async)}}
+          </a>
+        </li>
+  
+        <li class="me-2">
+            <!-- <i class="fa fa-sign-out icon-font" aria-hidden="true"></i><br>
+          Logout -->
+          <a href="/logout" class="nav-link-cutome">
+            <img src="/../../assets/resources/icon-logout.svg" alt=""> <br>Logout
+          </a>
+        </li>
+  
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0 navbar-button"><br>
+          
+        </button> -->
+  
+  
+      </ul>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar2" style="height:60px" *ngIf="enableLoginHeaders">
+  <!-- <a class="navbar-brand" href="/">
+    <img src="../../assets/images/herotransparentLogo.png" width="300" height="250" alt="HERO Logo" style="height: auto;">
+  </a> -->
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: end ;">
+  
+      
+    <ul class="nav navbar-nav navbar-right">
+  
+      <li class="me-2">
+        <a href="/mytodolist" class="nav-link-cutome">
+          <img src="/../../assets/resources/icon-book-setting.svg" alt=""> <br>User Manual
+
+          <!-- <span class="notification-count"><%= taskCount %></span> -->
+
+        </a>
+      </li>
+  
+      <li class="me-2">
+        <a href="/mytodolist" class="nav-link-cutome">
+          <img src="/../../assets/resources/icon-info.svg" alt=""> <br> About
+
+          <!-- <span class="notification-count"><%= taskCount %></span> -->
+
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+

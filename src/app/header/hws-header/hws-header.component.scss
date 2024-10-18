@@ -1,0 +1,49 @@
+.me-2 {
+    
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px !important;
+    width: 80px !important;
+    max-width: 80px;
+    min-width: 75px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.icon-font {
+   font-size: 22px; 
+}
+.me-2:hover{
+    background: rgb(233 233 233 / 45%);
+    cursor: pointer;
+    color: gray;
+}
+
+.nav-link-cutome {
+    /* display: flex !important;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 1.5rem; */
+    color: gray;
+}
+
+.nav-link-cutome>img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+}
+.notification-count {
+	margin-top: 0.1rem;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.5em;
+    font-size: 0.7rem;
+    position: absolute;
+    top: 0.2rem;
+    right: 16rem;
+}
+
+// .bg-light {
+//     background-color: white !important;
+// }

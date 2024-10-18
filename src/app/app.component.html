@@ -1,0 +1,7 @@
+<ds-hws-header class="hwsHeader"></ds-hws-header>
+<div style="margin-top: 4rem;">
+  <ds-themed-root  [shouldShowFullscreenLoader]="(isAuthBlocking$ | async) || (isThemeLoading$ | async)"
+  [shouldShowRouteLoader]="isRouteLoading$ | async"></ds-themed-root>
+</div>
+
+

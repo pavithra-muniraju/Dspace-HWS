@@ -1,0 +1,80 @@
+:host {
+    overflow: auto !important;
+    color: black !important ;
+      // background: url(../../assets/images/wallpaperflare.com_wallpaper.jpg) no-repeat 50% 50%;
+  }
+  
+  
+  input.freetext_search_input {
+    height: 42px;
+    padding: 20px;
+    border-radius: 21px;
+    /* border: 0; */
+    width: calc(100% - 350px);
+    margin-right: 15px;
+    font-size: 18px;
+    line-height: 30px;
+    letter-spacing: .5px;
+    font-weight: 300;
+    background-color: #fff;
+    font-family: inherit;
+  }
+  
+  input.freetext_search_input:focus {
+  outline: none;
+  outline-offset: none;
+  }
+  .createNew {
+    width: 136px;
+    height: 41px;
+  }
+  .search-button{
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    border-color: red;
+    width: 136px;
+    height: 41px;
+  }
+  .hero {
+    margin-bottom: 9vh;
+    text-align: center;
+    display: inline-table;
+    // font-size: 36px;
+    justify-content: center;
+  //   width: 50vw !important;
+    margin-top: 8vh !important;
+    color: #fff;
+  }
+  .card {
+    text-align: left;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin: 1rem;
+  }
+  .cancel {
+    border-radius: 10px;
+    border-color: gray;
+    width: 100px;
+  }
+  
+  .next {
+    background-color: red;
+    border-color: red;
+    width: 100px;
+    color: white;
+    border-radius: 10px;
+  }
+  
+  .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+  
+  .dropdown-item {
+      padding: 0.5rem
+  }

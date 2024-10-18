@@ -1,0 +1,37 @@
+body {
+    font-family: "Open Sans", "Segoe UI" !important;
+    
+    background: url(/assets/images/login-background.png) no-repeat center center fixed;
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;
+       color: white;
+  }
+      
+  .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+      font-family: inherit;
+  }
+  
+  #main-box {
+      padding-top: 50px;
+      padding-left: 20px;
+      padding-right: 20px;
+      text-align: center;
+      animation-name: fadeInUp;
+  }
+  
+  #main-tag {
+      color: #FFF;
+      line-height: 22px;
+  }
+
+  .loginbtn {
+    width: 245px;
+    margin-left: 2rem;
+    height: 55px;
+  }
+  
+ .googleimg {
+     height: 40px;
+ }
