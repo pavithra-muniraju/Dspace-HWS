@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ThemeService } from '../theme-support/theme.service';
+import { HWSService } from 'src/app/HWS-Shared/hws.service';
 
 /**
  * A basic implementation of a MenuComponent
@@ -73,7 +74,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   private activatedRouteLastChild: ActivatedRoute;
 
   constructor(protected menuService: MenuService, protected injector: Injector, public authorizationService: AuthorizationDataService,
-              public route: ActivatedRoute, protected themeService: ThemeService
+              public route: ActivatedRoute, protected themeService: ThemeService,
+              protected hwsService: HWSService
   ) {
   }
 
@@ -86,7 +88,12 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
     this.sections = this.menuService.getMenuTopSections(this.menuID);
-
+    console.log(this.sections);
+    this.sections.pipe().subscribe(res => {
+      this.hwsService.setCustomMenuData(JSON.stringify(res));
+    })
+    
+    let menuItems = '';
     this.subs.push(
       this.sections.pipe(
         // if you return an array from a switchMap it will emit each element as a separate event.
@@ -104,12 +111,13 @@ export class MenuComponent implements OnInit, OnDestroy {
         )),
         distinctUntilChanged((x, y) => x.section.id === y.section.id && x.component.prototype === y.component.prototype),
       ).subscribe(({ section, component }) => {
+        menuItems+=section.id + ':'
         const nextMap = this.sectionMap$.getValue();
         nextMap.set(section.id, {
           injector: this.getSectionDataInjector(section),
           component
         });
-        this.sectionMap$.next(nextMap);
+        this.sectionMap$.next(nextMap);        
       })
     );
   }

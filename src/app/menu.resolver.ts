@@ -372,6 +372,7 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator and on whether or not
    * the export scripts exist and the current user is allowed to execute them
    */
+  // for admins alone
   createExportMenuSections() {
     const menuList = [
       // TODO: enable this menu item once the feature has been implemented
@@ -473,6 +474,7 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator and on whether or not
    * the import scripts exist and the current user is allowed to execute them
    */
+  // for admins alone
   createImportMenuSections() {
     const menuList = [];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));

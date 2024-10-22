@@ -22,6 +22,7 @@ export class HwsHeaderComponent {
   enableLoginHeaders = false;
   isLoggedInAsAdmin = false;
   isLoginAuthenticated = false;
+  menuItems = [];
   public isAuthenticated: Observable<boolean>;
   constructor(private hwsService: HWSService,
     public dsoNameService: DSONameService,
@@ -62,7 +63,7 @@ export class HwsHeaderComponent {
 
 
 
-
+    this.getMenuItems();
   }
 
   checkForAdminLogin() {
@@ -78,4 +79,22 @@ export class HwsHeaderComponent {
     // })
     // if(this.user$.subscribe)
   }
+
+  getMenuItems() {    
+    this.hwsService.getCustomMenuData().subscribe(res => {
+      console.log(res);
+      if(res != '' && res != '[]') {
+        this.menuItems = JSON.parse(res);
+        console.log(this.menuItems);
+        if(this.menuItems.map(item => item.id).includes('access_control_people')) {
+          this.isLoggedInAsAdmin = true;
+        } else {
+          this.isLoggedInAsAdmin = false;
+        }
+      };
+
+    })
+  }
+
 }
+

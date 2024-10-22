@@ -10,6 +10,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { ActivatedRoute } from '@angular/router';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { HWSService } from 'src/app/HWS-Shared/hws.service';
 
 /**
  * Component representing the admin sidebar
@@ -69,9 +70,10 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
     public route: ActivatedRoute,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
+    protected hwsService: HWSService
   ) {
-    super(menuService, injector, authorizationService, route, themeService);
+    super(menuService, injector, authorizationService, route, themeService,hwsService);
     this.inFocus$ = new BehaviorSubject(false);
   }
 
@@ -111,6 +113,15 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       }
     });
     this.menuVisible = this.menuService.isMenuVisibleWithVisibleSections(this.menuID);
+
+    // this.sections.pipe().subscribe(res => {
+    //   console.log(res);
+      
+    // })
+    // this.sectionMap$.subscribe(res => {
+    //   console.log(res);
+      
+    // })
   }
 
   @HostListener('focusin')

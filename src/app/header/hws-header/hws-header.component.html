@@ -15,7 +15,7 @@
           <!-- <i class="fa fa-user-secret icon-font" aria-hidden="true"></i> <br> -->
           <!-- Admin -->
           <!-- <i class="fa fa-user" style="color: black;"></i><br>Admin -->
-          <a href="/" class="nav-link-cutome">
+          <a href="/" class="nav-link-cutome" *ngIf="isLoggedInAsAdmin">
             <img src="/../../assets/resources/icon-admin.svg" alt=""><br>Admin
           </a>
         </li>

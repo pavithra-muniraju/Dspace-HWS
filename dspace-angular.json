@@ -2,7 +2,7 @@
     "apps": [
         {
            "name": "dspace-angular",
-           "cwd": "C:\\dspace-angular-dspace-7.6.2-new\\dspace-angular-dspace-7.6.2",
+           "cwd": "C:\\Users\\177391\\Downloads\\My_Learning\\my-git-proj\\Dspace-HWS>",
            "script": "dist\\server\\main.js",
            "instances": "max",
            "exec_mode": "cluster",

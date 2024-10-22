@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { isAuthenticated } from '../core/auth/selectors';
+import { HWSService } from '../HWS-Shared/hws.service';
 
 /**
  * Component representing the public navbar
@@ -46,8 +47,9 @@ export class NavbarComponent extends MenuComponent implements OnInit {
               public route: ActivatedRoute,
               protected themeService: ThemeService,
               private store: Store<AppState>,
+              protected hwsService:HWSService
   ) {
-    super(menuService, injector, authorizationService, route, themeService);
+    super(menuService, injector, authorizationService, route, themeService,hwsService);
   }
 
   ngOnInit(): void {
