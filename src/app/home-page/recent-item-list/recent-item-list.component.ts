@@ -33,6 +33,7 @@ export class RecentItemListComponent implements OnInit {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
+  knowledgeAreas = ['Lesson Learnt']
 
   /**
  * The view-mode we're currently on

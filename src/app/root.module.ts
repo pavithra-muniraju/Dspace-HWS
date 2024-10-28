@@ -51,6 +51,7 @@ import {
   SocialAuthServiceConfig
 } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { HwsAboutComponent } from './hws-about/hws-about.component';
 
 const IMPORTS = [
   CommonModule,
@@ -122,6 +123,7 @@ const EXPORTS = [
     ...DECLARATIONS,
     HwsHeaderComponent,
     GoogleLoginComponent,
+    HwsAboutComponent
   ],
   exports: [
     ...EXPORTS,

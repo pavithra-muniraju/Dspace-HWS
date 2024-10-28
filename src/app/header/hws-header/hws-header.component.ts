@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { EPerson } from 'src/app/core/eperson/models/eperson.model';
 import { HWSService } from 'src/app/HWS-Shared/hws.service';
@@ -10,6 +10,8 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service'
 import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import { HwsAboutComponent } from 'src/app/hws-about/hws-about.component';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-hws-header',
@@ -23,12 +25,16 @@ export class HwsHeaderComponent {
   isLoggedInAsAdmin = false;
   isLoginAuthenticated = false;
   menuItems = [];
+  aboutModal = false;
+
   public isAuthenticated: Observable<boolean>;
   constructor(private hwsService: HWSService,
     public dsoNameService: DSONameService,
     protected authService: AuthService,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
+    private modalConfig: NgbModalConfig,
   ) { }
   ngOnInit() {
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
@@ -41,10 +47,10 @@ export class HwsHeaderComponent {
         // this.router.navigateByUrl('/googlelogin');
         this.router.navigateByUrl('/login');
         // if(this.router.url == '/login' || this.router.url == '/googlelogin') {
-         
+
         // }
         this.enableLoginHeaders = true
-        
+
       } else {
         this.user$ = this.authService.getAuthenticatedUserFromStore();
         this.checkForAdminLogin();
@@ -80,13 +86,13 @@ export class HwsHeaderComponent {
     // if(this.user$.subscribe)
   }
 
-  getMenuItems() {    
+  getMenuItems() {
     this.hwsService.getCustomMenuData().subscribe(res => {
-      console.log(res);
-      if(res != '' && res != '[]') {
+      // console.log(res);
+      if (res != '' && res != '[]') {
         this.menuItems = JSON.parse(res);
-        console.log(this.menuItems);
-        if(this.menuItems.map(item => item.id).includes('access_control_people')) {
+        // console.log(this.menuItems);
+        if (this.menuItems.map(item => item.id).includes('access_control')) {
           this.isLoggedInAsAdmin = true;
         } else {
           this.isLoggedInAsAdmin = false;
@@ -96,5 +102,16 @@ export class HwsHeaderComponent {
     })
   }
 
+  hwsAbout() {
+    this.aboutModal = false;
+    const modalRef = this.modalService.open(HwsAboutComponent,
+      { ariaLabelledBy: 'idle-modal.header' });
+    this.aboutModal = true;
+    modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+      if (closed) {
+        this.aboutModal = false;
+      }
+    });
+  }
 }
 

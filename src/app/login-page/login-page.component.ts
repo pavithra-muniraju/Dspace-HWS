@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { filter, map, take } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../app.reducer';
 import {
@@ -14,7 +14,9 @@ import {
 } from '../core/auth/auth.actions';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { isAuthenticated } from '../core/auth/selectors';
+import { getAuthenticationMethods, isAuthenticated } from '../core/auth/selectors';
+import { AuthMethod } from '../core/auth/models/auth.method';
+import { rendersAuthMethodType } from '../shared/log-in/methods/log-in.methods-decorator';
 
 /**
  * This component represents the login page
@@ -38,6 +40,8 @@ export class LoginPageComponent implements OnDestroy, OnInit {
    * @param {ActivatedRoute} route
    * @param {Store<AppState>} store
    */
+   authMethods:any;
+   loginType = '';
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>) {}
 
@@ -67,6 +71,18 @@ export class LoginPageComponent implements OnDestroy, OnInit {
         }
       }
     });
+
+    this.authMethods = this.store.pipe(
+      select(getAuthenticationMethods),
+      map((methods: AuthMethod[]) => methods
+        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
+        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position)
+      ),
+    );
+    this.authMethods.subscribe(res => {
+      console.log(res);
+    });
+    this.loginType = this.authMethods[0].authMethodType;
   }
 
   /**

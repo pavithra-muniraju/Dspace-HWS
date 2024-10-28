@@ -74,6 +74,7 @@ export class LogInPasswordComponent implements OnInit {
    * Whether the current user (or anonymous) is authorized to register an account
    */
   public canRegister$: Observable<boolean>;
+  isChecked  = false;
 
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
@@ -120,6 +121,21 @@ export class LogInPasswordComponent implements OnInit {
     );
 
     this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
+    let checked:string = localStorage.getItem('hws-checked');
+    if(checked == 'true') {
+      let username = localStorage.getItem('hws-username');
+      let password = localStorage.getItem('hws-pass');
+      this.isChecked = true
+      this.form.setValue({
+        email: username,
+        password: password
+      })
+    } else {
+      this.isChecked = false
+    }
+
+   
+    
   }
 
   getRegisterRoute() {
@@ -171,5 +187,21 @@ export class LogInPasswordComponent implements OnInit {
   navigateToGoogleLogin() {
     this.hwsService.passRouteData('/googlelogin');
     this.router.navigateByUrl('/googlelogin')
+  }
+
+  rememberMe(event) {
+    console.log(event.target.checked);
+    if(event.target.checked) {
+      localStorage.setItem('hws-checked','true');
+      localStorage.setItem('hws-pass', this.form.get('password').value);
+      localStorage.setItem('hws-username', this.form.get('email').value);
+    } else {
+      localStorage.setItem('hws-checked','false');
+      localStorage.removeItem('hws-pass')
+      localStorage.removeItem('hws-username')
+    }
+
+   
+    
   }
 }

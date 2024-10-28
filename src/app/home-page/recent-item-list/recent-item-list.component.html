@@ -1,29 +1,45 @@
 <ng-container *ngVar="(itemRD$ | async) as itemRD">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div class="mt-4" [ngClass]="placeholderFontClass" *ngIf="itemRD?.hasSucceeded && itemRD?.payload?.page.length > 0" @fadeIn>
-                    <!-- <div class="d-flex flex-row border-bottom mb-4 pb-4"></div> -->
-                    <h2 class="knowledge"> Knowledge Areas - Recently Submitted Item</h2>
-                    <div class="row">
-                    <div class="my-4 col-3 items" *ngFor="let item of itemRD?.payload?.page" >
-                            
-                                <div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="mt-4" [ngClass]="placeholderFontClass"
+                *ngIf="itemRD?.hasSucceeded && itemRD?.payload?.page.length > 0" @fadeIn>
+                <!-- <div class="d-flex flex-row border-bottom mb-4 pb-4"></div> -->
+                <h2 class="knowledge"> Knowledge Areas</h2>
+                <!-- <div class="row">
+                    <div class="my-4 col-3 items" *ngFor="let item of itemRD?.payload?.page">
+                        Lesson Learnt -->
+                        <!-- <div>
                                     <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode" class="pb-4">
                                     </ds-listable-object-component-loader>
-                                </div>
-                            
-                            
+                                </div> -->
+
+
+                    <!-- </div>
+                </div> -->
+                <div class="row">
+                    <div *ngFor="let item of knowledgeAreas" >
+                        <div class="card items" >
+                            <div class="cardHeader">{{item}}</div>
+                            <div class="cardBody">
+                                Description        
+                                
+                                
+                            </div>
+                            <div class="cardFooter" >
+                                <img src="../../../assets/images/conference.png" style="height: 100px;width: 90px;"/>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                    <button (click)="onLoadMore()" class="btn btn-primary search-button mt-4"> {{'vocabulary-treeview.load-more' | translate }} ...</button>
+                  </div>
+                <!-- <button (click)="onLoadMore()" class="btn btn-primary search-button mt-4">
+                    {{'vocabulary-treeview.load-more' | translate }} ...</button> -->
             </div>
-            </div>
-            <div class="col-md-1"></div>
         </div>
-            
-            <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
-            <ds-loading *ngIf="!itemRD || itemRD.isLoading" message="{{'loading.recent-submissions' | translate}}">
-            </ds-loading>
-    </ng-container>
-    
+        <div class="col-md-1"></div>
+    </div>
+
+    <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
+    <ds-loading *ngIf="!itemRD || itemRD.isLoading" message="{{'loading.recent-submissions' | translate}}">
+    </ds-loading>
+</ng-container>

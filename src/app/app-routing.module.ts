@@ -239,6 +239,7 @@ import { GoogleLoginComponent } from './google-login/google-login.component';
             canActivate: [AuthenticatedGuard]
           },
           { path: 'googlelogin', pathMatch: 'full', component: GoogleLoginComponent },
+          { path: 'error', pathMatch: 'full', component: GoogleLoginComponent },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
           
         ]

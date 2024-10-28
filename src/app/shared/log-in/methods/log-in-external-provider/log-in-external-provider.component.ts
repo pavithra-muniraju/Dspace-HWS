@@ -86,7 +86,7 @@ export class LogInExternalProviderComponent implements OnInit {
    * Redirect to the external provider url for login
    */
   redirectToExternalProvider() {
-    this.authService.getRedirectUrl().pipe(take(1)).subscribe((redirectRoute) => {
+   this.authService.getRedirectUrl().pipe(take(1)).subscribe((redirectRoute) => {
       if (!this.isStandalonePage) {
         redirectRoute = this.hardRedirectService.getCurrentRoute();
       } else if (isEmpty(redirectRoute)) {
