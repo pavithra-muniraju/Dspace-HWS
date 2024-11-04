@@ -472,7 +472,7 @@ ngb-accordion {
     background-image: url(/assets/images/wallpaperflare.com_wallpaper.jpg);
     background-repeat:no-repeat;
     background-attachment:fixed;
-    background-position:100% 100%;
+    // background-position:100% 100%;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -481,4 +481,6 @@ ngb-accordion {
     text-align: center;
     color: white;
     height:calc(100vh - 64px) !important;
+    overflow-x: hidden;
+    overflow-y: auto;
   }

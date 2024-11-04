@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnDestroy, OnInit {
    * @param {ActivatedRoute} route
    * @param {Store<AppState>} store
    */
-   authMethods:any;
+   authMethods:any = [];
    loginType = '';
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>) {}
@@ -82,7 +82,7 @@ export class LoginPageComponent implements OnDestroy, OnInit {
     this.authMethods.subscribe(res => {
       console.log(res);
     });
-    this.loginType = this.authMethods[0].authMethodType;
+    this.loginType = this.authMethods[0]?.authMethodType;
   }
 
   /**

@@ -7,6 +7,7 @@ import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
 import { environment } from '../../environments/environment';
+import { UserManualComponent } from './user-manual/user-manual.component'
 
 
 const imports = [
@@ -16,7 +17,14 @@ const imports = [
       component: ThemedFeedbackComponent,
       resolve: { breadcrumb: I18nBreadcrumbResolver },
       data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
-      canActivate: [FeedbackGuard]
+      canActivate: [FeedbackGuard],
+    },
+    {
+      path: 'user-manual',
+      component: UserManualComponent,
+      resolve: { breadcrumb: I18nBreadcrumbResolver },
+      data: { title: 'Home', breadcrumbKey: 'Home' },
+      // canActivate: [FeedbackGuard]
     }
   ])
 ];

@@ -1,0 +1,18 @@
+.footer-container {
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 7px;
+    color: #494848;
+    font-size: 15px;
+  }
+  
+  .footer-item {
+    margin: 0;
+    margin-right: 40px;
+    cursor: pointer;
+  }

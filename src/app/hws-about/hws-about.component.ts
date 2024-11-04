@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,6 +10,8 @@ export class HwsAboutComponent {
   constructor(
     private activeModal: NgbActiveModal,
   ) { }
+
+  @Input() content: string; 
 
   closeModal() {
     this.activeModal.close();

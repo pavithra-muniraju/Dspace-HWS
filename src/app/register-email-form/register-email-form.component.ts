@@ -23,6 +23,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
   selector: 'ds-register-email-form',
+  styleUrls: ['./register-email-form.component.scss'],
   templateUrl: './register-email-form.component.html'
 })
 /**

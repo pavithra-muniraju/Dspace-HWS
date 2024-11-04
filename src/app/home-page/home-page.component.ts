@@ -20,6 +20,13 @@ export class HomePageComponent implements OnInit {
   public showAuth = false;
   isLoginAuthenticated  = false;
 
+  
+  searchPlaceholder: string = 'Type Keyword, Section, Unit or Project Code to Search';
+
+  query:string = '';
+
+  brandColor = 'primary';
+  
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
@@ -43,5 +50,17 @@ export class HomePageComponent implements OnInit {
         this.router.navigateByUrl('/login');
       }
     })
+  }
+
+  
+
+
+  onSubmit(data) {
+    console.log(data);
+    
+  }
+
+  uploadtype(type) {
+    
   }
 }

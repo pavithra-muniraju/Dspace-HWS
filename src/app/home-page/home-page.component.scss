@@ -24,20 +24,40 @@
   outline: none;
   outline-offset: none;
   }
+
+
+
+
+  .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+  
+  .dropdown-item {
+      padding: 0.5rem
+  }
+
+    
   .createNew {
     width: 136px;
     height: 41px;
+    border-radius: 10px;
+    font-weight: 500;
   }
   .search-button{
     background-color: red;
     color: white;
-    border-radius: 5px;
+    border-radius: 10px;
     border-color: red;
     width: 136px;
     height: 41px;
+    font-weight: 500;
   }
   .hero {
-    margin-bottom: 9vh;
+    // margin-bottom: 9vh;
     text-align: center;
     display: inline-table;
     // font-size: 36px;
@@ -78,3 +98,15 @@
   .dropdown-item {
       padding: 0.5rem
   }
+
+  .searchBox {
+    border-radius: 30px;
+    padding: 1rem;
+}
+.btn-primary:active {
+  background-color: #0097fd;
+}
+
+.btn-primary {
+  background-color: #1091da;
+}

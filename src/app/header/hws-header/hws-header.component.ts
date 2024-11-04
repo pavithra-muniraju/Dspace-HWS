@@ -107,6 +107,7 @@ export class HwsHeaderComponent {
     const modalRef = this.modalService.open(HwsAboutComponent,
       { ariaLabelledBy: 'idle-modal.header' });
     this.aboutModal = true;
+    modalRef.componentInstance.content = 'Hero Wisdom Sphere'; 
     modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
       if (closed) {
         this.aboutModal = false;

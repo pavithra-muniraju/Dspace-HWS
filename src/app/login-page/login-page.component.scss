@@ -3,6 +3,7 @@
   // width: var(--ds-login-logo-width);
   margin: 2rem;
   width: -webkit-fill-available;
+  margin-top:5px;
 }
 
 .login-div {
@@ -12,7 +13,7 @@
     box-shadow: rgb(0 0 0 / 19%) 0px 5px 15px;
     z-index: 1 !important;
     position: inherit;
-    height: calc(100vh - 80px) !important;
+    height: calc(100vh - 114px) !important;
     border-radius: 10px;
     color: black;
     margin-top: 0.5rem;

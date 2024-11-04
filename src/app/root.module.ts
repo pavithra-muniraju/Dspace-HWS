@@ -52,6 +52,7 @@ import {
 } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { HwsAboutComponent } from './hws-about/hws-about.component';
+import { UserManualComponent } from '../app/info/user-manual/user-manual.component'
 
 const IMPORTS = [
   CommonModule,
@@ -123,7 +124,8 @@ const EXPORTS = [
     ...DECLARATIONS,
     HwsHeaderComponent,
     GoogleLoginComponent,
-    HwsAboutComponent
+    HwsAboutComponent,
+    UserManualComponent
   ],
   exports: [
     ...EXPORTS,

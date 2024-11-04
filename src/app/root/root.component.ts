@@ -12,6 +12,7 @@ import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ds-root',
@@ -42,7 +43,8 @@ export class RootComponent implements OnInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
+    private route: ActivatedRoute
   ) {
     this.notificationOptions = environment.notifications;
   }
@@ -69,6 +71,10 @@ export class RootComponent implements OnInit {
     if (this.router.url === getPageInternalServerErrorRoute()) {
       this.shouldShowRouteLoader = false;
     }
+
+    this.route.url.subscribe(url => {
+      console.log('Active route:', url);
+    });
   }
 
   skipToMainContent() {

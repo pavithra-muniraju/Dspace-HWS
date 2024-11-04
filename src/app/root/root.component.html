@@ -2,12 +2,12 @@
   {{ 'root.skip-to-content' | translate }}
 </button>
 
-<div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [@slideSidebarPadding]="{
+<div class="outer-wrapper outer-container" [class.d-none]="shouldShowFullscreenLoader" [@slideSidebarPadding]="{
      value: (!(isSidebarVisible$ | async) ? 'hidden' : (slideSidebarOver$ | async) ? 'unpinned' : 'pinned'),
      params: { collapsedWidth: (collapsedSidebarWidth$ | async), expandedWidth: (expandedSidebarWidth$ | async) }
     }">
   <ds-themed-admin-sidebar [expandedSidebarWidth$]="expandedSidebarWidth$" [collapsedSidebarWidth$]="collapsedSidebarWidth$"></ds-themed-admin-sidebar>
-  <div class="inner-wrapper" style="min-height: calc(100vh - 64px) !important;">
+  <div class="inner-wrapper" style="min-height: calc(100vh - 65px) !important;">
     <ds-system-wide-alert-banner></ds-system-wide-alert-banner>
     <ds-themed-header-navbar-wrapper></ds-themed-header-navbar-wrapper>
     <!-- <ds-themed-breadcrumbs></ds-themed-breadcrumbs> -->
@@ -21,8 +21,9 @@
       </div>
     </main>
 
-    <ds-themed-footer></ds-themed-footer>
+
   </div>
+  <ds-themed-footer></ds-themed-footer>
 </div>
 
 <ds-notifications-board [options]="notificationOptions">

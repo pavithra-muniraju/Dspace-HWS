@@ -2,7 +2,7 @@
 <div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 mx-auto login-container">
   <ng-container *ngFor="let authMethod of (authMethods | async); let last = last">
     <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
-    <!-- <div *ngIf="!last" class=" my-2"> OR</div> -->
+    <div *ngIf="!last" class="mtop"> <h3>OR</h3></div>
     <!-- dropdown-divider -->
   </ng-container>
 </div>

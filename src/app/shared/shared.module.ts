@@ -284,6 +284,8 @@ import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bi
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { HwsFooterComponent } from './hws-footer/hws-footer.component';
 
 const MODULES = [
   CommonModule,
@@ -299,7 +301,8 @@ const MODULES = [
   DragDropModule,
   GoogleRecaptchaModule,
   MenuModule,
-  NgxPaginationModule
+  NgxPaginationModule,
+  PdfViewerModule
 ];
 
 const ROOT_MODULES = [
@@ -404,6 +407,7 @@ const COMPONENTS = [
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
   ThemedItemPageTitleFieldComponent,
+  HwsFooterComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -467,7 +471,8 @@ const ENTRY_COMPONENTS = [
   AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  HwsFooterComponent
 ];
 
 const PROVIDERS = [

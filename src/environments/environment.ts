@@ -6,6 +6,7 @@
 import { BuildConfig } from '../config/build-config.interface';
 
 export const environment: Partial<BuildConfig> = {
+  baseUrl: 'http://localhost:8080/',
   production: false,
 
   // Angular Universal settings
