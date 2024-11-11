@@ -12,6 +12,8 @@ import { AppState } from 'src/app/app.reducer';
 import { isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { HwsAboutComponent } from 'src/app/hws-about/hws-about.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { UserManualComponent } from '../../info/user-manual/user-manual.component'
+import { LogOutAction } from '../../core/auth/auth.actions';
 
 @Component({
   selector: 'ds-hws-header',
@@ -45,7 +47,7 @@ export class HwsHeaderComponent {
       if (this.isLoginAuthenticated == false) {
         console.log(this.router.url)
         // this.router.navigateByUrl('/googlelogin');
-        this.router.navigateByUrl('/login');
+        // this.router.navigateByUrl('/login');
         // if(this.router.url == '/login' || this.router.url == '/googlelogin') {
 
         // }
@@ -102,17 +104,35 @@ export class HwsHeaderComponent {
     })
   }
 
-  hwsAbout() {
+  hwsUserManual() {
     this.aboutModal = false;
-    const modalRef = this.modalService.open(HwsAboutComponent,
+    const modalRef = this.modalService.open(UserManualComponent,
       { ariaLabelledBy: 'idle-modal.header' });
     this.aboutModal = true;
-    modalRef.componentInstance.content = 'Hero Wisdom Sphere'; 
+    modalRef.componentInstance.header = 'User Manual';
     modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
       if (closed) {
         this.aboutModal = false;
       }
     });
   }
+
+  hwsAbout() {
+    this.aboutModal = false;
+    const modalRef = this.modalService.open(HwsAboutComponent,
+      { ariaLabelledBy: 'idle-modal.header' });
+    this.aboutModal = true;
+    modalRef.componentInstance.content = 'Hero Wisdom Sphere';
+    modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+      if (closed) {
+        this.aboutModal = false;
+      }
+    });
+  }
+
+  // public logOut() {
+  //   console.log("entred")
+  //   this.store.dispatch(new LogOutAction());
+  // }
 }
 

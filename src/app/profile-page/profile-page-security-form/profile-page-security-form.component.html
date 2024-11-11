@@ -6,5 +6,5 @@
          [displaySubmit]="false"
          [displayCancel]="false">
 </ds-form>
-<div id="notSame" class="container-fluid text-danger" *ngIf="formGroup.hasError('notSame')">{{FORM_PREFIX + 'error.matching-passwords' | translate}}</div>
-<div id="emptyPassword" class="container-fluid text-danger" *ngIf="(formGroup.dirty || formGroup.touched) && formGroup.hasError('emptyPassword')">{{FORM_PREFIX + 'error.empty-password' | translate}}</div>
+<div id="notSame" class="container-fluid text-danger" style="font-size:12px" *ngIf="formGroup.hasError('notSame')">{{FORM_PREFIX + 'error.matching-passwords' | translate}}</div>
+<div id="emptyPassword" class="container-fluid text-danger" style="font-size:12px" *ngIf="(formGroup.dirty || formGroup.touched) && formGroup.hasError('emptyPassword')">{{FORM_PREFIX + 'error.empty-password' | translate}}</div>

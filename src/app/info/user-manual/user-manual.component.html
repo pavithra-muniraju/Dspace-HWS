@@ -1,2 +1,16 @@
-<pdf-viewer [src]="pdfSrc" [render-text]="true" [original-size]="false" [zoom]="0.7" class="pdf-view"
-(after-load-complete)="onPdfLoadComplete($event)">></pdf-viewer>
+<div class="modal-test">
+    <div class="modal-header" id="idle-modal.header">{{header}}
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <pdf-viewer [src]="pdfSrc" [render-text]="true" [original-size]="false" [zoom]="0.9" class="pdf-view"
+        (after-load-complete)="onPdfLoadComplete($event)"></pdf-viewer>
+    </div>
+    <!-- <div class="modal-footer">
+      <button type="button" class="cancel btn btn-danger" (click)="closeModal()" aria-label="Log out">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div> -->
+  </div>

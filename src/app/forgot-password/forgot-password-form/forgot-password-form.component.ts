@@ -12,6 +12,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
+import { LogOutAction } from '../../core/auth/auth.actions';
 
 @Component({
   selector: 'ds-forgot-password-form',
@@ -76,12 +77,13 @@ export class ForgotPasswordFormComponent {
         getFirstCompletedRemoteData()
       ).subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
+          this.store.dispatch(new LogOutAction());
           this.notificationsService.success(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.title'),
-            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.content')
+            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.content'),
           );
-          this.store.dispatch(new AuthenticateAction(this.email, this.password));
-          this.router.navigate(['/home']);
+          // this.store.dispatch(new AuthenticateAction(this.email, this.password));
+          this.router.navigate(['/login']);
         } else {
           this.notificationsService.error(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.error.title'), response.errorMessage
