@@ -90,6 +90,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.router.events.subscribe((event: any) => {
+      if(event instanceof NavigationStart) {
+        console.log('start => ',event.url);
+      }
+      if(event instanceof NavigationEnd) {
+        console.log('end => ',event.url);
+      }
+    });
     /** Implement behavior for interface {@link ModalBeforeDismiss} */
     this.modalConfig.beforeDismiss = async function () {
       if (typeof this?.componentInstance?.beforeDismiss === 'function') {
