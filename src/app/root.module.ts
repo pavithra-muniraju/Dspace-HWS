@@ -52,7 +52,9 @@ import {
 } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { HwsAboutComponent } from './hws-about/hws-about.component';
-import { UserManualComponent } from '../app/info/user-manual/user-manual.component'
+import { UserManualComponent } from '../app/info/user-manual/user-manual.component';
+import { MyBriefcaseComponent } from './my-briefcase/my-briefcase.component';
+import { TodolistComponent } from './todolist/todolist.component'
 
 const IMPORTS = [
   CommonModule,
@@ -107,7 +109,9 @@ const DECLARATIONS = [
   ThemedPageErrorComponent,
   PageErrorComponent,
   ContextHelpToggleComponent,
-  HwsHeaderComponent
+  HwsHeaderComponent,
+  MyBriefcaseComponent,
+  TodolistComponent
 ];
 
 const EXPORTS = [
@@ -125,7 +129,9 @@ const EXPORTS = [
     HwsHeaderComponent,
     GoogleLoginComponent,
     HwsAboutComponent,
-    UserManualComponent
+    UserManualComponent,
+    MyBriefcaseComponent,
+    TodolistComponent
   ],
   exports: [
     ...EXPORTS,
