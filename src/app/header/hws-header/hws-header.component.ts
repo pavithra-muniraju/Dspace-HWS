@@ -130,9 +130,8 @@ export class HwsHeaderComponent {
     });
   }
 
-  // public logOut() {
-  //   console.log("entred")
-  //   this.store.dispatch(new LogOutAction());
-  // }
+  public logOut() {
+    this.store.dispatch(new LogOutAction());
+  }
 }
 
