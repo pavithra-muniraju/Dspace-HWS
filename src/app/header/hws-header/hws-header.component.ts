@@ -15,6 +15,8 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserManualComponent } from '../../info/user-manual/user-manual.component'
 import { LogOutAction } from '../../core/auth/auth.actions';
 
+import { UserInfoComponent } from 'src/app/user-info/user-info.component';
+
 @Component({
   selector: 'ds-hws-header',
   templateUrl: './hws-header.component.html',
@@ -28,6 +30,7 @@ export class HwsHeaderComponent {
   isLoginAuthenticated = false;
   menuItems = [];
   aboutModal = false;
+  userInfoModal = false;
 
   public isAuthenticated: Observable<boolean>;
   constructor(private hwsService: HWSService,
@@ -133,5 +136,19 @@ export class HwsHeaderComponent {
   public logOut() {
     this.store.dispatch(new LogOutAction());
   }
+
+  userInfo() {
+    this.userInfoModal = false;
+    const modalRef = this.modalService.open(UserInfoComponent,
+      { ariaLabelledBy: 'idle-modal.header' });
+    this.userInfoModal = true;
+    modalRef.componentInstance.user$ = this.user$;
+    modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+      if (closed) {
+        this.userInfoModal = false;
+      }
+    });
+  }
+
 }
 

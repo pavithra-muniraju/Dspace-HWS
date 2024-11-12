@@ -55,7 +55,8 @@ import { HwsAboutComponent } from './hws-about/hws-about.component';
 import { UserManualComponent } from '../app/info/user-manual/user-manual.component';
 import { MyBriefcaseComponent } from './my-briefcase/my-briefcase.component';
 import { TodolistComponent } from './todolist/todolist.component';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component'
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { UserInfoComponent } from './user-info/user-info.component'
 
 const IMPORTS = [
   CommonModule,
@@ -134,7 +135,8 @@ const EXPORTS = [
     UserManualComponent,
     MyBriefcaseComponent,
     TodolistComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    UserInfoComponent
   ],
   exports: [
     ...EXPORTS,
