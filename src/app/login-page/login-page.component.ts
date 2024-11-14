@@ -80,7 +80,6 @@ export class LoginPageComponent implements OnDestroy, OnInit {
       ),
     );
     this.authMethods.subscribe(res => {
-      console.log(res);
     });
     this.loginType = this.authMethods[0]?.authMethodType;
   }

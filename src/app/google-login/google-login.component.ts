@@ -25,7 +25,6 @@ export class GoogleLoginComponent implements OnInit {
       this.user = user;
       this.loggedIn = user != null;
     });
-    console.log(this.user);
   }
 
 }

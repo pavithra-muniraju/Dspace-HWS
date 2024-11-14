@@ -45,10 +45,8 @@ export class HwsHeaderComponent {
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     this.isAuthenticated.subscribe(res => {
-      console.log(res);
       this.isLoginAuthenticated = res;
       if (this.isLoginAuthenticated == false) {
-        console.log(this.router.url)
         // this.router.navigateByUrl('/googlelogin');
         // this.router.navigateByUrl('/login');
         // if(this.router.url == '/login' || this.router.url == '/googlelogin') {
@@ -59,7 +57,6 @@ export class HwsHeaderComponent {
       } else {
         this.user$ = this.authService.getAuthenticatedUserFromStore();
         this.checkForAdminLogin();
-        console.log('pavi ' + this.router);
         this.hwsService.shareRouteInfo.subscribe(res => {
           this.currentRoute = res;
 
@@ -78,10 +75,7 @@ export class HwsHeaderComponent {
   }
 
   checkForAdminLogin() {
-    console.log(this.user$);
     this.user$.subscribe((res: any) => {
-      console.log(res);
-      console.log(this.dsoNameService.getName(res));
     })
 
 
@@ -93,10 +87,8 @@ export class HwsHeaderComponent {
 
   getMenuItems() {
     this.hwsService.getCustomMenuData().subscribe(res => {
-      // console.log(res);
       if (res != '' && res != '[]') {
         this.menuItems = JSON.parse(res);
-        // console.log(this.menuItems);
         if (this.menuItems.map(item => item.id).includes('access_control')) {
           this.isLoggedInAsAdmin = true;
         } else {

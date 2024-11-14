@@ -88,7 +88,6 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
     this.sections = this.menuService.getMenuTopSections(this.menuID);
-    console.log(this.sections);
     this.sections.pipe().subscribe(res => {
       this.hwsService.setCustomMenuData(JSON.stringify(res));
     })

@@ -42,10 +42,8 @@ export class HomePageComponent implements OnInit {
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     this.isAuthenticated.subscribe(res => {
-      console.log(res);
       this.isLoginAuthenticated = res;
       if(this.isLoginAuthenticated == false) {
-        console.log(this.router.url);
         
         this.router.navigateByUrl('/login');
       }
@@ -56,7 +54,6 @@ export class HomePageComponent implements OnInit {
 
 
   onSubmit(data) {
-    console.log(data);
     
   }
 
