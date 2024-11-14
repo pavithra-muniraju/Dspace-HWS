@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Inject } from '@angular/core';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../animations/fade';
@@ -11,6 +11,10 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SortDirection } from '../../../core/cache/models/sort-options.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -36,6 +40,10 @@ export class SearchResultsComponent {
    * The link type of the listed search results
    */
   @Input() linkType: CollectionElementLinkType;
+
+  @Input() sortOptionsList: SortOptions[];
+
+  @Input() currentSortOption: SortOptions;
 
   /**
    * The actual search result objects
@@ -104,6 +112,11 @@ export class SearchResultsComponent {
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  constructor(
+    protected paginationService: PaginationService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService,
+  ) {}
+
   /**
    * Check if search results are loading
    */
@@ -131,4 +144,17 @@ export class SearchResultsComponent {
 
     return result;
   }
+
+    /**
+   * Method to change the current sort field and direction
+   * @param {Event} event Change event containing the sort direction and sort field
+   */
+    reloadOrder(event: Event) {
+      const values = (event.target as HTMLInputElement).value.split(',');
+      this.paginationService.updateRoute(this.searchConfigurationService.paginationID, {
+        sortField: values[0],
+        sortDirection: values[1] as SortDirection,
+        page: 1
+      });
+    }
 }

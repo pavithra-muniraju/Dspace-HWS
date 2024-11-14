@@ -1,3 +1,17 @@
 .setting-option {
   border: 1px solid var(--bs-light);
+  margin: 14px;
+
+  label{
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .form-control {
+    font-size: 14px;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }

@@ -40,6 +40,8 @@
                                       [selectionConfig]="selectionConfig"
                                       [showCsvExport]="showCsvExport"
                                       [showThumbnails]="showThumbnails"
+                                      [sortOptionsList]="(sortOptionsList$ | async)"
+                                      [currentSortOption]="(currentSortOptions$ | async)"
                                       (contentChange)="onContentChange($event)"
                                       (deselectObject)="deselectObject.emit($event)"
                                       (selectObject)="selectObject.emit($event)"></ds-themed-search-results>

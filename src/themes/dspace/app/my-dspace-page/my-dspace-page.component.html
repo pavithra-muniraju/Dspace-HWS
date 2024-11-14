@@ -1,0 +1,23 @@
+<main class="container-fluid my-briefcase">
+    <section class="row briefcase-section">
+
+        <!-- Sidebar Section -->
+        <aside class="col-md-3 nav-section">
+            <nav aria-label="Sidebar navigation">
+                <h2 class="section-nav">My Briefcase</h2>
+                <ul class="list-unstyled items">
+                    <li *ngFor="let item of sidebarItems" class="item" [class.active]="currentContent === item"
+                        (click)="changeContent(item)">
+                        {{ item }}
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="col-md-9">
+            <ds-themed-search *ngIf="configuration && context" [configuration]="configuration"
+                [configurationList]="(configurationList$ | async)" [context]="context" [viewModeList]="viewModeList"
+                [showSidebar]="false" [searchEnabled]="false"></ds-themed-search>
+        </section>
+    </section>
+</main>

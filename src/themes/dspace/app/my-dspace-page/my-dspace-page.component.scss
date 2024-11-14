@@ -1,0 +1,41 @@
+.my-briefcase {
+    height: calc(100vh - 12vh);
+
+    .briefcase-section {
+        height: 100%;
+        border-top: 1px solid #80808030;
+        overflow: auto;
+    }
+
+    .nav-section {
+        padding: 0;
+        border-right: 1px solid #80808030;
+    }
+}
+
+.section-nav {
+    font-size: 16px;
+    font-weight: 800;
+    padding: 25px 0;
+    padding-bottom: 10px;
+    padding-left: 30px;
+}
+
+.items {
+    font-size: 14px;
+
+    .item {
+        padding: 10px;
+        padding-left: 30px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e9ecef;
+        }
+
+        &.active {
+            background-image: linear-gradient(to right, #fde6e7, #fdd5d6, #fcc3c6, #fab2b5, #f7a0a4);
+            color: black;
+        }
+    }
+}

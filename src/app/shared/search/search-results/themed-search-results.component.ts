@@ -21,7 +21,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
   templateUrl: '../../theme-support/themed.component.html',
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject', 'sortOptionsList', 'currentSortOption'];
 
   @Input() linkType: CollectionElementLinkType;
 
@@ -54,6 +54,10 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+
+  @Input() sortOptionsList: SortOptions[];
+
+  @Input() currentSortOption: SortOptions;
 
   protected getComponentName(): string {
     return 'SearchResultsComponent';

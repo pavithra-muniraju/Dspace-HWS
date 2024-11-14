@@ -60,8 +60,12 @@ import { ResultsBackButtonModule } from '../../app/shared/results-back-button/re
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
+import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.component';
+import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 
 const DECLARATIONS = [
+  MyDSpacePageComponent,
+  SearchResultsComponent
 ];
 
 @NgModule({
