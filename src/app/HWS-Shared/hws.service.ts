@@ -8,9 +8,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
   })
 export class HWSService {
     private currentroute = new BehaviorSubject<any>("");
+    private hasErrorData = new BehaviorSubject<any>("");
 
 
     public shareRouteInfo = this.currentroute.asObservable();
+    public hasErrorInfo = this.hasErrorData.asObservable();
 
 
     private customMenuData$: EventEmitter<any>;
@@ -29,5 +31,9 @@ export class HWSService {
      
     getCustomMenuData(){
         return this.customMenuData$;
+    }
+
+    hasError(data){
+        this.hasErrorData.next(data);
     }
 }

@@ -20,6 +20,7 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { HWSService } from 'src/app/HWS-Shared/hws.service';
 import { Router } from '@angular/router';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 /**
  * /users/sign-in
@@ -32,7 +33,7 @@ import { Router } from '@angular/router';
   animations: [fadeOut]
 })
 @renderAuthMethodFor(AuthMethodType.Password)
-export class LogInPasswordComponent implements OnInit {
+export class LogInPasswordComponent {
 
   /**
    * The authentication method data.
@@ -85,7 +86,8 @@ export class LogInPasswordComponent implements OnInit {
     protected store: Store<CoreState>,
     protected authorizationService: AuthorizationDataService,
     private hwsService: HWSService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationsService
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -107,9 +109,15 @@ export class LogInPasswordComponent implements OnInit {
       getAuthenticationError),
       map((error) => {
         this.hasError = (isNotEmpty(error));
+        this.hwsService.hasError(this.hasError);
+        console.log(error);
+        // if(this.hasError) {
+        //   this.notificationService.error('Invalid Email ID or Password')
+        // }
         return error;
       })
     );
+    
 
     // set error
     this.message = this.store.pipe(
@@ -170,7 +178,7 @@ export class LogInPasswordComponent implements OnInit {
     // trim values
     email.trim();
     password.trim();
-
+    console.log(this.isStandalonePage)
     if (!this.isStandalonePage) {
       this.authService.setRedirectUrl(this.hardRedirectService.getCurrentRoute());
     } else {
@@ -183,7 +191,7 @@ export class LogInPasswordComponent implements OnInit {
     // clear form
     this.form.reset();
   }
-
+// not used
   navigateToGoogleLogin() {
     this.hwsService.passRouteData('/googlelogin');
     this.router.navigateByUrl('/googlelogin')

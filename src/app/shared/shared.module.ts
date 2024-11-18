@@ -284,7 +284,7 @@ import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bi
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+// import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HwsFooterComponent } from './hws-footer/hws-footer.component';
 
 const MODULES = [
@@ -302,7 +302,7 @@ const MODULES = [
   GoogleRecaptchaModule,
   MenuModule,
   NgxPaginationModule,
-  PdfViewerModule
+  // PdfViewerModule
 ];
 
 const ROOT_MODULES = [

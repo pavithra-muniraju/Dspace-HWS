@@ -45,6 +45,7 @@
             ],
             "styles": [
               "src/styles/startup.scss",
+              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               {
                 "input": "src/styles/base-theme.scss",
                 "inject": false,

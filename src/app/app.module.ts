@@ -30,7 +30,14 @@ import { EagerThemesModule } from '../themes/eager-themes.module';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
-
+import {MatStepperModule  } from '@angular/material/stepper';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {MatToolbarModule} from '@angular/material/toolbar';
 export function getConfig() {
   return environment;
 }
@@ -61,6 +68,14 @@ const IMPORTS = [
   StoreDevModules,
   EagerThemesModule,
   RootModule,
+  MatStepperModule,
+  MatIconModule,
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatToolbarModule
 ];
 
 const PROVIDERS = [

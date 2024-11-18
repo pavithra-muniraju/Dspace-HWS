@@ -8,10 +8,11 @@ import {
   isAuthenticated,
   isAuthenticationLoading
 } from '../../core/auth/selectors';
-import { hasValue } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 import { CoreState } from '../../core/core-state.model';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
+import { HWSService } from 'src/app/HWS-Shared/hws.service';
 
 @Component({
   selector: 'ds-log-in',
@@ -44,9 +45,11 @@ export class LogInComponent implements OnInit {
    * @type {boolean}
    */
   public loading: Observable<boolean>;
+  hasError = false;
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
+              private hwsService: HWSService
   ) {
   }
 
@@ -71,6 +74,15 @@ export class LogInComponent implements OnInit {
         this.authService.clearRedirectUrl();
       }
     });
+
+    this.hwsService.hasErrorInfo.subscribe(res => {
+      console.log(res)
+      if(res == true){
+        this.hasError = true;
+        document.getElementById('mtop').classList.remove('mtop');
+      }
+    })
+
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
@@ -17,6 +17,7 @@ import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { getAuthenticationMethods, isAuthenticated } from '../core/auth/selectors';
 import { AuthMethod } from '../core/auth/models/auth.method';
 import { rendersAuthMethodType } from '../shared/log-in/methods/log-in.methods-decorator';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 /**
  * This component represents the login page
@@ -43,7 +44,9 @@ export class LoginPageComponent implements OnDestroy, OnInit {
    authMethods:any = [];
    loginType = '';
   constructor(private route: ActivatedRoute,
-              private store: Store<AppState>) {}
+              private store: Store<AppState>,
+              private notificationsService: NotificationsService,
+              private router: Router) {}
 
   /**
    * Initialize instance variables
@@ -51,10 +54,24 @@ export class LoginPageComponent implements OnDestroy, OnInit {
   ngOnInit() {
     const queryParamsObs = this.route.queryParams;
     const authenticated = this.store.select(isAuthenticated);
+      // this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+
+    authenticated.subscribe(res => {
+      if(res == true) {
+        this.router.navigateByUrl('/home')
+      }
+    });
+    
+    queryParamsObs.subscribe(res => {
+      if(res.error == 401) {
+        this.notificationsService.error('Access Denied - Invalid Credentials!!', 'Please Contact your administrator.',{timeOut:0})
+      }
+    })
     this.sub = observableCombineLatest(queryParamsObs, authenticated).pipe(
       filter(([params, auth]) => isNotEmpty(params.token) || isNotEmpty(params.expired)),
       take(1)
     ).subscribe(([params, auth]) => {
+      console.log(auth);
       const token = params.token;
       let authToken: AuthTokenInfo;
       if (!auth) {

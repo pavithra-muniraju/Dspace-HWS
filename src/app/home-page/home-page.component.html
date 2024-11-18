@@ -15,12 +15,12 @@
           <div class="form-group input-group">
             <input type="text" [(ngModel)]="query" name="query" class="form-control searchBox"
               attr.aria-label="{{ searchPlaceholder }}" [attr.data-test]="'search-box' | dsBrowserOnly"
-              [placeholder]="searchPlaceholder">        
+              [placeholder]="searchPlaceholder">
           </div>
         </div>
         <div class="col-3"></div>
       </div>
-      
+
       <!-- <span class="input-group-append">
 
         <button type="submit" class="search-button btn btn-{{brandColor}}"
@@ -30,18 +30,23 @@
       <div class="row mt-2">
         <div class="col-md-4"></div>
         <div class="col-md-2">
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle createNew" type="button" data-toggle="dropdown"
-              aria-expanded="false">
+
+          <div ngbDropdown>
+            <button class="btn btn-primary dropdown-toggle createNew " id="uploadtype" ngbDropdownToggle>
               Create New
             </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" (click)="uploadtype('single')" data-toggle="modal"
-                data-target="#exampleModal">Single Upload</a>
-              <a class="dropdown-item" (click)="uploadtype('bulk')">Bulk Upload</a>
+
+            <div ngbDropdownMenu class="uploadtype-dropdown-menu" aria-labelledby="uploadtype">
+              <button class="dropdown-item" (click)="uploadtype('Single')">
+                Single Upload
+              </button>
+              <!-- <br> -->
+              <button class="dropdown-item" (click)="uploadtype('bulk')">
+                Bulk Upload
+              </button>
             </div>
           </div>
-          
+
         </div>
         <div class="col-md-2">
           <button class="search-button"> Search</button>
@@ -50,8 +55,8 @@
       </div>
     </div>
   </form>
-  
 
-  <ds-recent-item-list ></ds-recent-item-list>
+
+  <ds-recent-item-list></ds-recent-item-list>
   <ds-hws-footer></ds-hws-footer>
 </div>

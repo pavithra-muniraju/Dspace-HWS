@@ -1,0 +1,43 @@
+::ng-deep .mat-step-header .mat-step-icon-state-done {
+	background-color: green;
+}
+
+::ng-deep .modal-mysize .modal-dialog {
+	max-width: 1000px;
+	border-radius: 10px;
+}
+
+::ng-deep .modal-mysize .modal-header {
+	border-bottom: none !important;
+}
+
+::ng-deep .modal-mysize .modal-footer {
+	border-top: none !important;
+}
+
+::ng-deep .modal-mysize .modal-content {
+	border-radius: 10px;
+	padding: 2rem;
+}
+
+::ng-deep .modal-mysize .modal-header {
+	color: #5b5b5b;
+	font-size: 20px;
+	padding-right: 1rem;
+	font-weight: 500;
+}
+
+.next {
+	background-color: red;
+	color: white;
+	border-radius: 10px;
+	border-color: #da1010;
+	width: 136px;
+	height: 41px;
+	font-weight: 500;
+}
+.cancelbtn {
+	background-color: white;
+	color: #5b5b5b;
+	border-color: #5b5b5b;
+}

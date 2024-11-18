@@ -46,6 +46,8 @@
     height: 41px;
     border-radius: 10px;
     font-weight: 500;
+    background-color: #0d80c1;
+    color: white;
   }
   .search-button{
     background-color: red;
@@ -109,4 +111,31 @@
 
 .btn-primary {
   background-color: #1091da;
+}
+
+.dropdown-menu {
+  min-width: 136px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.dropdown-menu:active {
+  background-color: whitesmoke;
+}
+
+.btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #2b95d1;
+  border-color: #1091da;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  color: black;
+  text-decoration: none;
+  background-color: whitesmoke;
+}
+
+::ng-deep .modal-mysize .modal-dialog {
+  max-width: 1000px;
+  border-radius: 10px;
 }

@@ -56,15 +56,32 @@ import { UserManualComponent } from '../app/info/user-manual/user-manual.compone
 import { MyBriefcaseComponent } from './my-briefcase/my-briefcase.component';
 import { TodolistComponent } from './todolist/todolist.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { UserInfoComponent } from './user-info/user-info.component'
-
+import { UserInfoComponent } from './user-info/user-info.component';
+import { SingleUploadComponent } from './home-page/single-upload/single-upload.component'
+import { NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatStepperModule  } from '@angular/material/stepper';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {MatToolbarModule} from '@angular/material/toolbar';
 const IMPORTS = [
   CommonModule,
   SharedModule.withEntryComponents(),
   NavbarModule,
   SystemWideAlertModule,
   NgbModule,
-  SocialLoginModule
+  SocialLoginModule,
+  MatStepperModule,
+  MatIconModule,
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatToolbarModule
 ];
 
 const PROVIDERS = [
@@ -136,7 +153,8 @@ const EXPORTS = [
     MyBriefcaseComponent,
     TodolistComponent,
     UnauthorizedComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    SingleUploadComponent
   ],
   exports: [
     ...EXPORTS,
