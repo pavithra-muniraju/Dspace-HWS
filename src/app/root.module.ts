@@ -67,6 +67,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { FileUploadComponent } from './home-page/single-upload/file-upload/file-upload.component';
+import { DragDropDirective } from './home-page/single-upload/drag-drop.directive';
+import { FileListComponent } from './home-page/single-upload/file-list/file-list.component';
+import { MatTableModule } from '@angular/material/table';
 const IMPORTS = [
   CommonModule,
   SharedModule.withEntryComponents(),
@@ -81,7 +85,9 @@ const IMPORTS = [
   MatFormFieldModule,
   MatRadioModule,
   MatSelectModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTableModule,
+  
 ];
 
 const PROVIDERS = [
@@ -131,7 +137,9 @@ const DECLARATIONS = [
   HwsHeaderComponent,
   MyBriefcaseComponent,
   TodolistComponent,
-  UnauthorizedComponent
+  UnauthorizedComponent,
+  FileUploadComponent,
+  DragDropDirective
 ];
 
 const EXPORTS = [
@@ -154,7 +162,8 @@ const EXPORTS = [
     TodolistComponent,
     UnauthorizedComponent,
     UserInfoComponent,
-    SingleUploadComponent
+    SingleUploadComponent,
+    FileListComponent
   ],
   exports: [
     ...EXPORTS,

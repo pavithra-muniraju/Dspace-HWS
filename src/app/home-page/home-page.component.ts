@@ -77,7 +77,7 @@ export class HomePageComponent implements OnInit {
       { ariaLabelledBy: 'idle-modal.header', windowClass: 'modal-mysize'});
     modalRef.componentInstance.type = type;
     
-    modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+    modalRef.componentInstance?.response?.pipe(take(1)).subscribe((closed: boolean) => {
       if (closed) {
         this.singleUpload = false;
       }

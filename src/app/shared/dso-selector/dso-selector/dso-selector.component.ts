@@ -44,6 +44,7 @@ import { NotificationType } from '../../notifications/models/notification-type';
 import {
   LISTABLE_NOTIFICATION_OBJECT
 } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
+import { HWSService } from 'src/app/HWS-Shared/hws.service';
 
 @Component({
   selector: 'ds-dso-selector',
@@ -146,11 +147,14 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   randomSeed: string = Math.random().toString(36).substring(2, 6);
 
+  selectedlistEntry = {}
+  knowledgeAreaList = []
   constructor(
     protected searchService: SearchService,
     protected notifcationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
+    protected hwsService: HWSService
   ) {
   }
 
@@ -221,6 +225,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       this.listEntries$.next([...(hasNoValue(currentEntries) ? [] : this.listEntries$.getValue()), new ListableNotificationObject(NotificationType.Error, 'dso-selector.results-could-not-be-retrieved', LISTABLE_NOTIFICATION_OBJECT.value)]);
       this.hasNextPage = false;
     }
+    this.getKnowdledgeArea();
   }
 
   /**
@@ -297,7 +302,19 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    *
    * @param listableObject The {@link ListableObject} to evaluate
    */
+  onChange() {
+    console.log(this.selectedlistEntry);   
+    this.hwsService.updateSelectedKA(JSON.stringify(this.selectedlistEntry));
+  }
   onClick(listableObject: ListableObject): void {
+    // console.log(this.listEntries$.)
+    
+    this.listEntries$.pipe().subscribe(res => {
+        console.log(res);
+        
+      })
+    console.log(listableObject);
+    
     if (hasValue((listableObject as SearchResult<DSpaceObject>).indexableObject)) {
       this.onSelect.emit((listableObject as SearchResult<DSpaceObject>).indexableObject);
     } else {
@@ -314,5 +331,21 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   getName(listableObject: ListableObject): string {
     return hasValue((listableObject as SearchResult<DSpaceObject>).indexableObject) ?
       this.dsoNameService.getName((listableObject as SearchResult<DSpaceObject>).indexableObject) : null;
+  }
+
+  getKnowdledgeArea() {
+    this.listEntries$.pipe().subscribe(res => {
+      console.log(res);
+      this.knowledgeAreaList = []
+      res.forEach((ele:any) => {
+        let obj = {
+          docTitle : ele.indexableObject._name,
+          uuid:  ele.indexableObject.uuid
+        }
+        this.knowledgeAreaList.push(obj);
+      })
+      
+    });
+    console.log(this.knowledgeAreaList);
   }
 }

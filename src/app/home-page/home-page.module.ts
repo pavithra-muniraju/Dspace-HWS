@@ -22,6 +22,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { WorkspaceitemsEditPageModule } from '../workspaceitems-edit-page/workspaceitems-edit-page.module';
+import { SubmissionModule } from '../submission/submission.module';
+import { MatTableModule } from '@angular/material/table';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -49,7 +52,10 @@ const DECLARATIONS = [
     MatFormFieldModule,
     MatRadioModule,
     MatSelectModule,
-    MatToolbarModule
+    MatToolbarModule,
+    WorkspaceitemsEditPageModule,
+    SubmissionModule,
+    MatTableModule
   ],
   declarations: [
     ...DECLARATIONS,

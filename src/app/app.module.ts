@@ -38,6 +38,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 export function getConfig() {
   return environment;
 }
@@ -75,7 +77,9 @@ const IMPORTS = [
   MatFormFieldModule,
   MatRadioModule,
   MatSelectModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTableModule,
+  MatSortModule
 ];
 
 const PROVIDERS = [
