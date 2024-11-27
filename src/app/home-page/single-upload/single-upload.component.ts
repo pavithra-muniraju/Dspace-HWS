@@ -77,7 +77,8 @@ export class SingleUploadComponent {
       obj = {
         name: names[i].substr(0, names[i].lastIndexOf('.')),
         size: sizes[i],
-        format:names[i].split('.').pop()
+        format:names[i].split('.').pop(),
+        description: '-'
       }
       console.log(obj);
       this.fileList1.push(obj);
@@ -264,5 +265,9 @@ getSelectedKA() {
       this.knowledgeAreaFormGroup.controls['knowledgeAreaCtrl'].setValue(this.selectedknowledgeArea);
     }
   })
+}
+
+saveAsDraft() {
+  
 }
 }

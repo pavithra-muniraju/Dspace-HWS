@@ -161,9 +161,10 @@
 
 				</form>
 			</mat-step>
-			<mat-step [stepControl]="fourthFormGroup">
-				<form [formGroup]="fourthFormGroup" style="display: block;">
-					<ng-template matStepLabel>Verify</ng-template>
+			<mat-step [stepControl]="fourthFormGroup" >
+				<ng-template matStepLabel>Verify</ng-template>
+				<form [formGroup]="fourthFormGroup" style="display: block;" *ngIf="currentState == 3">
+					
 
 					<ds-file-list [fileList]="fileList1"></ds-file-list>
 
@@ -195,6 +196,10 @@
 			Cancel
 		</button>
 		&nbsp;&nbsp;
+		<button *ngIf="currentState >= 1" type="button" class="cancel btn next primary" (click)="saveAsDraft()" aria-label="Log out">
+			Save as Draft
+		</button>
+		<span *ngIf="currentState >= 1">&nbsp;&nbsp;</span>
 		<button (click)="goForward(stepper)" type="button" class="cancel btn next"
 			*ngIf="currentState != 4">Next</button>
 		<button type="button" class="cancel btn next" (click)="closeModal()" *ngIf="currentState == 4">Confirm</button>

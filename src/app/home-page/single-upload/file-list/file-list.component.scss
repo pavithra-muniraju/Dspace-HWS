@@ -1,0 +1,27 @@
+::ng-deep .mdc-text-field {
+    position: static;
+}
+
+.icon{
+    font-size: 18px;
+    cursor: pointer;
+}
+.save {
+    color: green;
+}
+.cancel {
+    color: red;
+}
+
+::ng-deep .mat-mdc-table tbody {
+    font-family: inherit;
+}
+::ng-deep th{
+    font-family: inherit !important ;
+}
+::ng-deep td{
+    font-family: inherit !important ;
+}
+::ng-deep .mat-mdc-form-field-bottom-align {
+    display: none !important;
+}

@@ -69,7 +69,7 @@ export class FileListComponent {
          
           name: new FormControl(val.name),
           size: new FormControl(val.size),
-          description: new FormControl('-'),
+          description: new FormControl(val.description),
           format: new FormControl(val.format),
           action: new FormControl('existingRecord'),
           isEditable: new FormControl(true),
@@ -98,10 +98,20 @@ export class FileListComponent {
     VOFormElement.get('VORows').at(i).get('isEditable').patchValue(true);
   }
 
-  deleteRow(i){
-    console.log(i);
-    
-    console.log(this.dataSource)
+  deleteRow(index: number) {
+    const data = this.dataSource.data;
+    data.splice(index, 1);
+
+    this.dataSource.data = data;
   }
 
+  cancelRow(row, i) {
+    // if (type !== 'delete') {
+      row.isEditable = false;
+      // cancel - reset form control values to data object
+      Object.keys(row.validator.controls).forEach(item => {
+        row.validator.controls[item].patchValue(row.currentData[item]);
+      });
+    // }
+  }
 }
