@@ -398,6 +398,29 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.createData.create(object, ...params);
   }
 
+  public addOrRemoveItemToFav(uuid:string, flag:number):Observable<any> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}/fav/${uuid}?rel=${flag}`));
+    
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        console.log(href)
+        const request = new PostRequest(requestId, href, {}, options);
+        this.requestService.send(request);
+      })
+    ).subscribe(response => {
+      console.log(response)
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId); ;
+  }
+
 }
 
 /**

@@ -8,62 +8,172 @@
 		<!-- <p> {{ type }}</p> -->
 
 		<mat-horizontal-stepper #stepper class="singleUpload" labelPosition="bottom">
-			<ng-template matStepperIcon="edit"><i class="fa fa-edit"></i></ng-template>
-			<ng-template matStepperIcon="done"><i class="ri-checkbox-circle-fill"></i></ng-template>
-			<mat-step [stepControl]="firstFormGroup">
-				<form [formGroup]="firstFormGroup">
+			<ng-template matStepperIcon="edit"><i class="fa fa-dot-circle-o"></i></ng-template>
+			<ng-template matStepperIcon="done"><i class="fa fa-check"></i></ng-template>
+			<mat-step [stepControl]="knowledgeAreaFormGroup">
+				<form [formGroup]="knowledgeAreaFormGroup">
 					<ng-template matStepLabel>Select</ng-template>
-					<mat-form-field>
-						<input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-					</mat-form-field>
-					<div>
-						<button mat-button matStepperNext>Next</button>
-					</div>
+					<label class="font-weight-bold mtopka" for="knowledgeArea">Knowledge Area</label> &nbsp;&nbsp;
+					<!-- <ds-submission-edit></ds-submission-edit> -->
+					<ds-themed-create-item-parent-selector [(ngModel)]="selectedknowledgeArea" required>
+					</ds-themed-create-item-parent-selector>
+					<!-- <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
+                                       [entityType]="entityType"
+                                       [types]="selectorTypes"
+                                       (onSelect)="selectObject($event)"></ds-authorized-collection-selector> -->
+
+					<!-- <ds-entity-dropdown [isSubmission]="true" (selectionChange)="openDialog($event)"></ds-entity-dropdown> -->
+					<!-- <select class="form-control" [(ngModel)]="selectedknowledgeArea" name="knowledgeArea" id="knowledgeArea" formControlName="knowledgeAreaCtrl" required>
+						<option *ngFor="let knowledgeArea of knowledgeAreaList" [value]="knowledgeArea.value">{{ knowledgeArea.viewValue }}
+						</option>
+					</select> -->
+					<!-- <mat-form-field>
+						<mat-select [(value)]="selectedknowledgeArea">
+							<mat-option *ngFor="let knowledgeArea of knowledgeAreaList" [value]="knowledgeArea.value">  
+								{{knowledgeArea.viewValue}}  
+							</mat-option>
+						</mat-select>
+
+						</mat-form-field> -->
+
+
 				</form>
 			</mat-step>
 			<mat-step [stepControl]="secondFormGroup">
-				<form [formGroup]="secondFormGroup">
+				<form [formGroup]="secondFormGroup"
+					style="display: grid;overflow: auto;">
 					<ng-template matStepLabel>Describe</ng-template>
-					<mat-form-field>
-						<input matInput placeholder="Address" formControlName="secondCtrl" required>
-					</mat-form-field>
-					<div>
-						<button mat-button matStepperPrevious>Back</button>
-						<button mat-button matStepperNext>Next</button>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">Title </label> &nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control" placeholder="Enter the name of the file">
+
+						</div>
+
 					</div>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">Project </label> &nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control" placeholder="Enter the name of the file">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">MLH Category </label> &nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control" placeholder="Enter the MLH Category">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">Reference DCR/ECN/PTS </label>
+							&nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control" placeholder="Enter the Reference DCR/ECN/PTS">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">Occurrence (ppm/numbers) </label>
+							&nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control" placeholder="Enter the Occurrence (ppm/numbers)">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">Issue Description </label> &nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control" placeholder="Enter the Issue Description">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">Issue Category</label> &nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control" placeholder="Enter the Issue Category">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">Associated parts and their
+								application</label> &nbsp;&nbsp;
+						</div>
+						<div class="col-9">
+							<input class="desClass form-control"
+								placeholder="Enter the Associated parts and their application">
+						</div>
+					</div>
+
+					<!-- <label class="font-weight-bold " for="knowledgeArea">MLH Category </label> &nbsp;&nbsp;
+					<input class="desClass form-control" placeholder="Enter the MLH Category">
+					<br>
+					<label class="font-weight-bold " for="knowledgeArea">Reference DCR/ECN/PTS </label> &nbsp;&nbsp;
+					<input class="desClass form-control" placeholder="Enter the Reference DCR/ECN/PTS">
+					<br>
+					<label class="font-weight-bold " for="knowledgeArea">Occurrence (ppm/numbers) </label> &nbsp;&nbsp;
+					<input class="desClass form-control" placeholder="Enter the Occurrence (ppm/numbers)">
+					<br>
+					<label class="font-weight-bold " for="knowledgeArea">Issue Description </label> &nbsp;&nbsp;
+					<input class="desClass form-control" placeholder="Enter the Issue Description">
+					<br> -->
+
 				</form>
 			</mat-step>
 			<mat-step [stepControl]="thirdFormGroup">
 				<form [formGroup]="thirdFormGroup">
 					<ng-template matStepLabel>Upload</ng-template>
-					<mat-form-field>
-						<input matInput placeholder="Address" formControlName="thirdCtrl" required>
-					</mat-form-field>
-					<div>
-						<button mat-button matStepperPrevious>Back</button>
-						<button mat-button matStepperNext>Next</button>
-					</div>
+					<!-- <mat-form-field> -->
+					<ds-file-upload class="file-upload uploadDiv" (filesChanged)="setFileList($event)">
+						<div style="display: block;text-align: center;">
+							<i class="fa fa-arrow-circle-up icon" aria-hidden="true"></i>
+
+							<div style="display:flex;"> Drag and drop files here</div>
+							<div>
+								{{ fileList1 | json }}
+							</div>
+						</div>
+
+					</ds-file-upload>
+					<!-- <div class="uploadDiv">
+							<div style="color: white;font-size: 24px;">
+								<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+								<i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+								<div>
+									<span>Select Files or Drag and Drop Here</span>
+								</div>
+							</div>
+							
+							
+							<input type="file" name="filefield" multiple formControlName="thirdCtrl" required >
+						</div> -->
+
+					<!-- </mat-form-field> -->
+
 				</form>
 			</mat-step>
-			<mat-step [stepControl]="fourthFormGroup">
-				<form [formGroup]="fourthFormGroup">
-					<ng-template matStepLabel>Verify</ng-template>
-					<mat-form-field>
-						<input matInput placeholder="Address" formControlName="fourthCtrl" required>
-					</mat-form-field>
-					<div>
-						<button mat-button matStepperPrevious>Back</button>
-						<button mat-button matStepperNext>Next</button>
-					</div>
+			<mat-step [stepControl]="fourthFormGroup" >
+				<ng-template matStepLabel>Verify</ng-template>
+				<form [formGroup]="fourthFormGroup" style="display: block;" *ngIf="currentState == 3">
+					
+
+					<ds-file-list [fileList]="fileList1"></ds-file-list>
+
 				</form>
 			</mat-step>
 			<mat-step [completed]="completed" [state]="state">
-				<ng-template matStepLabel>Done</ng-template>
-				You are now done.
-				<div>
-					<button mat-button matStepperPrevious>Back</button>
-					<button mat-button (click)="done()">Confirm</button>
-				</div>
+				<ng-template matStepLabel>Complete</ng-template>
+				Are you sure to upload this document
+
 			</mat-step>
 		</mat-horizontal-stepper>
 	</div>
@@ -80,12 +190,19 @@
       <button type="button" class="cancel btn next" (click)="closeModal()" aria-label="Log out">
         Next
       </button>  -->
-		<button type="button" class="btn btn-primary cancelbtn mr-auto">Pervious</button>
+		<button (click)="goBack(stepper)" type="button" class="mr-auto cancel btn next cancelbtn "
+			*ngIf="currentState != 0">Pervious</button>
 		<button type="button" class="cancel btn next cancelbtn" (click)="closeModal()" aria-label="Log out">
 			Cancel
 		</button>
 		&nbsp;&nbsp;
-		<button type="button" class="cancel btn next" (click)="closeModal()">Next</button>
+		<button *ngIf="currentState >= 1" type="button" class="cancel btn next primary" (click)="saveAsDraft()" aria-label="Log out">
+			Save as Draft
+		</button>
+		<span *ngIf="currentState >= 1">&nbsp;&nbsp;</span>
+		<button (click)="goForward(stepper)" type="button" class="cancel btn next"
+			*ngIf="currentState != 4">Next</button>
+		<button type="button" class="cancel btn next" (click)="closeModal()" *ngIf="currentState == 4">Confirm</button>
 
 		<!-- <button type="button" class="confirm btn btn-primary" (click)="extendSessionPressed()" aria-label="Extend session" ngbAutofocus>
         <i class="fas fa-redo-alt"></i> {{ "idle-modal.extend-session" | translate }}

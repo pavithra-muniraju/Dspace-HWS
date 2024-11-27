@@ -66,6 +66,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   signpostingLinks: SignpostingLink[] = [];
 
+  isItemFav = false;
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -131,5 +132,25 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     this.signpostingLinks.forEach((link: SignpostingLink) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
+  }
+
+  favClicked() {
+    let uuid = '';
+    this.itemRD$.subscribe(res => {
+      console.log(res.payload.uuid);
+      uuid = res.payload.uuid;
+    })
+    // if(this.isItemFav) {
+      this.isItemFav = !this.isItemFav
+    // }
+    let flag = 0;
+    if(this.isItemFav) {
+      flag = 1
+    } else {
+      flag = 0;
+    }
+  this.items.addOrRemoveItemToFav(uuid,flag).subscribe(res => {
+    console.log(res)
+  })
   }
 }

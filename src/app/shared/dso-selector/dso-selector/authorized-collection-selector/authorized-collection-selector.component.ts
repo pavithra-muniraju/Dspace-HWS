@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { HWSService } from 'src/app/HWS-Shared/hws.service';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
@@ -38,8 +39,9 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
     protected notifcationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
+    protected hwsService: HWSService
   ) {
-    super(searchService, notifcationsService, translate, dsoNameService);
+    super(searchService, notifcationsService, translate, dsoNameService, hwsService);
   }
 
   /**

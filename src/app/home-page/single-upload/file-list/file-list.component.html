@@ -1,0 +1,79 @@
+<!-- <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element[column.id]}}</mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+   -->
+<form [formGroup]="VOForm" autocomplete="off">
+    <ng-container formArrayName="VORows">
+        <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>File Name</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    {{VOForm.get('VORows').value[i].name}}
+                </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="size">
+                <th mat-header-cell *matHeaderCellDef>Size</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    {{VOForm.get('VORows').value[i].size}}kb
+                </td>
+            </ng-container>
+
+            <!-- description Column -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    <span
+                        *ngIf="VOForm.get('VORows').value[i].isEditable">{{VOForm.get('VORows').value[i].description}}
+                    </span>
+                    <mat-form-field style="width: 70px" *ngIf="!VOForm.get('VORows').value[i].isEditable">
+                        <input matInput type="text" formControlName="description" />
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <!-- format Column -->
+            <ng-container matColumnDef="format">
+                <th mat-header-cell *matHeaderCellDef>Format</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                    {{VOForm.get('VORows').value[i].format}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+                    <i title="Save Changes" class="fa fa-check icon save" aria-hidden="true" (click)="SaveVO(VOForm,i)"
+                        *ngIf="!VOForm.get('VORows').value[i].isEditable"></i> &nbsp; 
+
+                    <i title="Cancel Changes" class="fa fa-times icon cancel" aria-hidden="true" (click)="cancelRow(VOForm.get('VORows').value[i],i)"
+                        *ngIf="!VOForm.get('VORows').value[i].isEditable"></i>
+
+
+                    <i title="Edit Row" class="fa fa-pencil icon" aria-hidden="true" (click)="EditSVO(VOForm,i)"
+                        *ngIf="VOForm.get('VORows').value[i].isEditable"></i> &nbsp; 
+
+                    <i title="Delete Row" class="fa fa-trash icon cancel" aria-hidden="true" (click)="deleteRow(i)"
+                        *ngIf="VOForm.get('VORows').value[i].isEditable"></i>
+
+
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </ng-container>
+</form>

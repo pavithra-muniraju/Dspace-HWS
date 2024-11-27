@@ -1,5 +1,9 @@
 ::ng-deep .mat-step-header .mat-step-icon-state-done {
-	background-color: green;
+	background-color: red;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-state-edit {
+	background-color: red;
 }
 
 ::ng-deep .modal-mysize .modal-dialog {
@@ -18,12 +22,14 @@
 ::ng-deep .modal-mysize .modal-content {
 	border-radius: 10px;
 	padding: 2rem;
+	max-height: calc(100vh - 60px) !important;
+	min-height: calc(100vh - 60px) !important;
 }
 
 ::ng-deep .modal-mysize .modal-header {
 	color: #5b5b5b;
 	font-size: 20px;
-	padding-right: 1rem;
+	padding: 0rem 1rem;
 	font-weight: 500;
 }
 
@@ -40,4 +46,84 @@
 	background-color: white;
 	color: #5b5b5b;
 	border-color: #5b5b5b;
+}
+
+.mtopka{
+	margin-top: 1rem;
+}
+
+form{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem;
+	overflow: auto;
+	max-height: calc(-326px + 100vh) !important;
+	height: calc(-326px + 100vh) !important;
+}
+
+
+.desClass{
+	border-radius: 30px;
+	width: 450px;
+}
+
+.form-control:focus {
+	outline: none !important;
+}
+.row{
+	margin: 1rem;
+}
+.mat-horizontal-content-container {
+    overflow: hidden;
+    padding: 0px !important;
+}
+
+input {
+	// background-color: #e7ebf5;
+}
+
+.uploadDiv {
+    height: calc(100vh - 326px);
+    background-color: #e7ebf5;
+    border-radius: 10px;
+   width: 100%;
+}
+
+.visually-hidden {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+  }
+
+  .mat-stepper-vertical, .mat-stepper-horizontal {
+    display: block;
+    font-family: inherit;
+}
+
+::ng-deep .form-control:focus, .page-link:focus {
+    box-shadow: none;
+    outline: none !important
+}
+label{
+	font-weight: 500 !important;
+}
+.icon {
+	font-size: 30px;
+	color: white;
+}
+::ng-deep .mat-horizontal-content-container {
+    overflow: hidden;
+     padding: 0px !important;
+}
+
+::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header, .mat-vertical-stepper-header {
+    padding: 0px;
+}
+.primary {
+	color: white;
+	background-color: #0f88cd;
+	border-color:#0f88cd ;
 }

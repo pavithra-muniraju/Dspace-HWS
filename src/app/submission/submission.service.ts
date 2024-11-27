@@ -365,7 +365,7 @@ export class SubmissionService {
    */
   getSubmissionObjectLinkName(): string {
     const url = this.router.routerState.snapshot.url;
-    if (url.startsWith('/workspaceitems') || url.startsWith('/submit')) {
+    if (url.startsWith('/workspaceitems') || url.startsWith('/submit') || url.startsWith('/home') ) {
       return this.workspaceLinkPath;
     } else if (url.startsWith('/workflowitems')) {
       return this.workflowLinkPath;

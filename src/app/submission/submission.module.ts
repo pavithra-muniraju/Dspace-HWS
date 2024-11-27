@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-
 import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
 import { SectionsDirective } from './sections/sections.directive';
 import { SectionsService } from './sections/sections.service';
@@ -135,6 +134,7 @@ const DECLARATIONS = [
     SubmissionAccessesConfigDataService,
     SectionAccessesService,
     SectionFormOperationsService,
+    
   ]
 })
 

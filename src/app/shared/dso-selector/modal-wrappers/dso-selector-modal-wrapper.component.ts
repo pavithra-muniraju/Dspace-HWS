@@ -92,6 +92,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
    * @param dso The selected DSpaceObject
    */
   selectObject(dso: DSpaceObject) {
+    console.log(dso)
     this.close();
     this.navigate(dso);
   }
