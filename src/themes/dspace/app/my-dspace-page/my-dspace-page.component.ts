@@ -22,10 +22,13 @@ import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-
   ]
 })
 export class MyDSpacePageComponent extends BaseComponent {
-  sidebarItems: string[] = ['Favourites', 'Recents', 'My Documents'];
+  // sidebarItems: string[] = ['Favourites', 'Recents', 'My Documents','Rejected Documents'];
   currentContent: string = 'My Documents';
+  configuration:string = 'workspace';
+  sidebarItems:any = [{key:'Favourites',value:'favourites'}, {key:'Recents',value:'recents'},{key:'My Documents',value:'workspace'},{key:'Rejected Documents',value:'rejected'}, {key:'Workflow Documents', value:'pending'}]
 
-  changeContent(contentTitle: string): void {
+  changeContent(contentTitle: string, contentValue:string) {
     this.currentContent = contentTitle;
+    this.configuration = contentValue;
   }
 }

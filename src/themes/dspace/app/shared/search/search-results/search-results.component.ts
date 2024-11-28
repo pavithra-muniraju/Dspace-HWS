@@ -23,7 +23,35 @@ import { SortDirection, SortOptions } from '../../../../../../app/core/cache/mod
 })
 
 export class SearchResultsComponent extends BaseComponent {
-  
+  data: any;
+
+  ngOnChanges() {
+    this.processData(this.searchResults);
+  }
+
+  processData(response: any) {
+    const objects = response.payload?.page || [];
+    this.data = objects.filter((obj: any) => !obj._embedded?.indexableObject?.errors).map((obj: any) => {
+      const metadata = obj.indexableObject?.metadata;
+
+      const provenanceValue = metadata['dc.description.provenance']?.[0]?.value || 'N/A';
+
+      const regex = /on (\d{4}-\d{2}-\d{2})/;
+      const match = provenanceValue.match(regex);
+
+      if (match) {
+        var submittedDate = match[1];
+      }
+      
+
+      return {
+        title: metadata['dc.title']?.[0]?.value || 'N/A',
+        description: metadata['dc.lessonlearned.description']?.[0]?.value || 'N/A',
+        submittedDate: submittedDate
+      }
+    });
+  }
+
   reloadOrder(event: Event) {
     const values = (event.target as HTMLInputElement).value.split(',');
     this.paginationService.updateRoute(this.searchConfigurationService.paginationID, {
@@ -32,4 +60,5 @@ export class SearchResultsComponent extends BaseComponent {
       page: 1
     });
   }
+
 }

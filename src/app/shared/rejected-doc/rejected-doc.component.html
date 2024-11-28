@@ -1,0 +1,24 @@
+<label class="reject-label">Rejected Documents</label>
+<div class="table-responsive">
+<table id="sharedTable" class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col" *ngFor="let col of tableCol">{{col}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of data">
+            <td class="item-col">{{ item.title}}</td>
+            <td class="item-col">{{ item.submissionDate}}</td>
+            <td class="item-col">{{ item.knowledgeArea}}</td>
+            <td class="item-col">{{ item.department}}</td>
+            <td class="item-col">{{ item.rejectedBy}}</td>
+            <td class="item-col">{{ item.reason}}</td>
+            <td>
+                <button (click)="handleButtonClick(item.id)" class="btn btn-primary edit-btn">Edit</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+  

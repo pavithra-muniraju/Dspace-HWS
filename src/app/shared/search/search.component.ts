@@ -278,6 +278,9 @@ export class SearchComponent implements OnDestroy, OnInit {
    */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  rejectedDocCol=["Title","Submission Date","Knowledge Area","Department","Rejected By","Reason","Take Action"]
+  workflowDocCol=["Submission Date", "Knowledge Area", "Department Name", "Title", "Author", "Approval status", "Pending With"]
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
@@ -297,6 +300,10 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    
+  }
+
+  ngOnChanges(): void {
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
@@ -346,7 +353,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {
-          configuration: searchOptions.configuration || configuration,
+          configuration: this.configuration,
           sort: sortOption || searchOptions.sort
         });
       if (combinedOptions.query === '') {
@@ -469,6 +476,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       }
     }
 
+    if(searchOptions.configuration == 'workspace') {
     this.service.search(
       searchOptionsWithHidden,
       undefined,
@@ -487,6 +495,35 @@ export class SearchComponent implements OnDestroy, OnInit {
         }
         this.resultsRD$.next(results);
       });
+    }
+
+    else {
+      this.service.searchRaw(
+        searchOptionsWithHidden,
+        ...followLinks
+      ).subscribe(
+        (response: any) => {
+      
+          // You can still track statistics or handle results as needed
+          if (this.trackStatistics && response) {
+            this.service.trackSearch(searchOptionsWithHidden, response);
+          }
+      
+          // Emit the raw response if results are found
+          if (response?.page?.length > 0) {
+            this.resultFound.emit(response);
+          }
+      
+          // Optionally set the response in the `resultsRD$` if required
+          const updatedResponse = { ...response };
+          this.resultsRD$.next(updatedResponse);
+        },
+        (error) => {
+          console.error('Error during raw API call:', error);
+        }
+      );
+    }
+
   }
 
   /**

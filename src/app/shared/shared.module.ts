@@ -286,6 +286,8 @@ import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.comp
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
 // import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HwsFooterComponent } from './hws-footer/hws-footer.component';
+import { RejectedDocComponent } from './rejected-doc/rejected-doc.component';
+import { WorkflowDocComponent } from './workflow-doc/workflow-doc.component';
 
 const MODULES = [
   CommonModule,
@@ -331,6 +333,8 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  RejectedDocComponent,
+  WorkflowDocComponent,
   AlertComponent,
   AuthNavMenuComponent,
   ThemedAuthNavMenuComponent,
@@ -510,6 +514,8 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
+    RejectedDocComponent,
+    WorkflowDocComponent,
   ],
   providers: [
     ...PROVIDERS

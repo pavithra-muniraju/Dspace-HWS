@@ -1,35 +1,48 @@
-<ds-sidebar-dropdown *ngIf="sortOptionsList"
-                         [id]="'search-sidebar-sort'"
-                         [label]="'search.sidebar.settings.sort-by'"
-                         (changed)="reloadOrder($event)"
-                         >
-        <option *ngFor="let sortOptionsEntry of sortOptionsList"
-                [value]="sortOptionsEntry.field + ',' + sortOptionsEntry.direction.toString()"
-                [selected]="sortOptionsEntry.field === currentSortOption?.field && sortOptionsEntry.direction === (currentSortOption?.direction)? 'selected': null">
-            {{'sorting.' + sortOptionsEntry.field + '.' + sortOptionsEntry.direction | translate}}
-        </option>
-    </ds-sidebar-dropdown>
+<ds-sidebar-dropdown *ngIf="sortOptionsList" [id]="'search-sidebar-sort'" [label]="'search.sidebar.settings.sort-by'"
+    (changed)="reloadOrder($event)">
+    <option *ngFor="let sortOptionsEntry of sortOptionsList"
+        [value]="sortOptionsEntry.field + ',' + sortOptionsEntry.direction.toString()"
+        [selected]="sortOptionsEntry.field === currentSortOption?.field && sortOptionsEntry.direction === (currentSortOption?.direction)? 'selected': null">
+        {{'sorting.' + sortOptionsEntry.field + '.' + sortOptionsEntry.direction | translate}}
+    </option>
+</ds-sidebar-dropdown>
 
 <main class="container-fluid my-briefcase">
     <section class="row briefcase-section">
 
         <!-- Main Content Section -->
         <!-- <section class="col-md-9"> -->
-            <div class="card" *ngFor="let result of searchResults?.payload?.page">
+        <!-- <div class="card" *ngFor="let result of searchResults?.payload?.page">
                 
-                <div class="title" *ngFor="let description of result.indexableObject?.sections?.traditionalpageone?.['dc.title']">
+                <div class="title" *ngFor="let description of result.indexableObject?.sections?.qaworkflowmetadataStep?.['dc.title']">
                     {{ description?.value }}
                 </div>
 
-                <div class="other-detail" *ngFor="let description of result.indexableObject?.sections?.traditionalpagetwo?.['dc.description']">
+                <div class="other-detail" *ngFor="let description of result.indexableObject?.sections?.qaworkflowmetadataStep?.['dc.lessonlearned.description']">
                     {{ description?.value ? description.value : '--' }}
                 </div>
 
-                <div class="other-detail" *ngFor="let description of result.indexableObject?.sections?.traditionalpageone?.['dc.date.issued']">
+                <div class="other-detail" *ngFor="let description of result.indexableObject?.sections?.qaworkflowmetadataStep?.['dc.date.issued']">
                     {{ description?.value }}
                 </div>
 
+            </div> -->
+
+        <div class="card" *ngFor="let result of data">
+
+            <div class="title">
+                {{ result?.title }}
             </div>
+
+            <div class="other-detail">
+                {{ result?.description }}
+            </div>
+
+            <div class="other-detail">
+                {{ result?.submittedDate }}
+            </div>
+
+        </div>
         <!-- </section> -->
     </section>
 </main>

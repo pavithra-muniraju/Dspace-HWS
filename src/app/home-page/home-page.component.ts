@@ -63,8 +63,12 @@ export class HomePageComponent implements OnInit {
       });
   }
 
-  
-
+  onSearch(data: any) {
+    const queryParams = Object.assign({}, data);
+    this.router.navigate(['search'], {
+      queryParams: queryParams
+    });
+  }
 
   onSubmit(data) {
     

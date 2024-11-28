@@ -32,6 +32,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { RestRequest } from '../../data/rest-request.model';
 import { BaseDataService } from '../../data/base/base-data.service';
 import { Angulartics2 } from 'angulartics2';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * A limited data service implementation for the 'discover' endpoint
@@ -96,6 +97,7 @@ export class SearchService implements OnDestroy {
     private paginationService: PaginationService,
     private searchConfigurationService: SearchConfigurationService,
     private angulartics2: Angulartics2,
+    private http: HttpClient
   ) {
     this.searchDataService = new SearchDataService();
   }
@@ -152,7 +154,6 @@ export class SearchService implements OnDestroy {
       })
     ).subscribe((url: string) => {
       const request = new this.request(this.requestService.generateRequestId(), url);
-
       const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
         return this.parser;
       };
@@ -169,7 +170,7 @@ export class SearchService implements OnDestroy {
     const sqr$ = href$.pipe(
       switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href))
     );
-
+    
     return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
@@ -367,6 +368,36 @@ export class SearchService implements OnDestroy {
    */
   getSearchLink(): string {
     return '/search';
+  }
+
+   /**
+   * Method to retrieve a raw API response without any additional processing.
+   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
+   * @param {FollowLinkConfig[]} linksToFollow Links we want to embed in the query string
+   * @returns {Observable<any>} Emits the raw API response
+   */
+   searchRaw<T extends DSpaceObject>(
+    searchOptions?: PaginatedSearchOptions,
+    ...linksToFollow: FollowLinkConfig<T>[]
+  ): Observable<any> {
+    const href$ = this.getEndpoint(searchOptions);
+
+    // Retrieve the constructed endpoint URL with parameters
+    return href$.pipe(
+      take(1),
+      map((href: string) => {
+        const args = this.searchDataService.addEmbedParams(href, [], ...linksToFollow);
+        if (isNotEmpty(args)) {
+          return new URLCombiner(href, `?${args.join('&')}`).toString();
+        } else {
+          return href;
+        }
+      }),
+      // Use HttpClient to make a direct API call and get raw response
+      switchMap((url: string) => {
+        return this.http.get(url);
+      })
+    );
   }
 
   /**
