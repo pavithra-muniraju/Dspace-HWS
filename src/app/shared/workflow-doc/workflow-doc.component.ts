@@ -45,7 +45,7 @@ export class WorkflowDocComponent {
 
       if (lastStepIndex !== -1) {
         var relevantPart = provenanceValue.slice(lastStepIndex);
-        const regex = /Step:\s*(\w+?)\s*step/;
+        const regex = /Step:\s*([a-zA-Z]+)Step/;
         const match = relevantPart.match(regex);
 
         if (match) {

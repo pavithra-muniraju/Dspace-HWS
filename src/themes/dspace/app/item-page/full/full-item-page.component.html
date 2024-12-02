@@ -1,0 +1,47 @@
+<main class="container-fluid my-briefcase">
+    <section class="row briefcase-section">
+
+        <div class="col-md-3">
+            <div class="hr-line"></div>
+
+        </div>
+
+
+        <div class="col-md-8" *ngVar="(itemRD$ | async) as itemRD">
+
+            <div *ngIf="itemRD?.payload as item" class="item-header">
+                {{item?.metadata?.['dc.title'][0]?.value}}
+                  <i class="fa fa-star" aria-hidden="true" style="font-size: 14px;color: gold;" *ngIf="isItemFav" (click)="favouriteClick(item?.uuid)" ></i>
+                  <i class="far fa-star" aria-hidden="true" style="font-size: 14px;" *ngIf="!isItemFav" (click)="favouriteClick(item?.uuid)" ></i>
+
+                <div>
+                    <ds-item-page-collections [item]="item"></ds-item-page-collections>
+                </div>
+
+                <div>
+                    <button class="btn edit-btn"  [routerLink]="['/items/' + item?.uuid + '/edit/metadata']">Edit</button>
+                    <button class="btn delete-btn" (click)="deleteMetadata(item?.uuid)">Delete</button>
+                </div>
+            </div>
+
+
+            <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
+                <div *ngIf="itemRD?.payload as item" class="table-form">
+                    <table>
+                        <tbody class="t-body">
+                          <tr *ngFor="let entry of item.metadata | keyvalue" class="table-row">
+                            <td class="key">{{ entry.key }}</td>
+                            <td class="value">
+                              <div *ngFor="let item of entry.value">
+                                {{ item.value }}
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>

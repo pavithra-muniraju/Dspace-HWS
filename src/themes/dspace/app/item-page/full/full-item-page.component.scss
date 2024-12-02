@@ -1,0 +1,46 @@
+.key {
+    padding: 10px;
+    padding-right: 30px;
+    background: #d3d3d36b;
+    font-weight: 500;
+}
+
+.value {
+    padding-left: 20px;
+}
+
+.table-row {
+    border-bottom: 1px solid black;
+}
+
+.t-body {
+    font-size: 14px;
+}
+
+.hr-line {
+    border-right: 1px solid lightgray;
+    height: calc(100vh - 70px);
+}
+
+.item-header {
+    font-size: 16px;
+    font-weight: 800;
+    padding: 15px 10px;
+}
+
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 4px 26px;
+    font-size: 14px;
+}
+
+.edit-btn {
+    border: 1px solid black;
+}
+
+.delete-btn {
+    margin-left: 10px;
+    background: black;
+    color: white;
+}

@@ -23,6 +23,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-page-collections',
+  styleUrls: ['./collections.component.scss'],
   templateUrl: './collections.component.html'
 })
 export class CollectionsComponent implements OnInit {

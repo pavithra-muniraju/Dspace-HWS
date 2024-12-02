@@ -62,10 +62,16 @@ import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.m
 import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
 import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
+import {
+  FullFileSectionComponent
+} from './app/item-page/full/field-components/file-section/full-file-section.component';
+import { FullItemPageComponent } from './app/item-page/full/full-item-page.component';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
-  SearchResultsComponent
+  SearchResultsComponent,
+  FullFileSectionComponent,
+  FullItemPageComponent
 ];
 
 @NgModule({

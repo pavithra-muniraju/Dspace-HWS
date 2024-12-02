@@ -18,6 +18,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { NotificationsService } from '../../../app/shared/notifications/notifications.service';
 
 /**
  * This component renders a full item page.
@@ -53,6 +54,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
+    protected notificationsService: NotificationsService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, platformId);

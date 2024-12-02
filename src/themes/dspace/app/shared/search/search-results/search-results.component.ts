@@ -31,8 +31,9 @@ export class SearchResultsComponent extends BaseComponent {
 
   processData(response: any) {
     const objects = response.payload?.page || [];
-    this.data = objects.filter((obj: any) => !obj._embedded?.indexableObject?.errors).map((obj: any) => {
+    this.data = objects.map((obj: any) => {
       const metadata = obj.indexableObject?.metadata;
+      const uuid = obj.indexableObject?.uuid
 
       const provenanceValue = metadata['dc.description.provenance']?.[0]?.value || 'N/A';
 
@@ -47,7 +48,8 @@ export class SearchResultsComponent extends BaseComponent {
       return {
         title: metadata['dc.title']?.[0]?.value || 'N/A',
         description: metadata['dc.lessonlearned.description']?.[0]?.value || 'N/A',
-        submittedDate: submittedDate
+        submittedDate: submittedDate,
+        uuid: uuid
       }
     });
   }

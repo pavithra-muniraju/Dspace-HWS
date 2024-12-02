@@ -30,16 +30,22 @@
 
         <div class="card" *ngFor="let result of data">
 
-            <div class="title">
-                {{ result?.title }}
+            <div>
+                <div class="title">
+                    {{ result?.title }}
+                </div>
+
+                <div class="other-detail">
+                    {{ result?.description }}
+                </div>
+
+                <div class="other-detail">
+                    {{ result?.submittedDate }}
+                </div>
             </div>
 
-            <div class="other-detail">
-                {{ result?.description }}
-            </div>
-
-            <div class="other-detail">
-                {{ result?.submittedDate }}
+            <div class="read-container">
+                <button class="read-btn" [routerLink]="['/items/' + result?.uuid + '/full']">Read Now</button>
             </div>
 
         </div>
