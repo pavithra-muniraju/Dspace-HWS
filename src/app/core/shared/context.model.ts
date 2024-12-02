@@ -15,6 +15,7 @@ export enum Context {
   Workflow = 'workflow',
   Workspace = 'workspace',
   SupervisedItems = 'supervisedWorkspace',
+  Favourite = 'favourite',
 
   /** Administrative menu context */
   AdminMenu = 'adminMenu',

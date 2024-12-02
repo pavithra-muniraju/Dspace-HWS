@@ -25,6 +25,11 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { WorkspaceitemsEditPageModule } from '../workspaceitems-edit-page/workspaceitems-edit-page.module';
 import { SubmissionModule } from '../submission/submission.module';
 import { MatTableModule } from '@angular/material/table';
+import { SingleUploadComponent } from './single-upload/single-upload.component';
+import { FileUploadComponent } from './single-upload/file-upload/file-upload.component';
+import { FileListComponent } from './single-upload/file-list/file-list.component';
+import { DragDropDirective } from './single-upload/drag-drop.directive';
+import { UploadItemComponent } from './upload-item/upload-item.component';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -33,7 +38,12 @@ const DECLARATIONS = [
   ThemedTopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
-  RecentItemListComponent
+  RecentItemListComponent,
+  SingleUploadComponent,
+  FileUploadComponent,
+  DragDropDirective,
+  FileListComponent,
+  UploadItemComponent
 ];
 
 @NgModule({

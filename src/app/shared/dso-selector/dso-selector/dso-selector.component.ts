@@ -211,6 +211,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   }
 
   updateList(rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) {
+    // this.listEntries$ = new BehaviorSubject(null);
     this.loading = false;
     const currentEntries = this.listEntries$.getValue();
     if (rd.hasSucceeded) {
@@ -266,6 +267,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   onScrollDown() {
     if (this.hasNextPage && !this.loading) {
       this.currentPage$.next(this.currentPage$.value + 1);
+      this.getKnowdledgeArea();
     }
   }
 
@@ -342,7 +344,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
           docTitle : ele.indexableObject._name,
           uuid:  ele.indexableObject.uuid
         }
-        this.knowledgeAreaList.push(obj);
+        let filterdata = this.knowledgeAreaList.filter(item => item.uuid == ele.indexableObject.uuid);
+        if(filterdata.length == 0) {
+          this.knowledgeAreaList.push(obj);
+        }
+       
       })
       
     });

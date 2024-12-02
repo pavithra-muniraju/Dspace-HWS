@@ -288,6 +288,7 @@ import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-men
 import { HwsFooterComponent } from './hws-footer/hws-footer.component';
 import { RejectedDocComponent } from './rejected-doc/rejected-doc.component';
 import { WorkflowDocComponent } from './workflow-doc/workflow-doc.component';
+import { MyTasksComponent } from './my-tasks/my-tasks.component';
 
 const MODULES = [
   CommonModule,
@@ -333,6 +334,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  MyTasksComponent,
   RejectedDocComponent,
   WorkflowDocComponent,
   AlertComponent,
@@ -516,6 +518,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     RejectedDocComponent,
     WorkflowDocComponent,
+    MyTasksComponent,
   ],
   providers: [
     ...PROVIDERS

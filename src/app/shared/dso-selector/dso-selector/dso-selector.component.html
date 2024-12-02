@@ -21,23 +21,22 @@
               *ngIf="(listEntries$ | async).length == 0">
         {{'dso-selector.no-results' | translate: { type: typesString } }}
       </button>
-      <!-- <div style="width: 550px;">
-        <select class="form-control" style="border-radius: 30px;" [(ngModel)]="selectedlistEntry" name="knowledgeArea" id="listEntry" required (change)="onChange()">
-          <option  *ngFor="let listEntry of knowledgeAreaList" [value]="listEntry.uuid">
-             {{ listEntry.docTitle }}
-
+      <div>
+        <select class="form-control" style="border-radius: 30px;" [(ngModel)]="selectedlistEntry" name="knowledgeArea" id="listEntry" required (change)="onChange();onClick($event);" (hover)="onScrollDown()">
+          <option  *ngFor="let listEntry of (listEntries$ | async)" [value]="listEntry.indexableObject.uuid"   #listEntryElement>
+             {{ listEntry.indexableObject._name }}
           </option>
         </select> 
-      </div> -->
-      <button *ngFor="let listEntry of (listEntries$ | async)"
+      </div>
+      <!-- <button *ngFor="let listEntry of (listEntries$ | async)"
               class="list-group-item list-group-item-action border-0 list-entry"
               [ngClass]="{'bg-primary': listEntry['id'] === currentDSOId}"
               title="{{ getName(listEntry) }}"
               dsHoverClass="ds-hover"
               (click)="onClick(listEntry)" #listEntryElement>
         <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
-                                             [linkType]=linkTypes.None [context]="getContext(listEntry['id'])"></ds-listable-object-component-loader>
-      </button>
+                                             [linkType]=linkTypes.None [context]="getContext(listEntry['id'])"></ds-listable-object-component-loader> -->
+      <!-- </button> -->
     </ng-container>
     <button *ngIf="loading"
             class="list-group-item list-group-item-action border-0 list-entry">

@@ -46,6 +46,7 @@ import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SubmissionError } from './objects/submission-error.model';
+import { ids } from 'webpack';
 
 function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return createSelector(
@@ -164,6 +165,7 @@ export class SubmissionService {
    *    observable of SubmissionObject
    */
   depositSubmission(selfUrl: string): Observable<SubmissionObject[]> {
+    console.log(selfUrl);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -622,4 +624,14 @@ export class SubmissionService {
       this.autoSaveSub = null;
     }
   }
+
+  saveForLater(selfUrl: string,id:number): Observable<SubmissionObject[]> {
+    console.log(selfUrl);
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    return this.restService.postToEndpoint('workspaceitems', selfUrl, id+'?embed=item', options) as Observable<SubmissionObject[]>;
+  }
 }
+  

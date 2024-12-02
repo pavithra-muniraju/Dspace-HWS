@@ -75,8 +75,8 @@ export class SubmissionFormFooterComponent implements OnChanges {
         map((isValid: boolean) => isValid === false)
       );
 
-      this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
-      this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
+      // this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
+      // this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
       this.showDepositAndDiscard = observableOf(this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem);
       this.hasUnsavedModification = this.submissionService.hasUnsavedModification();
     }
@@ -86,14 +86,16 @@ export class SubmissionFormFooterComponent implements OnChanges {
    * Dispatch a submission save action
    */
   save(event) {
-    this.submissionService.dispatchSave(this.submissionId, true);
+     this.submissionService.dispatchSave(this.submissionId, true);
   }
 
   /**
    * Dispatch a submission save for later action
    */
   saveLater(event) {
-    this.submissionService.dispatchSaveForLater(this.submissionId);
+    console.log(event);
+    let data = this.submissionService.dispatchSaveForLater(this.submissionId);
+    console.log(data)
   }
 
   /**

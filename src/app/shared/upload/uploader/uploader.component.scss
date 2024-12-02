@@ -1,5 +1,6 @@
 .ds-base-drop-zone {
-  border: 2px dashed var(--bs-gray-600);
+  border-radius: 10px;
+  background-color: #dadee8;
 }
 
 /* Default class applied to drop zones on over */
@@ -35,4 +36,15 @@
 
 .ds-document-drop-zone-inner-content p {
   font-size: calc(var(--bs-font-size-lg) * 2.5);
+}
+
+.customUpload {
+  height: 254px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vh);
+  display: flex
+
 }

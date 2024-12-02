@@ -13,10 +13,27 @@
 			<mat-step [stepControl]="knowledgeAreaFormGroup">
 				<form [formGroup]="knowledgeAreaFormGroup">
 					<ng-template matStepLabel>Select</ng-template>
-					<label class="font-weight-bold mtopka" for="knowledgeArea">Knowledge Area</label> &nbsp;&nbsp;
+					<div style="display: block;">
+						<div class="row">
+							<div class="col-3"><label class="font-weight-bold mtopka" for="knowledgeArea">Knowledge
+									Area</label></div>
+							<div class="col-9" desClass>
+								<ds-create-collection-parent-selector></ds-create-collection-parent-selector>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-3"><label class="font-weight-bold mtopka" for="knowledgeArea">Department</label>
+							</div>
+							<div class="col-9 desClass">
+								<ds-themed-create-item-parent-selector [(ngModel)]="selectedknowledgeArea" required>
+								</ds-themed-create-item-parent-selector>
+							</div>
+						</div>
+					</div>
+					
 					<!-- <ds-submission-edit></ds-submission-edit> -->
-					<ds-themed-create-item-parent-selector [(ngModel)]="selectedknowledgeArea" required>
-					</ds-themed-create-item-parent-selector>
+
+
 					<!-- <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
                                        [entityType]="entityType"
                                        [types]="selectorTypes"
@@ -40,10 +57,34 @@
 				</form>
 			</mat-step>
 			<mat-step [stepControl]="secondFormGroup">
-				<form [formGroup]="secondFormGroup"
-					style="display: grid;overflow: auto;">
+				<form [formGroup]="secondFormGroup" style="display: grid;overflow: auto;">
 					<ng-template matStepLabel>Describe</ng-template>
-					<div class="row">
+
+
+					<ds-submission-form [collectionId]="collectionId" [sections]="sections" [selfUrl]="selfUrl"
+						[submissionDefinition]="submissionDefinition" [submissionErrors]="submissionErrors" style="width: 850px;"
+						[item]="item" [collectionModifiable]="collectionModifiable" [submissionId]="submissionId">
+					</ds-submission-form>
+					<!-- <div *ngFor="let fields of qaMetadatafields" class="row">
+						<div class="col-3">
+							<label class="font-weight-bold " for="knowledgeArea">{{fields.fields[0].label}} </label>
+							<span *ngIf="fields.fields[0].mandatory" style="color: red;">*</span>
+						</div>
+						<div class="col-9">
+							<span *ngIf="fields.fields[0].input.type == 'onebox'">
+								<input class="desClass form-control"  [formControlName]="fields.fields[0].label" [id]="fields.fields[0].label">
+							</span>
+
+							<span *ngIf="fields.fields[0].input.type == 'dropdown'">
+								<select class="desClass form-control" [formControlName]="fields.fields[0].label" [id]="fields.fields[0].label">
+									<option [value]=''>Select</option>
+									<option *ngFor="let value of fields.fields[0].selectableMetadata[0].dropdownValuesDisplayed" [value]="value">{{ value }}
+									</option>
+								</select> 
+							</span>
+						</div>
+					</div> -->
+					<!-- <div class="row">
 						<div class="col-3">
 							<label class="font-weight-bold " for="knowledgeArea">Title </label> &nbsp;&nbsp;
 						</div>
@@ -112,7 +153,7 @@
 							<input class="desClass form-control"
 								placeholder="Enter the Associated parts and their application">
 						</div>
-					</div>
+					</div> -->
 
 					<!-- <label class="font-weight-bold " for="knowledgeArea">MLH Category </label> &nbsp;&nbsp;
 					<input class="desClass form-control" placeholder="Enter the MLH Category">
@@ -132,8 +173,18 @@
 			<mat-step [stepControl]="thirdFormGroup">
 				<form [formGroup]="thirdFormGroup">
 					<ng-template matStepLabel>Upload</ng-template>
+					<ds-submission-form [collectionId]="collectionId" [sections]="sections" [selfUrl]="selfUrl"
+						[submissionDefinition]="submissionDefinition" [submissionErrors]="submissionErrors"
+						[item]="item" [collectionModifiable]="collectionModifiable" [submissionId]="submissionId">
+					</ds-submission-form>
+					<!-- <div *ngIf="(uploadEnabled$ | async)" class="w-100"> -->
+					<!-- <ds-submission-upload-files [submissionId]="submissionId"
+													[collectionId]="collectionId"
+													[uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>
+						<div class="clearfix"></div> -->
+					<!-- </div> -->
 					<!-- <mat-form-field> -->
-					<ds-file-upload class="file-upload uploadDiv" (filesChanged)="setFileList($event)">
+					<!-- <ds-file-upload class="file-upload uploadDiv" (filesChanged)="setFileList($event)">
 						<div style="display: block;text-align: center;">
 							<i class="fa fa-arrow-circle-up icon" aria-hidden="true"></i>
 
@@ -143,7 +194,7 @@
 							</div>
 						</div>
 
-					</ds-file-upload>
+					</ds-file-upload> -->
 					<!-- <div class="uploadDiv">
 							<div style="color: white;font-size: 24px;">
 								<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
@@ -161,12 +212,16 @@
 
 				</form>
 			</mat-step>
-			<mat-step [stepControl]="fourthFormGroup" >
+			<mat-step [stepControl]="fourthFormGroup">
 				<ng-template matStepLabel>Verify</ng-template>
 				<form [formGroup]="fourthFormGroup" style="display: block;" *ngIf="currentState == 3">
-					
+					<!-- <ds-submission-form [collectionId]="collectionId" [sections]="sectionObjForFileList.sections"
+						[selfUrl]="selfUrl" [submissionDefinition]="submissionDefinition"
+						[submissionErrors]="submissionErrors" [item]="item"
+						[collectionModifiable]="collectionModifiable" [submissionId]="submissionId">
+					</ds-submission-form> -->
 
-					<ds-file-list [fileList]="fileList1"></ds-file-list>
+					<ds-file-list [fileList]="fileList1" [submissionId]="submissionId"></ds-file-list>
 
 				</form>
 			</mat-step>
@@ -192,17 +247,19 @@
       </button>  -->
 		<button (click)="goBack(stepper)" type="button" class="mr-auto cancel btn next cancelbtn "
 			*ngIf="currentState != 0">Pervious</button>
-		<button type="button" class="cancel btn next cancelbtn" (click)="closeModal()" aria-label="Log out">
+		<button type="button" class="cancel btn next cancelbtn" (click)="cancel()" aria-label="Log out">
 			Cancel
 		</button>
 		&nbsp;&nbsp;
-		<button *ngIf="currentState >= 1" type="button" class="cancel btn next primary" (click)="saveAsDraft()" aria-label="Log out">
+		<button *ngIf="currentState >= 1" type="button" class="cancel btn next primary" (click)="saveAsDraft()"
+			aria-label="Log out">
 			Save as Draft
 		</button>
 		<span *ngIf="currentState >= 1">&nbsp;&nbsp;</span>
-		<button (click)="goForward(stepper)" type="button" class="cancel btn next"
-			*ngIf="currentState != 4">Next</button>
-		<button type="button" class="cancel btn next" (click)="closeModal()" *ngIf="currentState == 4">Confirm</button>
+		<button (click)="goForward(stepper)" type="button" class="cancel btn next" *ngIf="currentState != 4"
+			[disabled]="checkForms()">Next</button>
+		<button type="button" class="cancel btn next" (click)="done()" *ngIf="currentState == 4">Confirm</button>
+		<!-- <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer> -->
 
 		<!-- <button type="button" class="confirm btn btn-primary" (click)="extendSessionPressed()" aria-label="Extend session" ngbAutofocus>
         <i class="fas fa-redo-alt"></i> {{ "idle-modal.extend-session" | translate }}

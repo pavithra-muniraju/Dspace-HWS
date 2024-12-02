@@ -4,7 +4,7 @@
   <ngb-accordion #acc="ngbAccordion" *ngIf="(sectionRef.isEnabled() | async)"
     (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'info' : ''">
-      <ng-template ngbPanelTitle>
+      <!-- <ng-template ngbPanelTitle>
         <span [ngClass]="{ 'text-white' : sectionRef.isInfo()}" class="float-left section-title" tabindex="0">{{
           'submission.sections.'+sectionData.header | translate
           }}</span>
@@ -36,12 +36,12 @@
             <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
           </a>
         </div>
-      </ng-template>
+      </ng-template> -->
       <ng-template ngbPanelContent>
-        <div id="sectionGenericError_{{sectionData.id}}" *ngIf="sectionRef.hasGenericErrors()">
+        <!-- <div id="sectionGenericError_{{sectionData.id}}" *ngIf="sectionRef.hasGenericErrors()">
           <ds-alert *ngFor="let error of sectionRef.getErrors(); let i = index" [content]="error" [dismissible]="true"
             [type]="AlertTypeEnum.Error" (close)="sectionRef.removeError(i)"></ds-alert>
-        </div>
+        </div> -->
         <div id="sectionContent_{{sectionData.id}}" (click)="sectionRef.setFocus($event)">
           <ng-container *ngComponentOutlet="getSectionContent(); injector: objectInjector;"></ng-container>
         </div>

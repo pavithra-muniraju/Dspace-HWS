@@ -362,7 +362,7 @@ export class RequestService {
     const requestEntry$ = this.getByHref(href);
 
     requestEntry$.pipe(
-      map((re: RequestEntry) => re.request.uuid),
+      map((re: RequestEntry) => re?.request?.uuid),
       take(1),
     ).subscribe((uuid: string) => {
       this.store.dispatch(new RequestStaleAction(uuid));

@@ -22,6 +22,7 @@ import { SubmissionSectionVisibility } from './../../core/config/models/config-s
 import { SubmissionSectionModel } from './../../core/config/models/config-submission-section.model';
 import { VisibilityType } from '../sections/visibility-type';
 import isEqual from 'lodash/isEqual';
+import { HWSService } from 'src/app/HWS-Shared/hws.service';
 
 /**
  * This component represents the submission form.
@@ -133,10 +134,13 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private halService: HALEndpointService,
     private submissionService: SubmissionService,
-    private sectionsService: SectionsService) {
+    private sectionsService: SectionsService,
+    private hwsService: HWSService
+    ) {
     this.isActive = true;
   }
 
+  currentState = 0;
   /**
    * Initialize all instance variables and retrieve form configuration
    */
@@ -157,6 +161,9 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             return observableOf([]);
           }
         }));
+       this.submissionSections.subscribe(res => {
+         console.log(res);
+       })
       this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
 
       // check if is submission loading
@@ -190,12 +197,16 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       // start auto save
       this.submissionService.startAutoSave(this.submissionId);
     }
+    
+    this.hwsService.currentStateData.subscribe(res => {
+      this.currentState = parseInt(res);
+    });
+    
   }
-
   /**
    *  Returns the visibility object of the collection section
    */
-  private getCollectionVisibility(): SubmissionSectionVisibility {
+   private getCollectionVisibility(): SubmissionSectionVisibility {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
         (section) => isEqual(section.sectionType, SectionsType.Collection)
@@ -227,6 +238,10 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       isEqual(visibility.other, VisibilityType.READONLY)
     );
   }
+
+
+
+
 
   /**
    * Unsubscribe from all subscriptions, destroy instance variables
@@ -283,4 +298,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         sections.filter((section: SectionDataObject) => !isEqual(section.sectionType,SectionsType.Collection))),
     );
   }
+
+
+  
 }

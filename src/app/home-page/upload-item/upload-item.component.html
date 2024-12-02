@@ -1,0 +1,68 @@
+<!-- <div>
+    <div class="modal-header" id="idle-modal.header">Single Upload
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <mat-horizontal-stepper #stepper class="singleUpload" labelPosition="bottom">
+            <ng-template matStepperIcon="edit"><i class="fa fa-dot-circle-o"></i></ng-template>
+            <ng-template matStepperIcon="done"><i class="fa fa-check"></i></ng-template>
+            <mat-step [stepControl]="knowledgeAreaFormGroup">
+                <form [formGroup]="knowledgeAreaFormGroup">
+                    <ng-template matStepLabel>Select</ng-template>
+                    <label class="font-weight-bold mtopka" for="knowledgeArea">Knowledge Area</label> &nbsp;&nbsp;
+                    <ds-themed-create-item-parent-selector [(ngModel)]="selectedknowledgeArea" required>
+                    </ds-themed-create-item-parent-selector>
+
+
+
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup" style="display: grid;overflow: auto;">
+                    <ng-template matStepLabel>Describe</ng-template>
+                    <ds-submission-form [collectionId]="collectionId" [sections]="sections" [selfUrl]="selfUrl"
+                        [submissionDefinition]="submissionDefinition" [submissionErrors]="submissionErrors"
+                        [item]="item" [collectionModifiable]="collectionModifiable" [submissionId]="submissionId">
+                    </ds-submission-form>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup">
+                    <ng-template matStepLabel>Upload</ng-template>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="fourthFormGroup">
+                <ng-template matStepLabel>Verify</ng-template>
+                <form [formGroup]="fourthFormGroup" style="display: block;" *ngIf="currentState == 3">
+
+                </form>
+            </mat-step>
+            <mat-step [completed]="completed" [state]="state">
+                <ng-template matStepLabel>Complete</ng-template>
+                Are you sure to upload this document
+
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+    <div class="modal-footer">
+        <button (click)="goBack(stepper)" type="button" class="mr-auto cancel btn next cancelbtn "
+            *ngIf="currentState != 0">Pervious</button>
+        <button type="button" class="cancel btn next cancelbtn" (click)="closeModal()" aria-label="Log out">
+            Cancel
+        </button>
+        &nbsp;&nbsp;
+        <button *ngIf="currentState >= 1" type="button" class="cancel btn next primary" (click)="saveAsDraft()"
+            aria-label="Log out">
+            Save as Draft
+        </button>
+        <span *ngIf="currentState >= 1">&nbsp;&nbsp;</span>
+        <button (click)="goForward(stepper)" type="button" class="cancel btn next" *ngIf="currentState != 4"
+            [disabled]="checkForms()">Next</button>
+        <button type="button" class="cancel btn next" (click)="done()" *ngIf="currentState == 4">Confirm</button>
+
+        <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer>
+    </div>
+</div> -->

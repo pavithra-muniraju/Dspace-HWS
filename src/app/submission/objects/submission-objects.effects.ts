@@ -251,8 +251,9 @@ export class SubmissionObjectEffects {
   saveForLaterSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'))),
-    tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
-
+    tap(() => console.log('save for later'))), { dispatch: false }
+    );
+    // this.submissionService.redirectToMyDSpace()
   /**
    * Show a notification on success and redirect to MyDSpace page
    */

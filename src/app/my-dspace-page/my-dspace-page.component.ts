@@ -57,8 +57,8 @@ export class MyDSpacePageComponent implements OnInit {
    */
   viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
 
-  constructor(private service: SearchService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
+  constructor(protected service: SearchService,
+              @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: MyDSpaceConfigurationService) {
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
 

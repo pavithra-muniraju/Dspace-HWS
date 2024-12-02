@@ -117,6 +117,7 @@ export class SectionUploadService {
    *    The [[WorkspaceitemSectionUploadFileObject]] object
    */
   public updateFileData(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
+    console.log(data)
     this.store.dispatch(
       new EditFileDataAction(submissionId, sectionId, fileUUID, data)
     );

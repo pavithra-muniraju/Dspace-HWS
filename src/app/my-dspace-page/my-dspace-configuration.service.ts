@@ -109,6 +109,9 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
         if (isSubmitter) {
           availableConf.push(MyDSpaceConfigurationValueType.Workspace);
         }
+        if (isSubmitter) {
+          availableConf.push(MyDSpaceConfigurationValueType.Favourite);
+        }
         if (isController || isAdmin) {
           availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
           availableConf.push(MyDSpaceConfigurationValueType.Workflow);

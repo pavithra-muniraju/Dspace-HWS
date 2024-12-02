@@ -12,12 +12,14 @@ export class HWSService {
     private selectedKA = new BehaviorSubject<any>("");
 
     private selectedFileList = new BehaviorSubject<any>("");
+    private currentState = new BehaviorSubject<any>("");
 
 
     public shareRouteInfo = this.currentroute.asObservable();
     public hasErrorInfo = this.hasErrorData.asObservable();
     public selectedKAdata = this.selectedKA.asObservable();
     public selectedFileListdata = this.selectedFileList.asObservable();
+    public currentStateData = this.currentState.asObservable();
 
 
     private customMenuData$: EventEmitter<any>;
@@ -48,5 +50,9 @@ export class HWSService {
 
     updateselectedFileList(data){
         this.selectedFileList.next(data);
+    }
+
+    updatecurrentState(data){
+        this.currentState.next(data);
     }
 }

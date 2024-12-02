@@ -36,9 +36,16 @@
                     <span
                         *ngIf="VOForm.get('VORows').value[i].isEditable">{{VOForm.get('VORows').value[i].description}}
                     </span>
-                    <mat-form-field style="width: 70px" *ngIf="!VOForm.get('VORows').value[i].isEditable">
+                    <span *ngIf="!VOForm.get('VORows').value[i].isEditable">
+                        <select name="description" id="description" formControlName="description" class="form-control" aria-label="Select DEscription">
+                            <option *ngFor="let desc of descriptionDropdown" [value]="desc">
+                                {{ desc}}
+                            </option>
+                          </select>
+                    </span>
+                    <!-- <mat-form-field style="width: 70px" *ngIf="!VOForm.get('VORows').value[i].isEditable">
                         <input matInput type="text" formControlName="description" />
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </td>
             </ng-container>
 

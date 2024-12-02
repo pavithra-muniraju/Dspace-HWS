@@ -57,7 +57,7 @@ import { MyBriefcaseComponent } from './my-briefcase/my-briefcase.component';
 import { TodolistComponent } from './todolist/todolist.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { UserInfoComponent } from './user-info/user-info.component';
-import { SingleUploadComponent } from './home-page/single-upload/single-upload.component'
+// import { SingleUploadComponent } from './home-page/single-upload/single-upload.component'
 import { NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatStepperModule  } from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
@@ -71,6 +71,7 @@ import { FileUploadComponent } from './home-page/single-upload/file-upload/file-
 import { DragDropDirective } from './home-page/single-upload/drag-drop.directive';
 import { FileListComponent } from './home-page/single-upload/file-list/file-list.component';
 import { MatTableModule } from '@angular/material/table';
+import { UploadItemComponent } from './home-page/upload-item/upload-item.component';
 const IMPORTS = [
   CommonModule,
   SharedModule.withEntryComponents(),
@@ -138,8 +139,7 @@ const DECLARATIONS = [
   MyBriefcaseComponent,
   TodolistComponent,
   UnauthorizedComponent,
-  FileUploadComponent,
-  DragDropDirective
+
 ];
 
 const EXPORTS = [
@@ -162,8 +162,9 @@ const EXPORTS = [
     TodolistComponent,
     UnauthorizedComponent,
     UserInfoComponent,
-    SingleUploadComponent,
-    FileListComponent
+    // UploadItemComponent,
+    // SingleUploadComponent,
+    // FileListComponent
   ],
   exports: [
     ...EXPORTS,

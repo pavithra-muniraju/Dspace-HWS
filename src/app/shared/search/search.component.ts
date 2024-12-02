@@ -280,7 +280,8 @@ export class SearchComponent implements OnDestroy, OnInit {
 
   rejectedDocCol=["Title","Submission Date","Knowledge Area","Department","Rejected By","Reason","Take Action"]
   workflowDocCol=["Submission Date", "Knowledge Area", "Department Name", "Title", "Author", "Approval status", "Pending With"]
-
+  myTasksCol = ['Knowledge Area','Title','Author', 'Date Submitted', 'Task']
+  
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,

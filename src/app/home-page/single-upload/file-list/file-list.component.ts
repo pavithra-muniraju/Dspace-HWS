@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource, } from '@angular/material/table';
 import { HWSService } from 'src/app/HWS-Shared/hws.service';
+import { SectionUploadService } from 'src/app/submission/sections/upload/section-upload.service';
+
 // export interface PeriodicElement {
 //   name: string;
 //   position: number;
@@ -32,12 +34,38 @@ import { HWSService } from 'src/app/HWS-Shared/hws.service';
 })
 export class FileListComponent {
   @Input() fileList = []
-  displayedColumns: string[] = ['name', 'size', 'description','format', 'action'];
+  @Input() submissionId = ''
+  displayedColumns: string[] = ['name', 'size', 'description', 'format', 'action'];
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   isLoading = true;
+  descriptionDropdown = [
+    "Section",
+    "Project Code",
+    "MLH Category",
+    "Reference DCR/ECN/PTS",
+    "Occurrence (ppm/numbers)",
+    "Issue Description",
+    "Issue Category",
+    "Associated parts and their application",
+    "Impact",
+    "First time design for Hero",
+    "Analysis/Observations for root cause",
+    "Root Cause",
+    "Identified Countermeasure",
+    "Verification results of countermeasure",
+    "Type of countermeasure",
+    "Design control to avoid in future development",
+    "Detection control (additional test/poka-yoke)",
+    "Check done for horizontal deployment (Model Name)",
+    "Same specification in MP model (Model Name)",
+    "Associated Test standard/Design guideline number",
+    "Why not detected at earlier stage",
+    "Issue Source",
+    "Reported Stage"
+  ]
 
   pageNumber: number = 1;
   VOForm: FormGroup;
@@ -46,41 +74,44 @@ export class FileListComponent {
   constructor(
     private fb: FormBuilder,
     private _formBuilder: FormBuilder,
-    private hwsService: HWSService
-    ) { }
+    private hwsService: HWSService,
+    private uploadService: SectionUploadService,
+  ) { }
 
   ngOnInit(): void {
-    let fileListFromRre:any
-    this.hwsService.selectedFileListdata.subscribe(res => {
-      console.log(res);
-      fileListFromRre = JSON.parse(res)
-    })
-    
+    // let fileListFromRre:any
+    // this.hwsService.selectedFileListdata?.subscribe(res => {
+    //   console.log(res);
+    //   fileListFromRre = JSON.parse(res)
+    // })
+
     console.log(this.fileList)
     this.VOForm = this._formBuilder.group({
       VORows: this._formBuilder.array([])
     });
-    if(this.fileList != undefined) {
-      if(this.fileList.length > 0) {
+    if (this.fileList != undefined) {
+      if (this.fileList.length > 0) {
 
-      
-      this.VOForm = this.fb.group({
-        VORows: this.fb.array(this.fileList.map(val => this.fb.group({
-         
-          name: new FormControl(val.name),
-          size: new FormControl(val.size),
-          description: new FormControl(val.description),
-          format: new FormControl(val.format),
-          action: new FormControl('existingRecord'),
-          isEditable: new FormControl(true),
-          isNewRow: new FormControl(false),
-        })
-        )) //end of fb array
-      }); // end of form group cretation
-      this.isLoading = false;
-      this.dataSource = new MatTableDataSource((this.VOForm.get('VORows') as FormArray).controls);
-      this.dataSource.paginator = this.paginator;
-    } }
+
+        this.VOForm = this.fb.group({
+          VORows: this.fb.array(this.fileList.map(val => this.fb.group({
+
+            name: new FormControl(val.metadata['dc.title'][0].value),
+            size: new FormControl(val.sizeBytes),
+            description: new FormControl('-'),
+            format: new FormControl(val.format.extensions[0]),
+            action: new FormControl('existingRecord'),
+            isEditable: new FormControl(true),
+            isNewRow: new FormControl(false),
+            uuid: new FormControl(val.uuid)
+          })
+          )) //end of fb array
+        }); // end of form group cretation
+        this.isLoading = false;
+        this.dataSource = new MatTableDataSource((this.VOForm.get('VORows') as FormArray).controls);
+        this.dataSource.paginator = this.paginator;
+      }
+    }
   }
 
   // this function will enabled the select field for editd
@@ -91,6 +122,29 @@ export class FileListComponent {
   // On click of correct button in table (after click on edit) this method will call
   SaveVO(VOFormElement, i) {
     VOFormElement.get('VORows').at(i).get('isEditable').patchValue(true);
+    console.log(this.dataSource.data[i]);
+    let data: any = JSON.parse(JSON.stringify(this.fileList.filter(item => item.uuid == this.dataSource.data[i].value.uuid)));
+    if (data.length > 0 || data != undefined) {
+      let obj2 = {
+        'dc.description': [
+          {
+            "value": this.dataSource.data[i].value.description,
+            "language": null,
+            "authority": null,
+            "display": this.dataSource.data[i].value.description,
+            "confidence": -1,
+            "place": 0,
+            "otherInformation": null
+          }
+        ]
+      }
+
+      Object.assign(data[0].metadata, obj2);
+    }
+    console.log(data);
+
+    this.uploadService.updateFileData(
+      this.submissionId, 'upload',data[0].uuid, data[0])
   }
 
   // On click of cancel button in the table (after click on edit) this method will call and reset the previous data
@@ -107,11 +161,11 @@ export class FileListComponent {
 
   cancelRow(row, i) {
     // if (type !== 'delete') {
-      row.isEditable = false;
-      // cancel - reset form control values to data object
-      Object.keys(row.validator.controls).forEach(item => {
-        row.validator.controls[item].patchValue(row.currentData[item]);
-      });
+    row.isEditable = false;
+    // cancel - reset form control values to data object
+    Object.keys(row.validator.controls).forEach(item => {
+      row.validator.controls[item].patchValue(row.currentData[item]);
+    });
     // }
   }
 }

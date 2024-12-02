@@ -9,7 +9,7 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { fadeInOut } from '../../shared/animations/fade';
-import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -19,6 +19,9 @@ import { SignpostingDataService } from '../../core/data/signposting-data.service
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { EPerson } from 'src/app/core/eperson/models/eperson.model';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 /**
  * This component renders a simple item page.
@@ -65,7 +68,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * Contains a list of SignpostingLink related to the item
    */
   signpostingLinks: SignpostingLink[] = [];
-
+  user$:Observable<EPerson>
+  
   isItemFav = false;
   constructor(
     protected route: ActivatedRoute,
@@ -75,7 +79,9 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
-    @Inject(PLATFORM_ID) protected platformId: string
+    protected notificationService: NotificationsService,
+    @Inject(PLATFORM_ID) protected platformId: string,
+    protected authService: AuthService
   ) {
     this.initPageLinks();
   }
@@ -94,6 +100,20 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
 
+    this.user$ = this.authService.getAuthenticatedUserFromStore();
+    let isLoggedInUserId = ''
+    this.user$.subscribe(res => {
+      isLoggedInUserId = res.id;
+    });
+
+    this.itemRD$.subscribe(res => {
+     let favpplList =  res.payload.metadata['dc.favourite']?.filter( vendor => vendor['uuid'] ===  isLoggedInUserId);
+     if(favpplList != undefined) {
+       this.isItemFav = true
+     } else {
+       this.isItemFav = false
+     }
+    })
   }
 
   /**
@@ -149,8 +169,16 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     } else {
       flag = 0;
     }
-  this.items.addOrRemoveItemToFav(uuid,flag).subscribe(res => {
-    console.log(res)
+  let res = this.items.addOrRemoveItemToFav(uuid,flag).pipe(getFirstCompletedRemoteData());
+  res.subscribe(response => {
+    console.log(response);
+    if(this.isItemFav && response.statusCode == 200) {
+      this.notificationService.success('Item Marked as Favourite')
+    } else if (!this.isItemFav && response.statusCode == 200) {
+      this.notificationService.info('Item removed from Favourites')
+    } else {
+      this.notificationService.error('Some error occured')
+    }
   })
   }
 }

@@ -1,6 +1,10 @@
 <div class="container" *ngVar="(itemRD$ | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
+      <i class="fa fa-star" aria-hidden="true" style="font-size: 26px;color: gold;cursor: pointer;" *ngIf="isItemFav"
+        (click)="favClicked()"></i>
+      <i class="far fa-star" aria-hidden="true" style="font-size: 26px;cursor: pointer;" *ngIf="!isItemFav" (click)="favClicked()"></i>
+
       <ds-themed-item-alerts [item]="item"></ds-themed-item-alerts>
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>
@@ -17,13 +21,13 @@
         <div class="table-responsive">
           <table class="table  table-striped">
             <tbody>
-            <ng-container *ngFor="let mdEntry of (metadata$ | async) | keyvalue">
-              <tr *ngFor="let mdValue of mdEntry.value">
-                <td>{{mdEntry.key}}</td>
-                <td>{{mdValue.value}}</td>
-                <td>{{mdValue.language}}</td>
-              </tr>
-            </ng-container>
+              <ng-container *ngFor="let mdEntry of (metadata$ | async) | keyvalue">
+                <tr *ngFor="let mdValue of mdEntry.value">
+                  <td>{{mdEntry.key}}</td>
+                  <td>{{mdValue.value}}</td>
+                  <td>{{mdValue.language}}</td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
         </div>
@@ -32,8 +36,8 @@
         <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
         <div class="button-row bottom" *ngIf="fromSubmissionObject">
           <div class="text-right">
-            <button class="btn btn-outline-secondary mr-1" (click)="back()"><i
-                    class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>
+            <button class="btn btn-outline-secondary mr-1" (click)="back()"><i class="fas fa-arrow-left"></i>
+              {{'item.page.return' | translate}}</button>
           </div>
         </div>
       </div>

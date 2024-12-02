@@ -62,6 +62,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
    * Initialize all instance variables
    */
   ngOnInit() {
+    console.log(this.sectionData)
     this.objectInjector = Injector.create({
       providers: [
         { provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps: [] },
