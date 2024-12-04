@@ -3,8 +3,27 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource, } from '@angular/material/table';
+import { Store } from '@ngrx/store';
+import { filter, map, Observable, switchMap } from 'rxjs';
+import { SubmissionFormsModel } from 'src/app/core/config/models/config-submission-forms.model';
+import { SubmissionUploadsModel } from 'src/app/core/config/models/config-submission-uploads.model';
+import { SubmissionUploadsConfigDataService } from 'src/app/core/config/submission-uploads-config-data.service';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { JsonPatchOperationPathCombiner } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
+import { MetadataMap, MetadataValue } from 'src/app/core/shared/metadata.models';
+import { Metadata } from 'src/app/core/shared/metadata.utils';
+import { getFirstSucceededRemoteData } from 'src/app/core/shared/operators';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { SubmissionJsonPatchOperationsService } from 'src/app/core/submission/submission-json-patch-operations.service';
 import { HWSService } from 'src/app/HWS-Shared/hws.service';
+import { isNotEmpty, isNotUndefined } from 'src/app/shared/empty.util';
+import { FormFieldMetadataValueObject } from 'src/app/shared/form/builder/models/form-field-metadata-value.model';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { SectionUploadService } from 'src/app/submission/sections/upload/section-upload.service';
+import { submissionObjectFromIdSelector } from 'src/app/submission/selectors';
+import { SubmissionService } from 'src/app/submission/submission.service';
 
 // export interface PeriodicElement {
 //   name: string;
@@ -34,11 +53,17 @@ import { SectionUploadService } from 'src/app/submission/sections/upload/section
 })
 export class FileListComponent {
   @Input() fileList = []
-  @Input() submissionId = ''
-  displayedColumns: string[] = ['name', 'size', 'description', 'format', 'action'];
+  @Input() submissionId = '';
+  @Input() collectionId = '';
+  @Input() uploadLink = '';
+  displayedColumns: string[] = ['File Name', 'Size', 'Description', 'Format', 'Action'];
   dataSource = new MatTableDataSource<any>();
-
+  fileIndexes = [];
+  fileNames = [];
+  availableAccessConditionOptions = []
+  public metadata: MetadataMap = Object.create({});
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  public configMetadataForm$: Observable<SubmissionFormsModel>;
 
   isLoading = true;
   descriptionDropdown = [
@@ -66,25 +91,46 @@ export class FileListComponent {
     "Issue Source",
     "Reported Stage"
   ]
-
+  sectionData:any;
   pageNumber: number = 1;
   VOForm: FormGroup;
   isEditableNew: boolean = true;
-
+  pathCombiner: JsonPatchOperationPathCombiner;
   constructor(
     private fb: FormBuilder,
     private _formBuilder: FormBuilder,
     private hwsService: HWSService,
     private uploadService: SectionUploadService,
+    private operationsBuilder: JsonPatchOperationsBuilder,
+    private submissionService: SubmissionService,
+    private uploadsConfigService: SubmissionUploadsConfigDataService,
+    private operationsService: SubmissionJsonPatchOperationsService,
+    private store: Store<any>
   ) { }
 
   ngOnInit(): void {
+
+    const config$ = this.uploadsConfigService.findByHref(this.uploadLink, true, false, followLink('metadata')).pipe(
+      getFirstSucceededRemoteData(),
+      map((config) => config.payload));
+
+    // retrieve configuration for the bitstream's metadata form
+    this.configMetadataForm$ = config$.pipe(
+      switchMap((config: SubmissionUploadsModel) =>
+        config.metadata.pipe(
+          getFirstSucceededRemoteData(),
+          map((remoteData: RemoteData<SubmissionFormsModel>) => remoteData.payload)
+        )
+      ));
+
+
+    // this.sectionData.id = 'upload'
     // let fileListFromRre:any
     // this.hwsService.selectedFileListdata?.subscribe(res => {
     //   console.log(res);
     //   fileListFromRre = JSON.parse(res)
     // })
-
+//not used
     console.log(this.fileList)
     this.VOForm = this._formBuilder.group({
       VORows: this._formBuilder.array([])
@@ -92,7 +138,7 @@ export class FileListComponent {
     if (this.fileList != undefined) {
       if (this.fileList.length > 0) {
 
-
+//not used
         this.VOForm = this.fb.group({
           VORows: this.fb.array(this.fileList.map(val => this.fb.group({
 
@@ -112,6 +158,13 @@ export class FileListComponent {
         this.dataSource.paginator = this.paginator;
       }
     }
+
+    this.fileList.forEach((file) => {
+      // this.fileList.push(file);
+      this.fileIndexes.push(file.uuid);
+      this.fileNames.push(file.metadata['dc.title'][0].value, file);
+    });
+    this.getsubmissionobj();
   }
 
   // this function will enabled the select field for editd
@@ -123,42 +176,91 @@ export class FileListComponent {
   SaveVO(VOFormElement, i) {
     VOFormElement.get('VORows').at(i).get('isEditable').patchValue(true);
     console.log(this.dataSource.data[i]);
-    let data: any = JSON.parse(JSON.stringify(this.fileList.filter(item => item.uuid == this.dataSource.data[i].value.uuid)));
+    let data = JSON.parse(JSON.stringify(this.fileList.filter(item => item.uuid == this.dataSource.data[i].value.uuid)));
     if (data.length > 0 || data != undefined) {
-      let obj2 = {
-        'dc.description': [
-          {
-            "value": this.dataSource.data[i].value.description,
-            "language": null,
-            "authority": null,
-            "display": this.dataSource.data[i].value.description,
-            "confidence": -1,
-            "place": 0,
-            "otherInformation": null
-          }
-        ]
-      }
+      let obj2 = 
+        {
+          "value": this.dataSource.data[i].value.description,
+          "language": null,
+          "authority": null,
+          "display": this.dataSource.data[i].value.description,
+          "confidence": -1,
+          "place": 0,
+          "otherInformation": null
+        }
+        data[0].metadata['dc.description'] = [];
+        
+      data[0].metadata['dc.description'][0] = obj2;
+      let sectionId = 'upload';
+      let fileId = data[0].uuid
+      console.log(data);
+      // this.operationsService.jsonPatchByResourceID(
+      //       this.submissionService.getSubmissionObjectLinkName(),
+      //       this.submissionId,
+      //      'sections',
+      //       'upload/files/0');
+      // this.uploadService.updateFileData(
+      //   this.submissionId, sectionId, fileId, data[0]
+      //   )};
 
-      Object.assign(data[0].metadata, obj2);
-    }
-    console.log(data);
+      //   {
+      //     "parts": [
+      //         "sections",
+      //         "upload",
+      //         "files",
+      //         0
+      //     ],
+      //     "_rootElement": "sections",
+      //     "_subRootElement": "upload/files/0"
+      // }
+      const uploadedData = data.map((formData: any) => {
+        // collect bitstream metadata
+        Object.keys((formData.metadata))
+          .filter((key) => isNotEmpty(formData.metadata[key]))
+          .forEach((key) => {
+            const metadataKey = key.replace(/_/g, '.');
+            const path = `metadata/${metadataKey}`;
+            this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
+          });
 
-    this.uploadService.updateFileData(
-      this.submissionId, 'upload',data[0].uuid, data[0])
+        // dispatch a PATCH request to save metadata
+        return this.operationsService.jsonPatchByResourceID(
+          this.submissionService.getSubmissionObjectLinkName(),
+          this.submissionId,
+          this.pathCombiner.rootElement,
+          this.pathCombiner.subRootElement);
+      }).subscribe((result: SubmissionObject[]) => {
+        if (result[0].sections[sectionId]) {
+          const uploadSection = (result[0].sections[sectionId] as WorkspaceitemSectionUploadObject);
+          Object.keys(uploadSection.files)
+            .filter((key) => uploadSection.files[key].uuid === fileId)
+            .forEach((key) => this.uploadService.updateFileData(
+              this.submissionId, sectionId, fileId, uploadSection.files[key])
+            );
+        }
+      });}
+      // Object.keys((data[0].metadata))
+      //     .filter((key) => isNotEmpty(data[0].metadata[key]))
+      //     .forEach((key) => {
+      //       const metadataKey = key.replace(/_/g, '.');
+      //       const path = `metadata/${metadataKey}`;
+      //       this.operationsBuilder.add(this.pathCombiner.getPath(path), (data[0].metadata[key], true),
+      //     });}
+      
   }
-
+//not used
   // On click of cancel button in the table (after click on edit) this method will call and reset the previous data
   CancelSVO(VOFormElement, i) {
     VOFormElement.get('VORows').at(i).get('isEditable').patchValue(true);
   }
-
+//not used
   deleteRow(index: number) {
     const data = this.dataSource.data;
     data.splice(index, 1);
 
     this.dataSource.data = data;
   }
-
+//not used
   cancelRow(row, i) {
     // if (type !== 'delete') {
     row.isEditable = false;
@@ -168,4 +270,30 @@ export class FileListComponent {
     });
     // }
   }
+
+  getAllMetadataValue(metadataKey: string): MetadataValue[] {
+    return Metadata.all(this.metadata, metadataKey);
+  }
+
+  getsubmissionobj(){
+    let data = this.store.select(submissionObjectFromIdSelector(this.submissionId)).pipe(
+      filter((submission: any) => isNotUndefined(submission)));
+    data.subscribe(res => {
+      console.log(res);
+      this.fileList = res?.sections?.upload?.data?.files 
+    });
+  }
+
+  getDesc(filedata) {
+    if(filedata.metadata['dc.description'] != undefined) {
+      return filedata.metadata['dc.description'][0].value
+    } 
+    return 'None'
+  }
+
+  getFormat(name) {
+    let format = name.split('.');
+    return format[format.length - 1];
+  }
 }
+

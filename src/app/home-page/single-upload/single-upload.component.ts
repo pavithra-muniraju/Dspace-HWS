@@ -78,7 +78,7 @@ export class SingleUploadComponent {
   state: string;
   currentState = 0;
 
-  selectedknowledgeArea: any
+  selectedknowledgeArea = ''
 
   private subs: Subscription[] = [];
   public item: Item;
@@ -91,13 +91,14 @@ export class SingleUploadComponent {
   public sections: WorkspaceitemSectionsObject;
   public submissionDefinition: SubmissionDefinitionsModel;
   fileList1: any[];
-
+uploadLink = ''
   public uploadEnabled$: Observable<boolean>;
   public uploadFilesOptions: UploaderOptions = new UploaderOptions();
   public loading: Observable<boolean> = observableOf(true);
   public definitionId: string;
 
   sectionObjForFileList: any;
+  selectedDepartment = ''
   setFileList(event: FileList) {
     this.fileList1 = [];
     console.log(event);
@@ -124,8 +125,11 @@ export class SingleUploadComponent {
 
 
   ngOnInit() {
+    this.selectedknowledgeArea = '';
+    this.selectedDepartment = '';
     this.knowledgeAreaFormGroup = this._formBuilder.group({
-      knowledgeAreaCtrl: ['', Validators.required]
+      knowledgeAreaCtrl: ['', Validators.required],
+      departmentCtrl: ['', Validators.required]
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -173,10 +177,13 @@ export class SingleUploadComponent {
   }
 
   goForward(stepper: MatStepper) {
+    // if(this.currentState == 0){
+    //   this.checkForms();
+    // } 
     stepper.next();
     this.hwsService.updatecurrentState(JSON.stringify(this.currentState));
     if (this.currentState == 1) {
-      this.submissionService.createSubmission(JSON.parse(this.selectedknowledgeArea))
+      this.submissionService.createSubmission(JSON.parse(this.selectedDepartment))
         .subscribe((submissionObject: SubmissionObject) => {
           console.log(submissionObject);
 
@@ -280,6 +287,7 @@ export class SingleUploadComponent {
       filter((submission: any) => isNotUndefined(submission)));
     data.subscribe(res => {
       console.log(res);
+      this.uploadLink = res?.sections?.upload?.config;
       this.fileList1 = res?.sections?.upload?.data?.files || []
       if (this.currentState == 2) {
         this.sectionObjForFileList = res;
@@ -292,8 +300,8 @@ export class SingleUploadComponent {
     this.hwsService.selectedKAdata.subscribe((res: any) => {
       console.log(res)
       if (res != '' && res != null) {
-        this.selectedknowledgeArea = res
-        this.knowledgeAreaFormGroup.controls['knowledgeAreaCtrl'].setValue(this.selectedknowledgeArea);
+        this.selectedDepartment = res
+        this.knowledgeAreaFormGroup.controls['departmentCtrl'].setValue(this.selectedDepartment);
       }
     })
   }
@@ -355,9 +363,6 @@ export class SingleUploadComponent {
     return new FormGroup(group);
   }
 
-  checkForms() {
-
-  }
 
 
 cancel() {
@@ -539,4 +544,24 @@ cancel() {
   getqasectionList() {
     
   }
+
+  checkForms() {
+    if(this.currentState == 0) {
+      if(this.selectedknowledgeArea == '' || this.selectedDepartment == ''){
+        return true
+      } else {
+        return false
+      }
+    }
+    if(this.currentState == 2 || this.currentState == 2) {
+      this.hwsService.fileUploadedData.subscribe(res => {
+        if(res != 'true') {
+          return true
+        } else {
+          return false
+        }
+      })
+    }
+  }
+
 }

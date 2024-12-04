@@ -9,11 +9,10 @@
   </mat-table>
 
    -->
-<form [formGroup]="VOForm" autocomplete="off">
+<!-- <form [formGroup]="VOForm" autocomplete="off">
     <ng-container formArrayName="VORows">
         <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            <!-- Name Column -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>File Name</th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
@@ -21,7 +20,6 @@
                 </td>
             </ng-container>
 
-            <!-- Weight Column -->
             <ng-container matColumnDef="size">
                 <th mat-header-cell *matHeaderCellDef>Size</th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
@@ -29,7 +27,6 @@
                 </td>
             </ng-container>
 
-            <!-- description Column -->
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef>Description</th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
@@ -43,13 +40,9 @@
                             </option>
                           </select>
                     </span>
-                    <!-- <mat-form-field style="width: 70px" *ngIf="!VOForm.get('VORows').value[i].isEditable">
-                        <input matInput type="text" formControlName="description" />
-                    </mat-form-field> -->
                 </td>
             </ng-container>
 
-            <!-- format Column -->
             <ng-container matColumnDef="format">
                 <th mat-header-cell *matHeaderCellDef>Format</th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
@@ -83,4 +76,40 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </ng-container>
-</form>
+</form> -->
+<div class="table-responsive" style="overflow-x: hidden;">
+    <table id="sharedTable" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col" *ngFor="let col of displayedColumns">{{col}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let fileEntry of fileList">
+
+                <!--
+            <ng-container *ngFor="let fileEntry of fileList"> -->
+                <td class="item-col">{{ fileEntry.metadata['dc.title'][0].value}}</td>
+                <td class="item-col">{{ fileEntry.sizeBytes }}</td>
+                <td class="item-col"> {{getDesc(fileEntry)}}
+                    <!-- <span *ngFor="let entry of getAllMetadataValue('Description')">
+                        <ng-container *ngIf="entry.value !== ''">
+                            {{entry.value | dsTruncate:['150']}}
+                        </ng-container>
+                    </span> -->
+                </td>
+                <td class="item-col">{{ getFormat(fileEntry.metadata['dc.title'][0].value) }}</td>
+                <td>
+                    <ds-themed-submission-upload-section-file
+                        [availableAccessConditionOptions]="availableAccessConditionOptions"
+                        [collectionId]="collectionId" [configMetadataForm]="(configMetadataForm$ | async)"
+                        [fileId]="fileIndexes[fileList.indexOf(fileEntry)]" [fileIndex]="fileList.indexOf(fileEntry)"
+                        [fileName]="fileNames[fileList.indexOf(fileEntry)]" [sectionId]="'upload'"
+                        [submissionId]="submissionId"></ds-themed-submission-upload-section-file>
+
+                </td>
+            </tr>
+            <!-- </ng-container> -->
+        </tbody>
+    </table>
+</div>

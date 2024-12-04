@@ -229,6 +229,7 @@ export class SubmissionSectionUploadFileEditComponent
   }
 
   onSubmit() {
+    console.log('submit')
     this.isSaving = true;
     this.saveBitstreamData();
   }

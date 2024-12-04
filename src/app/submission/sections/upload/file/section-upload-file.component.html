@@ -1,6 +1,20 @@
 <ng-container *ngIf="fileData">
   <div class="row">
-    <div class="col-md-12">
+    <button class="btn btn-link-focus" [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
+    title="{{ 'submission.sections.upload.edit.title' | translate }}"
+    (click)="$event.preventDefault();editBitstreamData();">
+    <i class="fa fa-edit text-normal"></i>
+  </button>
+  <button class="btn btn-link-focus" [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
+    title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}" [disabled]="(processingDelete$ | async)"
+    (click)="$event.preventDefault();confirmDelete(content);">
+    <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin  text-danger"></i>
+    <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash text-danger"></i>
+  </button>
+  </div>
+  
+  <!-- <div class="row">
+    <div class="col-md-12" aria-colspan="5">
       <div class="float-left w-75">
         <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
       </div>
@@ -29,7 +43,7 @@
       <div class="clearfix"></div>
       <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
     </div>
-  </div>
+  </div> -->
 </ng-container>
 
 <ng-template #content let-c="close" let-d="dismiss">
@@ -43,9 +57,9 @@
     <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary"
-            (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
-    <button type="button" class="btn btn-danger"
-            (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{
+      'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit'
+      | translate }}</button>
   </div>
 </ng-template>

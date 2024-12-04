@@ -14,6 +14,7 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SectionsType } from '../../sections/sections-type';
+import { HWSService } from 'src/app/HWS-Shared/hws.service';
 
 /**
  * This component represents the drop zone that provides to add files to the submission.
@@ -98,7 +99,8 @@ export class SubmissionUploadFilesComponent implements OnChanges {
               private operationsService: SubmissionJsonPatchOperationsService,
               private sectionService: SectionsService,
               private submissionService: SubmissionService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private hwsService: HWSService) {
   }
 
   /**
@@ -138,6 +140,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
                           // Look for errors on upload
                           if ((isEmpty(sectionErrors))) {
                             this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
+                            this.hwsService.updatefileUploaded('true');
                           } else {
                             this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
                           }

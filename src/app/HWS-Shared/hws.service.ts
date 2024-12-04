@@ -21,6 +21,9 @@ export class HWSService {
     public selectedFileListdata = this.selectedFileList.asObservable();
     public currentStateData = this.currentState.asObservable();
 
+    private fileUploaded = new BehaviorSubject<any>("");
+    public fileUploadedData = this.fileUploaded.asObservable();
+
 
     private customMenuData$: EventEmitter<any>;
 
@@ -54,5 +57,9 @@ export class HWSService {
 
     updatecurrentState(data){
         this.currentState.next(data);
+    }
+
+    updatefileUploaded(data){
+        this.fileUploaded.next(data);
     }
 }

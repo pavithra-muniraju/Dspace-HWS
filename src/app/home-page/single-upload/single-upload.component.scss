@@ -131,3 +131,25 @@ label{
 ::ng-deep .mat-stepper-label-position-bottom .mat-stepper-horizontal-line {
     top: 14px !important; 
 }
+
+::ng-deep .accordion > .card > .card-header {
+	display: none !important;
+}
+
+::ng-deep .accordion > .card  {
+	border: none !important;
+	padding: 0 !important;
+}
+
+.kaForm{
+	display: block;width: 850px;padding: 2rem;
+}
+
+::ng-deep .modal-body {
+	padding: 0 !important;
+}
+
+.confirm{
+	max-height: calc(-326px + 100vh) !important;
+	height: calc(-326px + 100vh) !important;
+}

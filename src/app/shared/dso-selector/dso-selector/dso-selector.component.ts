@@ -226,6 +226,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       this.listEntries$.next([...(hasNoValue(currentEntries) ? [] : this.listEntries$.getValue()), new ListableNotificationObject(NotificationType.Error, 'dso-selector.results-could-not-be-retrieved', LISTABLE_NOTIFICATION_OBJECT.value)]);
       this.hasNextPage = false;
     }
+    this.onScrollDown();
     this.getKnowdledgeArea();
   }
 
@@ -267,7 +268,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   onScrollDown() {
     if (this.hasNextPage && !this.loading) {
       this.currentPage$.next(this.currentPage$.value + 1);
-      this.getKnowdledgeArea();
+      // this.getKnowdledgeArea();
     }
   }
 
@@ -344,10 +345,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
           docTitle : ele.indexableObject._name,
           uuid:  ele.indexableObject.uuid
         }
-        let filterdata = this.knowledgeAreaList.filter(item => item.uuid == ele.indexableObject.uuid);
-        if(filterdata.length == 0) {
-          this.knowledgeAreaList.push(obj);
-        }
+        this.knowledgeAreaList.push(obj);
+        // let filterdata = this.knowledgeAreaList.filter(item => item.uuid == ele.indexableObject.uuid);
+        // if(filterdata.length == 0) {
+          
+        // }
        
       })
       

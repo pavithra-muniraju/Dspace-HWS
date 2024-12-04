@@ -22,7 +22,7 @@
         {{'dso-selector.no-results' | translate: { type: typesString } }}
       </button>
       <div>
-        <select class="form-control" style="border-radius: 30px;" [(ngModel)]="selectedlistEntry" name="knowledgeArea" id="listEntry" required (change)="onChange();onClick($event);" (hover)="onScrollDown()">
+        <select class="form-control" style="border-radius: 30px;" [(ngModel)]="selectedlistEntry" name="knowledgeArea" id="listEntry" required (change)="onChange();" >
           <option  *ngFor="let listEntry of (listEntries$ | async)" [value]="listEntry.indexableObject.uuid"   #listEntryElement>
              {{ listEntry.indexableObject._name }}
           </option>

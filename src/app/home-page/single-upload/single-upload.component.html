@@ -13,19 +13,27 @@
 			<mat-step [stepControl]="knowledgeAreaFormGroup">
 				<form [formGroup]="knowledgeAreaFormGroup">
 					<ng-template matStepLabel>Select</ng-template>
-					<div style="display: block;">
-						<div class="row">
-							<div class="col-3"><label class="font-weight-bold mtopka" for="knowledgeArea">Knowledge
-									Area</label></div>
-							<div class="col-9" desClass>
-								<ds-create-collection-parent-selector></ds-create-collection-parent-selector>
+					<div class="kaForm">
+						<!-- class="row" -->
+						<div>
+							<!-- class="col-3" -->
+							<div><label class="font-weight-bold mtopka" for="knowledgeArea">Knowledge
+									Area *</label></div>
+									<!-- class="col-9" desClass -->
+							<div >
+								<select class="form-control" [(ngModel)]="selectedknowledgeArea" required formControlName="knowledgeAreaCtrl" required>
+									<!-- <option [value]=''>Select</option> -->
+									<option value="Lesson Learnt">Lesson Learnt</option>
+                    
+								</select> 
+								<!-- <ds-create-collection-parent-selector></ds-create-collection-parent-selector> -->
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-3"><label class="font-weight-bold mtopka" for="knowledgeArea">Department</label>
+						<div>
+							<div ><label class="font-weight-bold mtopka" for="knowledgeArea">Department *</label>
 							</div>
-							<div class="col-9 desClass">
-								<ds-themed-create-item-parent-selector [(ngModel)]="selectedknowledgeArea" required>
+							<div >
+								<ds-themed-create-item-parent-selector [(ngModel)]="selectedDepartment" required>
 								</ds-themed-create-item-parent-selector>
 							</div>
 						</div>
@@ -221,13 +229,16 @@
 						[collectionModifiable]="collectionModifiable" [submissionId]="submissionId">
 					</ds-submission-form> -->
 
-					<ds-file-list [fileList]="fileList1" [submissionId]="submissionId"></ds-file-list>
+					<ds-file-list [fileList]="fileList1" [submissionId]="submissionId" [collectionId]="collectionId" [uploadLink]="uploadLink"></ds-file-list>
 
 				</form>
 			</mat-step>
 			<mat-step [completed]="completed" [state]="state">
 				<ng-template matStepLabel>Complete</ng-template>
-				Are you sure to upload this document
+				<span class="confirm">
+					Are you sure to upload this document
+				</span>
+				
 
 			</mat-step>
 		</mat-horizontal-stepper>
@@ -257,7 +268,8 @@
 		</button>
 		<span *ngIf="currentState >= 1">&nbsp;&nbsp;</span>
 		<button (click)="goForward(stepper)" type="button" class="cancel btn next" *ngIf="currentState != 4"
-			[disabled]="checkForms()">Next</button>
+		[disabled]="checkForms()">Next</button>
+			<!--  -->
 		<button type="button" class="cancel btn next" (click)="done()" *ngIf="currentState == 4">Confirm</button>
 		<!-- <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer> -->
 
