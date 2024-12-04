@@ -7,7 +7,9 @@
                 <h2 class="section-nav" *ngIf="configuration == 'workspace' || configuration == 'favourites'
                 || configuration == 'recents'
                 || configuration == 'rejected'
-                || configuration == 'pending'">My Briefcase</h2>
+                || configuration == 'pending'
+                || configuration == 'favourite'
+                || configuration == 'Drafts'">My Briefcase</h2>
                 <h2 class="section-nav" *ngIf="configuration == 'workflow' || configuration == 'history'">To-Do List</h2>
                 <ul class="list-unstyled items">
                     <li *ngFor="let item of sidebarItems" class="item" [class.active]="currentContent === item.key"

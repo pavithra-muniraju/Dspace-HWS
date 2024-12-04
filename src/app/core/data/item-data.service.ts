@@ -8,7 +8,7 @@
 /* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -46,6 +46,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { dataService } from './base/data-service.decorator';
+import { apiUrl } from './../../../config/apiUrl';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -406,7 +407,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
 
     const requestId = this.requestService.generateRequestId();
     const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}/fav/${uuid}?rel=${flag}`));
-    
+
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
@@ -419,6 +420,30 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     });
 
     return this.rdbService.buildFromRequestUUID(requestId); ;
+  }
+
+  public deleteDraftDoc(id:string):Observable<any> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    console.log("this.linkpath",this.linkPath)
+    const href$ = of(apiUrl.draftBaseUrl).pipe(map((href) => `${href}/submission/workspaceitems/${id}`));
+    
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        console.log(href)
+        const request = new DeleteRequest(requestId, href, {}, options);
+        this.requestService.send(request);
+      })
+    ).subscribe(response => {
+      console.log(response)
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
 }

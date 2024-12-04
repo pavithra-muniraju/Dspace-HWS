@@ -40,10 +40,9 @@ export class MyDSpacePageComponent extends BaseComponent {
   }
   ngOnInit() {
     this.route.queryParams.subscribe(res => {
-      console.log(res.configuration);
       this.configuration = res.configuration;
       if(this.configuration == 'workspace') {
-        this.sidebarItems =  [{key:'Favourites',value:'favourites'}, {key:'Recents',value:'recents'},{key:'My Documents',value:'workspace'},{key:'Rejected Documents',value:'rejected'}, {key:'Workflow Documents', value:'pending'}]
+        this.sidebarItems = [{key:'Favourites',value:'favourite'}, {key:'Recents',value:'recents'},{key:'My Documents',value:'workspace'},{key:'Drafts',value:'Drafts'},{key:'Rejected Documents',value:'rejected'}, {key:'Workflow Documents', value:'pending'}]
         this.currentContent = 'My Documents'
         this.changeContent(this.currentContent, this.configuration)
       } else if(this.configuration == 'workflow') {

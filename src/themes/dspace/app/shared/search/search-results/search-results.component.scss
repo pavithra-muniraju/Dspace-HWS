@@ -51,3 +51,25 @@
     font-size: 14px;
     padding: 4px 15px;
 }
+
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 4px 26px;
+    font-size: 14px;
+}
+
+.edit-btn {
+    border: 1px solid black;
+}
+
+.delete-btn {
+    margin-left: 10px;
+    background: black;
+    color: white;
+}
+
+.align-card {
+    display: flex;
+    align-items: center;
+}

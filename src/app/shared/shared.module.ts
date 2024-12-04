@@ -286,9 +286,9 @@ import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.comp
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
 // import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HwsFooterComponent } from './hws-footer/hws-footer.component';
-import { RejectedDocComponent } from './rejected-doc/rejected-doc.component';
-import { WorkflowDocComponent } from './workflow-doc/workflow-doc.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { RejectedDocComponent } from './briefcase/rejected-doc/rejected-doc.component';
+import { WorkflowDocComponent } from './briefcase/workflow-doc/workflow-doc.component';
 
 const MODULES = [
   CommonModule,
@@ -517,8 +517,8 @@ const DIRECTIVES = [
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
     RejectedDocComponent,
-    WorkflowDocComponent,
     MyTasksComponent,
+    WorkflowDocComponent
   ],
   providers: [
     ...PROVIDERS

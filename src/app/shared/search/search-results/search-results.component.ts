@@ -15,6 +15,9 @@ import { SortDirection } from '../../../core/cache/models/sort-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ItemDataService } from '../../../../app/core/data/item-data.service';
+import { Location } from '@angular/common';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -114,6 +117,9 @@ export class SearchResultsComponent {
 
   constructor(
     protected paginationService: PaginationService,
+    protected modalService: NgbModal,
+    protected items: ItemDataService,
+    protected location: Location,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService,
   ) {}
 

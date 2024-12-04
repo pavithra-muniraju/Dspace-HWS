@@ -30,7 +30,7 @@
   
         <li class="me-2">
             <!-- <i class="fa fa-briefcase icon-font" aria-hidden="true"></i><br>My Briefcase -->
-          <a href="/mydspace" class="nav-link-cutome">
+          <a [routerLink]="'/mydspace'" [queryParams]="{ configuration: 'workspace' }" class="nav-link-cutome">
             <img src="/../../assets/resources/icon-bag.svg" alt=""><br> My Briefcase
           </a>
         </li>
@@ -38,12 +38,9 @@
         <li class="me-2">
             <!-- <i class="fa fa-list icon-font" aria-hidden="true"></i><br>
           To-Do List   -->
-          <a href="/mydspace?configuration=workflow" class="nav-link-cutome">
+          <a [routerLink]="'/mydspace'" [queryParams]="{ configuration: 'workflow' }" class="nav-link-cutome">
             <img src="/../../assets/resources/icon-list.svg" alt=""> <br> To-Do List
             <span class="notification-count">99</span>
-  
-           
-  
           </a>
         </li>
 

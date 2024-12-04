@@ -23,15 +23,28 @@ import { SortDirection, SortOptions } from '../../../../../../app/core/cache/mod
 })
 
 export class SearchResultsComponent extends BaseComponent {
-  data: any;
+  draftValues: any;
+  documentDataValues: any;
 
   ngOnChanges() {
-    this.processData(this.searchResults);
+    switch (this.configuration) {
+      case 'workspace':
+      case 'favourite':
+        this.documentDataTransform(this.searchResults);
+        break;
+      
+      case 'Drafts':
+        this.draftDataTransform(this.searchResults);
+        break;
+      
+      default:
+        break;
+    }
   }
 
-  processData(response: any) {
-    const objects = response.payload?.page || [];
-    this.data = objects.map((obj: any) => {
+  documentDataTransform(response: any) {
+    const objects = response?.payload?.page || [];
+    this. documentDataValues = objects.map((obj: any) => {
       const metadata = obj.indexableObject?.metadata;
       const uuid = obj.indexableObject?.uuid
 
@@ -44,12 +57,28 @@ export class SearchResultsComponent extends BaseComponent {
         var submittedDate = match[1];
       }
       
-
       return {
         title: metadata['dc.title']?.[0]?.value || 'N/A',
         description: metadata['dc.lessonlearned.description']?.[0]?.value || 'N/A',
         submittedDate: submittedDate,
         uuid: uuid
+      }
+    });
+  }
+
+  draftDataTransform(response: any) {
+    const objects = response?.payload?.page || [];
+    this.draftValues = objects.map((obj: any) => {
+      const sections = obj.indexableObject?.sections;
+      const id = obj.indexableObject?.id
+
+      const draftData = sections?.traditionalpageone
+      
+      return {
+        id: id,
+        title: draftData['dc.title']?.[0]?.value || 'N/A',
+        description: draftData['dc.description']?.[0]?.value || 'N/A',
+        issuedData: draftData['dc.date.issued']?.[0]?.value || 'N/A',
       }
     });
   }
@@ -63,4 +92,15 @@ export class SearchResultsComponent extends BaseComponent {
     });
   }
 
+  confirmPopup(content: any, id:any) {
+    this.modalService.open(content).result.then(
+      (result) => {
+        if (result === 'ok') {
+          this.items.deleteDraftDoc(id).subscribe(res => {
+            this.location.back();
+          })
+        }
+      }
+    );
+  }
 }
