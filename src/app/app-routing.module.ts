@@ -41,7 +41,6 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { GoogleLoginComponent } from './google-login/google-login.component';
-import { MyBriefcaseComponent } from './my-briefcase/my-briefcase.component';
 import { TodolistComponent } from './todolist/todolist.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
@@ -242,7 +241,6 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
             canActivate: [AuthenticatedGuard]
           },
           { path: 'googlelogin', pathMatch: 'full', component: GoogleLoginComponent },
-          { path: 'mybriefcase', pathMatch: 'full', component: MyBriefcaseComponent },
           { path: 'todolist', pathMatch: 'full', component: TodolistComponent },
           { path: '401', pathMatch: 'full', component: UnauthorizedComponent },
           { path: 'error', pathMatch: 'full', component: GoogleLoginComponent },
