@@ -553,11 +553,24 @@ cancel() {
         return false
       }
     }
-    if(this.currentState == 2 || this.currentState == 2) {
+    if(this.currentState == 2) {
       this.hwsService.fileUploadedData.subscribe(res => {
         if(res != 'true') {
           return true
         } else {
+          this.thirdFormGroup.controls['thirdCtrl'].setValue('true');
+      
+          return false
+        }
+      })
+    }
+    if(this.currentState == 3) {
+      this.hwsService.fileUploadedData.subscribe(res => {
+        if(res != 'true') {
+          return true
+        } else {
+          this.fourthFormGroup.controls['fourthCtrl'].setValue('true');
+      
           return false
         }
       })
