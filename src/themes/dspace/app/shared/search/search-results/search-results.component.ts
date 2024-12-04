@@ -45,7 +45,7 @@ export class SearchResultsComponent extends BaseComponent {
   documentDataTransform(response: any) {
     const objects = response?.payload?.page || [];
     this. documentDataValues = objects.map((obj: any) => {
-      const metadata = obj.indexableObject?.metadata;
+      const metadata = obj.indexableObject?.metadata || {};
       const uuid = obj.indexableObject?.uuid
 
       const provenanceValue = metadata['dc.description.provenance']?.[0]?.value || 'N/A';
