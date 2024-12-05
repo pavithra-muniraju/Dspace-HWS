@@ -48,7 +48,15 @@ export class SearchResultsComponent extends BaseComponent {
       const metadata = obj.indexableObject?.metadata || {};
       const uuid = obj.indexableObject?.uuid
 
-      const provenanceValue = metadata['dc.description.provenance']?.[0]?.value || 'N/A';
+      const provenanceKey = 'dc.description.provenance';
+      const titleKey = 'dc.title';
+      const descriptionKey = 'dc.lessonlearned.description';
+
+      const hasProvenance = provenanceKey in metadata;
+      const hasTitle = titleKey in metadata;
+      const hasDescription = descriptionKey in metadata;
+
+      const provenanceValue = hasProvenance ? metadata[provenanceKey]?.[0]?.value : 'N/A';
 
       const regex = /on (\d{4}-\d{2}-\d{2})/;
       const match = provenanceValue.match(regex);
@@ -58,8 +66,8 @@ export class SearchResultsComponent extends BaseComponent {
       }
       
       return {
-        title: metadata['dc.title']?.[0]?.value || 'N/A',
-        description: metadata['dc.lessonlearned.description']?.[0]?.value || 'N/A',
+        title: hasTitle ? metadata[titleKey]?.[0]?.value : 'N/A',
+        description: hasDescription? metadata[descriptionKey]?.[0]?.value : 'N/A',
         submittedDate: submittedDate,
         uuid: uuid
       }
@@ -73,12 +81,20 @@ export class SearchResultsComponent extends BaseComponent {
       const id = obj.indexableObject?.id
 
       const draftData = sections?.traditionalpageone
+
+      const dateIssued = 'dc.date.issued';
+      const titleKey = 'dc.title';
+      const descriptionKey = 'dc.description';
+
+      const dateIssue = dateIssued in draftData;
+      const hasTitle = titleKey in draftData;
+      const hasDescription = descriptionKey in draftData;
       
       return {
         id: id,
-        title: draftData['dc.title']?.[0]?.value || 'N/A',
-        description: draftData['dc.description']?.[0]?.value || 'N/A',
-        issuedData: draftData['dc.date.issued']?.[0]?.value || 'N/A',
+        title: hasTitle ? draftData[titleKey]?.[0]?.value : 'N/A',
+        description: hasDescription ? draftData[descriptionKey]?.[0]?.value : 'N/A',
+        issuedData: dateIssue? draftData[dateIssued]?.[0]?.value : 'N/A',
       }
     });
   }
@@ -96,8 +112,8 @@ export class SearchResultsComponent extends BaseComponent {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-          this.items.deleteDraftDoc(id).subscribe(res => {
-            this.location.back();
+        this.items.deleteDraftDoc(id).subscribe(res => {
+          window.location.reload();
           })
         }
       }

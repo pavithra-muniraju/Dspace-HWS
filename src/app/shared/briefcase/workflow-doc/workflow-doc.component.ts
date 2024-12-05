@@ -39,7 +39,13 @@ export class WorkflowDocComponent {
 
       const metadata = indexableObject?._embedded?.item?.metadata || {};
 
-      const provenanceValue = metadata['dc.description.provenance']?.[0]?.value || 'N/A';
+      const provenanceKey = 'dc.description.provenance';
+      const titleKey = 'dc.title';
+
+      const hasProvenance = provenanceKey in metadata;
+      const hasTitle = titleKey in metadata;
+
+      const provenanceValue = hasProvenance ? metadata[provenanceKey]?.[0]?.value : 'N/A';
 
       var lastStepIndex = provenanceValue.lastIndexOf('Step:');
 
@@ -62,7 +68,7 @@ export class WorkflowDocComponent {
       }
 
       return {
-        title: metadata['dc.title']?.[0]?.value || 'N/A',
+        title: hasTitle ? metadata[titleKey]?.[0]?.value : 'N/A',
         submissionDate: date,
         knowledgeArea: knowledgeArea,
         department: department,

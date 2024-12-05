@@ -44,7 +44,13 @@ export class RejectedDocComponent {
       const knowledgeArea = indexableObject?.parentCommunityName;
       const metadata = indexableObject?._embedded?.item?.metadata || {};
 
-      const provenanceValue = metadata['dc.description.provenance']?.[1]?.value || 'N/A';
+      const provenanceKey = 'dc.description.provenance';
+      const titleKey = 'dc.title';
+
+      const hasProvenance = provenanceKey in metadata;
+      const hasTitle = titleKey in metadata;
+
+      const provenanceValue = hasProvenance ? metadata[provenanceKey]?.[1]?.value : 'N/A';
 
     // Regular expression to capture "Rejected by <user> (email), reason: <reason>"
     const rejectionRegex = /Rejected by ([^,]+), reason: (.+?) on/;
@@ -63,7 +69,7 @@ export class RejectedDocComponent {
 
       return {
         id: indexableObject.id,
-        title: metadata['dc.title']?.[0]?.value || 'N/A',
+        title: hasTitle ? metadata[titleKey]?.[0]?.value : 'N/A',
         submissionDate: submittedDate,
         knowledgeArea: knowledgeArea,
         department: department,

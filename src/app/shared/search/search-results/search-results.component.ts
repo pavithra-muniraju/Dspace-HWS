@@ -18,6 +18,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemDataService } from '../../../../app/core/data/item-data.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -120,6 +121,7 @@ export class SearchResultsComponent {
     protected modalService: NgbModal,
     protected items: ItemDataService,
     protected location: Location,
+    protected router: Router, 
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService,
   ) {}
 
