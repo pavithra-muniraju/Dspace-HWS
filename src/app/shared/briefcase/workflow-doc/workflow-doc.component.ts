@@ -30,8 +30,8 @@ export class WorkflowDocComponent {
   }
 
   processData(response: any) {
-    const objects = response._embedded?.searchResult?._embedded?.objects || [];
-    this.data = objects.filter((obj: any) => !obj._embedded?.indexableObject?.errors).map((obj: any) => {
+    const objects = response?._embedded?.searchResult?._embedded?.objects || [];
+    this.data = objects.map((obj: any) => {
       const indexableObject = obj._embedded?.indexableObject;
       const department = indexableObject?.collectionName;
       const knowledgeArea = indexableObject?.parentCommunityName;
