@@ -477,7 +477,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       }
     }
 
-    if(searchOptions.configuration == 'workspace' || searchOptions.configuration == 'Drafts' || searchOptions.configuration == 'favourite') {
+    if(searchOptions.configuration == 'workspace' || searchOptions.configuration == 'favourite') {
     this.service.search(
       searchOptionsWithHidden,
       undefined,
@@ -495,6 +495,9 @@ export class SearchComponent implements OnDestroy, OnInit {
           }
         }
         this.resultsRD$.next(results);
+        // this.resultsRD$.subscribe(results => {
+        //   console.log("test Result",results);
+        // });
       });
     }
 
@@ -518,6 +521,9 @@ export class SearchComponent implements OnDestroy, OnInit {
           // Optionally set the response in the `resultsRD$` if required
           const updatedResponse = { ...response };
           this.resultsRD$.next(updatedResponse);
+          // this.resultsRD$.subscribe(results => {
+          //   console.log("test Result",results);
+          // });
         },
         (error) => {
           console.error('Error during raw API call:', error);

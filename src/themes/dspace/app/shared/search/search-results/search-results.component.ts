@@ -75,28 +75,28 @@ export class SearchResultsComponent extends BaseComponent {
   }
 
   draftDataTransform(response: any) {
-    const objects = response?.payload?.page || [];
+    const objects = response?._embedded?.searchResult?._embedded?.objects || [];
     this.draftValues = objects.map((obj: any) => {
-      const sections = obj.indexableObject?.sections;
-      const id = obj.indexableObject?.id
+    const indexableObject = obj._embedded?.indexableObject;
+    const id = indexableObject?.id
 
-      const draftData = sections?.traditionalpageone
+     const metadata = indexableObject?._embedded?.item?.metadata
 
       const dateIssued = 'dc.date.issued';
       const titleKey = 'dc.title';
-      const descriptionKey = 'dc.description';
+      const descriptionKey = 'dc.lessonlearned.description';
 
-      const dateIssue = dateIssued in draftData;
-      const hasTitle = titleKey in draftData;
-      const hasDescription = descriptionKey in draftData;
+      const dateIssue = dateIssued in metadata;
+      const hasTitle = titleKey in metadata;
+      const hasDescription = descriptionKey in metadata;
       
       return {
         id: id,
-        title: hasTitle ? draftData[titleKey]?.[0]?.value : 'N/A',
-        description: hasDescription ? draftData[descriptionKey]?.[0]?.value : 'N/A',
-        issuedData: dateIssue? draftData[dateIssued]?.[0]?.value : 'N/A',
+        title: hasTitle ? metadata[titleKey]?.[0]?.value : 'N/A',
+        description: hasDescription ? metadata[descriptionKey]?.[0]?.value : 'N/A',
+        issuedData: dateIssue? metadata[dateIssued]?.[0]?.value : 'N/A',
       }
-    });
+     });
   }
 
   reloadOrder(event: Event) {

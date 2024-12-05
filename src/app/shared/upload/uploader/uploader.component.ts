@@ -28,6 +28,8 @@ export class UploaderComponent {
    */
   @Input() dropMsg: string;
 
+  @Input() styleClass: boolean = true;
+
   /**
    * The message to show when drag files on the window document
    */

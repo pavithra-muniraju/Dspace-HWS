@@ -31,6 +31,8 @@ export class SubmissionUploadFilesComponent implements OnChanges {
    */
   @Input() collectionId: string;
 
+  @Input() defaultstyleClass: boolean = true;
+
   /**
    * The submission id
    * @type {string}

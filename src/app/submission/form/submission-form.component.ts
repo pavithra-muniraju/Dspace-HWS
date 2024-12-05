@@ -40,6 +40,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    */
   @Input() collectionId: string;
 
+  @Input() accessInModal: boolean = true;
+
   @Input() item: Item;
 
   /**
