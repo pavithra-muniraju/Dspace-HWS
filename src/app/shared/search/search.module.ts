@@ -34,8 +34,11 @@ import { ThemedSearchSettingsComponent } from './search-settings/themed-search-s
 import { NouisliderModule } from 'ng2-nouislider';
 import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
+import { MyTasksComponent } from '../my-tasks/my-tasks.component';
+import { MyDSpaceActionsModule } from '../mydspace-actions/mydspace-actions.module';
 
 const COMPONENTS = [
+  MyTasksComponent,
   SearchComponent,
   ThemedSearchComponent,
   SearchResultsComponent,
@@ -74,6 +77,7 @@ const ENTRY_COMPONENTS = [
   SearchFacetSelectedOptionComponent,
   SearchFacetRangeOptionComponent,
   SearchAuthorityFilterComponent,
+  MyTasksComponent,
 ];
 
 /**
@@ -98,6 +102,7 @@ export const MODELS = [
     }),
     SharedModule.withEntryComponents(),
     NouisliderModule,
+    MyDSpaceActionsModule
   ],
   exports: [
     ...COMPONENTS

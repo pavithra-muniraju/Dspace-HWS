@@ -7,4 +7,27 @@
 	color: #5b5b5b;
 	border-color: #5b5b5b;
     width: 130px;
+    font-size: 12px;
+}
+
+.innerDiv {
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 10px;
+    border: 1px solid #e4e4e4;
+    font-size: 12px;
+}
+
+.reject{
+    background-color: red;
+    border-color: red;
+    color: #fff;
+}
+.accept{
+    background-color: green;
+    border-color: green;
+    color: #fff;
+}
+.pool{
+    width: 150px;
 }

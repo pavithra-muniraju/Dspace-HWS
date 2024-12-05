@@ -90,7 +90,7 @@
                 <!--
             <ng-container *ngFor="let fileEntry of fileList"> -->
                 <td class="item-col">{{ fileEntry.metadata['dc.title'][0].value}}</td>
-                <td class="item-col">{{ fileEntry.sizeBytes }}</td>
+                <td class="item-col">{{ (fileEntry?.sizeBytes) | dsFileSize }}</td>
                 <td class="item-col"> {{getDesc(fileEntry)}}
                     <!-- <span *ngFor="let entry of getAllMetadataValue('Description')">
                         <ng-container *ngIf="entry.value !== ''">
