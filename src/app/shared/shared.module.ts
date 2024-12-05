@@ -286,7 +286,7 @@ import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.comp
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
 // import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HwsFooterComponent } from './hws-footer/hws-footer.component';
-import { MyTasksComponent } from './my-tasks/my-tasks.component';
+// import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { RejectedDocComponent } from './briefcase/rejected-doc/rejected-doc.component';
 import { WorkflowDocComponent } from './briefcase/workflow-doc/workflow-doc.component';
 
@@ -334,7 +334,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
-  MyTasksComponent,
+  // MyTasksComponent,
   RejectedDocComponent,
   WorkflowDocComponent,
   AlertComponent,
@@ -517,7 +517,7 @@ const DIRECTIVES = [
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
     RejectedDocComponent,
-    MyTasksComponent,
+    // MyTasksComponent,
     WorkflowDocComponent
   ],
   providers: [

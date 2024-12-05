@@ -366,7 +366,11 @@ uploadLink = ''
 
 
 cancel() {
-  this.submissionService.dispatchDiscard(this.submissionId);
+  if(this.currentState == 0) {
+    this.notificationService.success(null,'Submission discarded successfully.')
+  } else {
+    this.submissionService.dispatchDiscard(this.submissionId);
+  }  
   this.closeModal();
 }
 

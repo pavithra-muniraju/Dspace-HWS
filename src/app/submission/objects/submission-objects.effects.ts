@@ -320,8 +320,8 @@ export class SubmissionObjectEffects {
   discardSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.discard_success_notice'))),
-    tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
-
+    tap(() => console.log('discarded'))), { dispatch: false });
+    // this.submissionService.redirectToMyDSpace()
   /**
    * Show a notification on error
    */
