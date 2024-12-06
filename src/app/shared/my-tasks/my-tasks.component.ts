@@ -30,14 +30,23 @@ export class MyTasksComponent {
     private linkService: LinkService
   ) { }
   ngOnChanges() {
-    this.workflowDocs = this.searchResults
-    console.log(this.workflowDocs);
-    if (this.workflowDocs != null) {
-      this.processData(this.workflowDocs);
+
+
+    if (this.searchResults != null) {
+      this.workflowDocs = this.searchResults?.payload?.page;
+      // this.processData(this.workflowDocs);
     }
+    console.log(this.workflowDocs);
+    if (this.workflowDocs.length > 0) {
+      this.workflowDocs.forEach(element => {
+        this.getWorkFlowObj(element)
+      });
+    }
+
 
   }
 
+  // not used
   processData(response: any) {
     this.data = [];
     const objects = response?._embedded?.searchResult?._embedded?.objects || [];
@@ -65,8 +74,13 @@ export class MyTasksComponent {
         expanded: false
       }
 
-      this.data.push(pushFormat)
+      this.data.push(pushFormat);
+
     });
+    // this.data.forEach(element => {
+    //   this.getWorkFlowObj(element)
+    // });
+
     // this.data = objects.filter((obj: any) => !obj._embedded?.indexableObject?._embedded).map((obj: any) => {
     //   const knowledgeArea = obj?.workflowitem?.parentCommunityName;
     //   const date = obj?.workflowitem?.lastModified
@@ -88,7 +102,9 @@ export class MyTasksComponent {
   }
 
   getWorkFlowObj(item) {
+    // console.log(item)
     item.workflowitem$ = new BehaviorSubject<WorkflowItem>(null);
+    item.item$ = new BehaviorSubject<WorkflowItem>(null);
     this.linkService.resolveLinks(item.indexableObject, followLink('workflowitem', {},
       followLink('item', {}, followLink('bundles')),
       followLink('submitter')
@@ -110,11 +126,61 @@ export class MyTasksComponent {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           item.item$.next(itemRD.payload);
         }
+        this.getTableData(item)
       })
     ).subscribe();
+    console.log(item);
 
   }
   reloadObject(dso: DSpaceObject) {
     this.reloadedObject.emit(dso);
   }
+
+  getTableData(element) {
+    element.tableData = {
+      knowledgeArea: 'Lesson Learned',
+      title: '',
+      author: '',
+      submittedDate: '',
+      actionType: '',
+      fileList: [],
+      expanded: false
+    }
+    element.tableData.actionType = element.indexableObject.type;
+    let workflowitemvalue = element.workflowitem$._value;
+    element.tableData.fileList = workflowitemvalue.sections.upload.files || [];
+    let sectionkeys = Object.keys(workflowitemvalue.sections);
+    let workflowName = '';
+    sectionkeys.forEach(ele => {
+      if (ele.indexOf('workflow') !== -1) {
+        workflowName = ele
+      }
+    });
+    element.tableData.title = workflowitemvalue.sections[workflowName]['dc.title'][0].value
+
+    const provenanceKey = 'dc.description.provenance';
+    const metadata = element.item$._value.metadata || {};
+    const hasProvenance = provenanceKey in metadata;
+    const provenanceValue = hasProvenance ? metadata[provenanceKey]?.[0]?.value : 'N/A';
+    const regex = /on (\d{4}-\d{2}-\d{2})/;
+    const match = provenanceValue.match(regex);
+    if (match) {
+      element.tableData.submittedDate = match[1];
+    }
+    element.tableData.author = provenanceValue.split('(')[0].split('Submitted by')[1];
+    console.log(element)
+  }
+
+  // _reloadObject(): Observable<DSpaceObject> {
+  //   return this.reloadObjectExecution().pipe(
+  //     switchMap((res) => {
+  //       if (res instanceof RemoteData) {
+  //         return of(res).pipe(getFirstCompletedRemoteData(), map((completed) => completed.payload));
+  //       } else {
+  //         return of(res);
+  //       }
+  //     })).pipe(map((dso) => {
+  //         return dso ? this.convertReloadedObject(dso) : dso;
+  //   }));
+  // }
 }

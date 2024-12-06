@@ -24,7 +24,10 @@ import { RequestService } from '../../../core/data/request.service';
 import { hasValue } from '../../../shared/empty.util';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
-export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
+// export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
+// export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweractionrndauthor';
+export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweractionrndsme';
+export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER_SME = 'selectrevieweractionrndsme';
 
 /**
  * The page on which Review Managers can assign Reviewers to review an item.

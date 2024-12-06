@@ -193,6 +193,7 @@ export class ObjectCollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.objects)
     this.currentMode$ = this.route
       .queryParams
       .pipe(
@@ -207,6 +208,21 @@ export class ObjectCollectionComponent implements OnInit {
     }
   }
 
+  ngOnChanges() {
+    console.log(this.objects);
+    this.currentMode$ = this.route
+      .queryParams
+      .pipe(
+        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
+        distinctUntilChanged()
+      );
+    if (isPlatformBrowser(this.platformId)) {
+      const width = this.elementRef.nativeElement.offsetWidth;
+      this.placeholderFontClass = setPlaceHolderAttributes(width);
+    } else {
+      this.placeholderFontClass = 'hide-placeholder-text';
+    }
+  }
   /**
    * Updates the page
    * @param event The new page number

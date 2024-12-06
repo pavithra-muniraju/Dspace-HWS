@@ -14,4 +14,8 @@ export const RATING_ADVANCED_WORKFLOW_INFO = new ResourceType('ratingrevieweract
  * Needs to be in a separate file to prevent circular
  * dependencies in webpack.
  */
-export const SELECT_REVIEWER_ADVANCED_WORKFLOW_INFO = new ResourceType('selectrevieweraction');
+// export const SELECT_REVIEWER_ADVANCED_WORKFLOW_INFO = new ResourceType('selectrevieweraction');
+// export const SELECT_REVIEWER_ADVANCED_WORKFLOW_INFO = new ResourceType('selectrevieweractionrndauthor');
+export const SELECT_REVIEWER_ADVANCED_WORKFLOW_INFO = new ResourceType('selectrevieweractionrndsme');
+export const SELECT_REVIEWER_ADVANCED_WORKFLOW_INFO_SME = new ResourceType('selectrevieweractionrndsme');
+

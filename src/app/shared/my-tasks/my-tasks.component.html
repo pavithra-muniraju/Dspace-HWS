@@ -6,74 +6,72 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let item of data">
-        <tr>
-          <td class="item-col">{{ item.knowledgeArea}}</td>
-          <td class="item-col">{{ item.title}}</td>
-          <td class="item-col">{{ item.author}}</td>
-          <td class="item-col">{{ item.submissionDate | date: 'dd/MM/yyyy'}}</td>
-          <td>
-            <button class="btn btn-primary edit-btn"
-              (click)="getFilesName(item.fileList); item.expanded = !item.expanded"> Take Action</button>
-            <!-- <ds-item-submitter  [object]="item"></ds-item-submitter> -->
-          </td>
-        </tr>
-        <tr *ngIf="item.expanded">
-          <td colspan="5" style="padding: 1rem;">
-            <div class="innerDiv">
-              <div>Files Included</div>
-              <table class="table" style="width: 100%;border-bottom: 1px solid lightgray;">
-                <thead>
-                  <tr>
-                    <th>File</th>
-                    <th>Size</th>
-                    <th>Format</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let files of item.fileList">
-                    <td> {{files.metadata['dc.title'][0].value}} </td>
-                    <td> {{(files?.sizeBytes) | dsFileSize}} </td>
-                    <td> {{ getFormat(files.metadata['dc.title'][0].value) }} </td>
-                    <td>
-                      <button class="btn btn-primary edit-btn">Preview</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>Please Review this item and verify if it meets the criteria to be added to the
-                collection
-              </div>
-              <div style="display: flex;justify-content: space-evenly;">
-                <button class="btn btn-primary edit-btn">Cancel</button>
-                <button class="btn btn-primary edit-btn">Do Later</button>
-                 <!-- <ds-claimed-task-actions [item]="item$.value"
-                               [object]="dso"
-                               [workflowitem]="workflowitem$.value"
-                               (processCompleted)="reloadedObject.emit($event.reloadedObject)">
-</ds-claimed-task-actions> -->
-                <button *ngIf="item.indexableObject.type == 'claimedtask'" class="btn btn-primary edit-btn pool">Return Task To Pool</button>
-                <button *ngIf="item.indexableObject.type == 'claimedtask'" class="btn btn-primary edit-btn reject">Reject</button>
-                <button *ngIf="item.indexableObject.type == 'claimedtask'" class="btn btn-primary edit-btn accept">Accept</button>
-                <!-- <ds-pool-task-actions *ngIf="item.indexableObject.type == 'pooltask'"  [item]="item.item$.value"
-                        [object]="item.indexableObject"
-                        [workflowitem]="item.workflowitem$.value"
-                        (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-pool-task-actions> -->
+      <ng-container>
+        <ng-container *ngFor="let item of workflowDocs">
+          <tr>
+            <td class="item-col">{{ item.tableData.knowledgeArea}}</td>
+            <td class="item-col">{{ item.tableData.title}}</td>
+            <td class="item-col">{{ item.tableData.author}}</td>
+            <td class="item-col">{{ item.tableData.submittedDate}}</td>
+            <td>
+              <!-- <ds-claimed-task-actions [item]="item.item$.value" *ngIf="item.indexableObject.type == 'claimedtask'"
+                [object]="item.indexableObject" [workflowitem]="item.workflowitem$.value"
+                (processCompleted)="reloadedObject.emit(item.indexableObject)">
+              </ds-claimed-task-actions>
+              <ds-pool-task-actions *ngIf="item.indexableObject.type == 'pooltask'" [item]="item.item$.value"
+                [object]="item.indexableObject" [workflowitem]="item.workflowitem$.value"
+                (processCompleted)="reloadedObject.emit(item.indexableObject)"></ds-pool-task-actions> -->
 
-                <button *ngIf="item.indexableObject.type == 'pooltask'" class="btn btn-primary edit-btn accept">Claim</button>
+              <button class="btn btn-primary edit-btn" (click)="item.tableData.expanded = !item.tableData.expanded">
+                Take Action</button>
+            </td>
+          </tr>
+          <tr *ngIf="item.tableData.expanded">
+            <td colspan="5" style="padding: 1rem;">
+              <div class="innerDiv">
+                <div>Files Included</div>
+                <table class="table" style="width: 100%;border-bottom: 1px solid lightgray;">
+                  <thead>
+                    <tr>
+                      <th>File</th>
+                      <th>Size</th>
+                      <th>Format</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let files of item.tableData.fileList">
+                      <td> {{files.metadata['dc.title'][0].value}} </td>
+                      <td> {{(files?.sizeBytes) | dsFileSize}} </td>
+                      <td> {{ getFormat(files.metadata['dc.title'][0].value) }} </td>
+                      <td>
+                        <button class="btn btn-primary edit-btn">Preview</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div>Please Review this item and verify if it meets the criteria to be added to the
+                  collection
+                </div>
+                <div style="display: flex;justify-content: center;margin-top: 1rem;" class="space-children-mr">
+                  <button class="btn btn-primary edit-btn"
+                    (click)="item.tableData.expanded = !item.tableData.expanded">Cancel</button>
+                  <button class="btn btn-primary edit-btn"
+                    (click)="item.tableData.expanded = !item.tableData.expanded">Do Later</button>
+                  <ds-claimed-task-actions [item]="item.item$.value" *ngIf="item.indexableObject.type == 'claimedtask'"
+                    [object]="item.indexableObject" [workflowitem]="item.workflowitem$.value"
+                    (processCompleted)="reloadedObject.emit(item.indexableObject)">
+                  </ds-claimed-task-actions>
+                  <ds-pool-task-actions *ngIf="item.indexableObject.type == 'pooltask'" [item]="item.item$.value"
+                    [object]="item.indexableObject" [workflowitem]="item.workflowitem$.value"
+                    (processCompleted)="reloadedObject.emit(item.indexableObject)"></ds-pool-task-actions>
+
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        </ng-container>
       </ng-container>
     </tbody>
   </table>
 </div>
-
-
-<!-- <ds-pool-task-actions id="actions"
-                            [item]="item$.value"
-                            [object]="dso"
-                            [workflowitem]="workflowitem$.value"
-                            (processCompleted)="this.reloadedObject.emit($event.reloadedObject)"></ds-pool-task-actions> -->

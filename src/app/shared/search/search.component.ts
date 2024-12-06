@@ -477,7 +477,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       }
     }
 
-    if(searchOptions.configuration == 'workspace' || searchOptions.configuration == 'favourite') {
+    if(searchOptions.configuration == 'workspace' || searchOptions.configuration == 'favourite' || searchOptions.configuration == 'workflow') {
     this.service.search(
       searchOptionsWithHidden,
       undefined,

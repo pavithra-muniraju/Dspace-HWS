@@ -14,10 +14,10 @@
     {{ 'advanced-workflow-action.select-reviewer.no-reviewer-selected.error' | translate }}
   </small>
 
-  <ds-modify-item-overview *ngIf="item$ | async"
-                           [item]="item$ | async">
-  </ds-modify-item-overview>
 
+  <ds-modify-item-overview *ngIf="item$ | async"                   [item]="item$ | async">
+  </ds-modify-item-overview>
+ {{item$ | async | json}}
   <div class="d-flex flex-wrap justify-content-end">
     <button class="btn btn-default" (click)="previousPage()">
       {{'workflow-item.' + getType() + '.button.cancel' | translate}}
