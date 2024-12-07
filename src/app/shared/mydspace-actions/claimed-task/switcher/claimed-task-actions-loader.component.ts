@@ -38,6 +38,8 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges, OnD
    */
   @Input() object: ClaimedTask;
 
+  @Input() nextRole: any;
+
   /**
    * The name of the option to render
    * Passed on to the decorator to fetch the relevant component for this option
@@ -71,6 +73,7 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges, OnD
     'item',
     'object',
     'option',
+    'nextRole',
     'workflowitem',
     'processCompleted',
   ];

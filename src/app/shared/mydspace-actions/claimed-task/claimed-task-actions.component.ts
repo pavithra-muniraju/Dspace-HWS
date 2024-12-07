@@ -32,6 +32,8 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    */
   @Input() object: ClaimedTask;
 
+  @Input() nextRole: any;
+
   /**
    * The item object that belonging to the ClaimedTask object
    */

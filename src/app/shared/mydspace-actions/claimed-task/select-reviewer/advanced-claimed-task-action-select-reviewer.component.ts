@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, Input } from '@angular/core';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 import {
   AdvancedClaimedTaskActionsAbstractComponent
@@ -29,7 +29,13 @@ export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedCl
    */
   option = ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER;
 
-  workflowType = ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
+  workflowType:string;
+
+  @Input() item: any;
+  @Input() workflowitem: any;
+  @Input() nextRole: any;
+
+
 
   constructor(
     protected injector: Injector,
@@ -41,6 +47,16 @@ export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedCl
     protected route: ActivatedRoute,
   ) {
     super(injector, router, notificationsService, translate, searchService, requestService, route);
+  }
+
+  ngOnInit(): void {
+    super.ngOnInit();
+
+    if(this.nextRole == 'selectrevieweractionrndauthor') {
+      this.workflowType = 'selectrevieweractionrndauthor'
+    } else if (this.nextRole == 'selectrevieweractionrndsme') {
+      this.workflowType = 'selectrevieweractionrndsme'
+    }
   }
 
 }

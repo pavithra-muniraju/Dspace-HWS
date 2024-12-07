@@ -31,6 +31,7 @@ export class PaginatedSearchOptions extends SearchOptions {
       args.push(`sort=${this.sort.field},${this.sort.direction}`);
     }
     if (isNotEmpty(this.pagination)) {
+      this.pagination.pageSize = 1000
       args.push(`page=${this.pagination.currentPage - 1}`);
       args.push(`size=${this.pagination.pageSize}`);
     }

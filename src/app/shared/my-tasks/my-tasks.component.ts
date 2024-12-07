@@ -36,7 +36,6 @@ export class MyTasksComponent {
       this.workflowDocs = this.searchResults?.payload?.page;
       // this.processData(this.workflowDocs);
     }
-    console.log(this.workflowDocs);
     if (this.workflowDocs.length > 0) {
       this.workflowDocs.forEach(element => {
         this.getWorkFlowObj(element)
@@ -168,7 +167,6 @@ export class MyTasksComponent {
       element.tableData.submittedDate = match[1];
     }
     element.tableData.author = provenanceValue.split('(')[0].split('Submitted by')[1];
-    console.log(element)
   }
 
   // _reloadObject(): Observable<DSpaceObject> {

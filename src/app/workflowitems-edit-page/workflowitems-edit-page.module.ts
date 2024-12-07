@@ -32,6 +32,7 @@ import {
 } from './advanced-workflow-action/advanced-workflow-action-select-reviewer/reviewers-list/reviewers-list.component';
 import { FormModule } from '../shared/form/form.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdvancedWorkflowActionSelectAuthorComponent } from './advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-author.component';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdvancedWorkflowActionPageComponent,
     AdvancedWorkflowActionsDirective,
     ReviewersListComponent,
+    AdvancedWorkflowActionSelectAuthorComponent,
   ]
 })
 /**

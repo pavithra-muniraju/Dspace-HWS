@@ -2,6 +2,7 @@
   <div class="mb-3 space-children-mr">
     <ds-claimed-task-actions-loader *ngFor="let option of workflowAction?.options"
                                     [item]="item"
+                                    [nextRole]="workflowAction.id"
                                     [option]="option"
                                     [object]="object"
                                     [workflowitem]="workflowitem"

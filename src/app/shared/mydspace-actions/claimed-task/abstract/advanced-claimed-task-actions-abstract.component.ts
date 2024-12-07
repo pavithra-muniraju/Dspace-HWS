@@ -62,9 +62,9 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
   /**
    * Navigates to the advanced workflow page based on the {@link workflow}.
    */
-  openAdvancedClaimedTaskTab(): void {
+  openAdvancedClaimedTaskTab(nextRoleToApprove): void {
     const navigationExtras: NavigationExtras = {
-      queryParams: this.getQueryParams(),
+      queryParams: this.getQueryParams(nextRoleToApprove),
     };
     if (Object.keys(this.route.snapshot.queryParams).length > 0) {
       navigationExtras.state = {};
@@ -76,9 +76,9 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
   /**
    * The {@link Params} that need to be given to the workflow page.
    */
-  getQueryParams(): Params {
+  getQueryParams(role): Params {
     return {
-      workflow: this.workflowType,
+      workflow: role,
       claimedTask: this.object.id,
     };
   }

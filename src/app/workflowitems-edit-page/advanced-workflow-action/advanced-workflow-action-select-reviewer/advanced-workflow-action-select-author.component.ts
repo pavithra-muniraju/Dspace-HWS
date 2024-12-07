@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, SimpleChanges, OnChanges, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import {
-  rendersAdvancedWorkflowTaskOption
+  rendersAdvancedWorkflowTaskOption,
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
@@ -24,7 +24,8 @@ import { RequestService } from '../../../core/data/request.service';
 import { hasValue } from '../../../shared/empty.util';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
-export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweractionrndsme';
+export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweractionrndauthor';
+// export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER_SME = 'selectrevieweractionrndsme';
 
 /**
  * The page on which Review Managers can assign Reviewers to review an item.
@@ -32,11 +33,12 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweractionrnd
 @rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER)
 
 @Component({
-  selector: 'ds-advanced-workflow-action-select-reviewer',
-  templateUrl: './advanced-workflow-action-select-reviewer.component.html',
-  styleUrls: ['./advanced-workflow-action-select-reviewer.component.scss'],
+  selector: 'ds-advanced-workflow-action-select-author',
+  templateUrl: './advanced-workflow-action-select-author.component.html',
+  styleUrls: ['./advanced-workflow-action-select-author.component.scss']
 })
-export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {
+
+export class AdvancedWorkflowActionSelectAuthorComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {
 
   multipleReviewers = false;
 

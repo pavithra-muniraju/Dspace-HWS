@@ -46,6 +46,8 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
    */
   itemUuid: string;
 
+  nextRole: any;
+
   subs = [];
 
   /**
