@@ -27,13 +27,14 @@ export class PaginatedSearchOptions extends SearchOptions {
    * @returns {string} URL with all paginated search options and passed arguments as query parameters
    */
   toRestUrl(url: string, args: string[] = []): string {
+    const clonedPagination = { ...this.pagination };
     if (isNotEmpty(this.sort)) {
       args.push(`sort=${this.sort.field},${this.sort.direction}`);
     }
     if (isNotEmpty(this.pagination)) {
-      this.pagination.pageSize = 1000
-      args.push(`page=${this.pagination.currentPage - 1}`);
-      args.push(`size=${this.pagination.pageSize}`);
+      clonedPagination.pageSize = 200
+      args.push(`page=${clonedPagination.currentPage - 1}`);
+      args.push(`size=${clonedPagination.pageSize}`);
     }
     return super.toRestUrl(url, args);
   }
