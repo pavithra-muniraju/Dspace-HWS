@@ -36,6 +36,15 @@ export class WorkflowDocComponent {
       const department = indexableObject?.collectionName;
       const knowledgeArea = indexableObject?.parentCommunityName;
       const pendingWith = indexableObject?.pendingWithEmail
+      const currentStep = indexableObject?.currentStep || '';
+      let presentStep = '';
+      if(currentStep == 'dqStep1' || currentStep == 'dqStep2') {
+        presentStep = 'DQ'
+      } else if(currentStep == 'rndpmoStep2' || currentStep == 'rndpmoStep1') {
+        presentStep = 'R&D PMO'
+      } else if(currentStep == 'rndauthorStep1' || currentStep == 'rndauthorStep2') {
+        presentStep = 'R&D Author'
+      } 
 
       const metadata = indexableObject?._embedded?.item?.metadata || {};
 
@@ -73,7 +82,7 @@ export class WorkflowDocComponent {
         knowledgeArea: knowledgeArea,
         department: department,
         author: submittedBy,
-        approvalStatus: approvalStatus,
+        approvalStatus: presentStep,
         pendingWith: pendingWith
       }
     });

@@ -139,8 +139,8 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
     this.selectedReviewersUpdated.emit(this.selectedReviewers);
   }
 
-  selectReviewer(eperson) {
-    this.selectedReviewer = eperson;
+  selectReviewer() {
+    // this.selectedReviewer = eperson;
     let selectedReviewerList:EPerson[] = [];
     selectedReviewerList.push(this.selectedReviewer)
     this.selectedReviewersUpdated.emit(selectedReviewerList);

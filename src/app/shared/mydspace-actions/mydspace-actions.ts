@@ -88,7 +88,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Refresh current page
    */
   reload(): void {
-
+    console.log('reload')
     this.router.navigated = false;
     const url = decodeURIComponent(this.router.url);
     // override the route reuse strategy
@@ -107,7 +107,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Override the target object with a refreshed one
    */
   refresh(): void {
-
+    console.log('hi')
     // find object by id
     this.objectDataService.findById(this.object.id, false).pipe(
       getFirstSucceededRemoteData(),
@@ -128,10 +128,20 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
       this.notificationsService.success(null,
         this.translate.get('submission.workflow.tasks.generic.success'),
         new NotificationOptions(5000, false));
+        console.log('success');
+        window.location.reload();
+        setTimeout(() => {
+          this.router.navigateByUrl('/mydspace?configuration=workflow')
+        }, 2000);
     } else {
       this.notificationsService.error(null,
         this.translate.get('submission.workflow.tasks.generic.error'),
+        
         new NotificationOptions(20000, true));
+        console.log('error')
+        setTimeout(() => {
+          this.router.navigateByUrl('/mydspace?configuration=workflow')
+        }, 2000);
     }
   }
 }

@@ -240,7 +240,9 @@ export class SubmissionObjectEffects {
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION),
     withLatestFrom(this.store$),
     switchMap(([action, state]: [DepositSubmissionAction, any]) => {
-      return this.submissionService.depositSubmission(state.submission.objects[action.payload.submissionId].selfUrl).pipe(
+      console.log(state?.submission);
+      console.log(state?.submission?.objects[action.payload.submissionId]);      
+      return this.submissionService.depositSubmission(state?.submission?.objects[action.payload.submissionId]?.selfUrl).pipe(
         map(() => new DepositSubmissionSuccessAction(action.payload.submissionId)),
         catchError((error) => observableOf(new DepositSubmissionErrorAction(action.payload.submissionId))));
     })));

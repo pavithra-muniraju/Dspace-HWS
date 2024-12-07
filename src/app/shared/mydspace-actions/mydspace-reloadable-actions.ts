@@ -100,10 +100,21 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
       this.notificationsService.success(null,
         this.translate.get('submission.workflow.tasks.generic.success'),
         new NotificationOptions(5000, false));
+        console.log('success');
+        window.location.reload();
+        setTimeout(() => {
+          this.router.navigateByUrl('/mydspace?configuration=workflow')
+        }, 2000);
     } else {
       this.notificationsService.error(null,
         this.translate.get('submission.workflow.tasks.generic.error'),
+        
         new NotificationOptions(20000, true));
+        console.log('error')
+        window.location.reload();
+        setTimeout(() => {
+          this.router.navigateByUrl('/mydspace?configuration=workflow')
+        }, 2000);
     }
   }
 

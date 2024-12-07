@@ -21,7 +21,7 @@ export class MyTasksComponent {
   @Input() configuration: any;
   @Input() searchConfig: any
   testReject: any;
-  workflowDocs: any;
+  workflowDocs:any = [];
   data: any;
   reloadedObject = new EventEmitter<DSpaceObject>();
   // data: Array<{ publisher: string; author: string; title: string; descriptionProvenance: string[] }> = [];
